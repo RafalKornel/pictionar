@@ -1,0 +1,33 @@
+body, html {
+    margin: 0 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+#mainElement {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+#smallElement {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: all 400ms ease;
+}
+
+#switch {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    z-index: 2;
+}
+
+.moved {
+    transform: translate(250px, 250px);
+}
