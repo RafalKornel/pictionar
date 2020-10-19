@@ -2,43 +2,89 @@ body, html {
     margin: 0 0;
 }
 
+:root {
+    --gradient-light: #EE964B;
+    --gradient-dark: #F95738;
+    --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 80%);
+}
+
 body {
+    background-color: var(--form-color);
     overflow: hidden;
-    --bcg: linear-gradient(135deg, rgb(235, 45, 118), rgb(52, 220, 226));
 }
 
 form {
     border: 1px solid black;
 }
 
-main {
+ul {
+    padding: 0;
 }
+
+main {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+#title {
+    margin: 50px 40px;
+    font-size: 144px;
+    color: var(--text-color);
+    cursor: default;
+    user-select: none;
+    width: 70%;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+article {
+    margin: 30px;
+    font-size: 26px;
+    color: var(--text-color);
+}
+
+article li {
+    list-style: none;
+    margin: 40px 0px;
+}
+
 
 #login {
-    width: 300px;
-    height: 300px;
-    position: absolute;
-    right: 300px;
-    top: 50%;
-    transform: translate(0, -50%);
+    flex: 0 0 375px;
+    margin-right: 120px;
+    margin-left: 120px;
 }
 
-#words {
-    width: 300px;
-    height: 300px;
+#wordsForm {
     position: absolute;
     top: 400px;
     left: 200px;
-    display: none;
+}
+
+.animationWrapper {
+    position: fixed;
+    left:0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    display: flex;
 }
 
 #mainElement {
     position: absolute;
-    width: 2681px;
-    height: 1024px;
+    width: 2828px;
+    height: 1080px;
     right: 0;
-    top: 0;
-    z-index: -1;
+    bottom: 0;
+    z-index: -3;
     clip-path: url(#mainClip);
 
     background-image: var(--bcg);
@@ -47,12 +93,12 @@ main {
 
 #smallElement {
     position: absolute;
-    width: 974px;
-    height: 852px;
+    width: 1047px;
+    height: 916px;
     right: 0;
     bottom: 0;
     z-index: -1;
-    transition: all 400ms ease;
+    transition: all 300ms ease;
 
     clip-path: url(#smallClip);
     background-image: var(--bcg);
@@ -61,11 +107,55 @@ main {
 
 #switch {
     position: absolute;
-    left: 100px;
-    top: 100px;
-    z-index: 2;
+    right: 100px;
+    bottom: 100px;
+    z-index: 4;
 }
 
 .moved {
     transform: translate(300px, 300px);
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+
+@media screen and (max-width: 1200px) {
+
+    body {
+        overflow: scroll;
+    }
+
+    #title {
+        font-size: 70px;
+        width: 100%;
+        margin: auto 10px;
+        text-align: center;
+    }
+    
+    .content {
+        flex-wrap: wrap;
+    }
+
+    article {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    article li {
+        list-style: none;
+        margin: 0px 0px;
+    }
+
+    #login {
+        flex: 1 1 500px;
+        align-content: center;
+        margin: 0 30px;
+    }
+
+    #smallElement {
+        background-attachment: local;
+    }
 }

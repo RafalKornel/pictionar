@@ -10,57 +10,113 @@
     <meta name="author" content="Rafał Kornel & Jakub Sapko">
 
     <link rel="stylesheet" href="client/css/style.css">
+    <link rel="stylesheet" href="client/css/forms.css">
+
 
 </head>
 
 <body>
     <main>
 
+        <h1 id="title">KALAMBURY</h1>
+
         <input type="button" id="switch" value="animate">
 
-        <div id="mainElement"> </div>
-        <div id="smallElement"> </div>
+
+        <section class="content">
+        
+            <article id="info">
+                <ul>
+                    <li>
+                        <h2>
+                            - This app allows you to create and
+                            store words pool. First, you have to
+                            log in.
+                        </h2>
+                    </li>
+                    <li>
+                        <h2>
+                            - After loggin in you can peek
+                            already existing words, or add your
+                            own ones!
+                        </h2>
+                    </li>
+                    <li>
+                        <h2>
+                            - You can also retrieve words stored
+                            in database.
+                        </h2>
+                    </li>
+                </ul>
+
+            </article>
+
+            <form id="login">
+                <ul>
+                    <li>
+                        <label for="name">Login: </label>
+                        <div class="wrapper" tabindex="-1">
+                            <input id="name" type="text" name="user_name">
+                            <div class="bar"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <label for="password">Password: </label>
+                        <div class="wrapper" tabindex="-1">
+                            <input id="password" type="password" name="user_pass">
+                            <div class="bar"></div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <button type="sumbit">Login</button>
+                    </li>
+                </ul>
+            </form>
+
+            <form id="wordsForm" class="hidden">
+                <ul>
+                    <li>
+                        <label for="words">Words: </label>
+                        <div class="wrapper" tabindex="-1">
+                            <textarea id="words" name="words" placeholder="Type word(s) here"></textarea>
+                            <div class="bar"></div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <button type="sumbit">Send</button>
+                    </li>
+                </ul>
+            </form>
+
+        </section>
 
 
-        <svg width="0" height="0">
-            <defs>
-                <clipPath id="mainClip">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2681 0H0V1024H1708L2681 173V0Z"/>
+        <!-- Wrapper for moving background part-->
+        <div class="animationWrapper">
 
-                </clipPath>
-            </defs>
-        </svg>
-
-        <svg width="0" height="0">
-            <defs>
-                <clipPath id="smallClip">
-                    <path d="M974 0V852H0L974 0Z"/>
-            </defs>
-        </svg>
-
-        </svg>
+            <div id="mainElement"> </div>
+            <div id="smallElement"> </div>
 
 
-        <form id="login">
-            <ul>
-                <li>
-                    <label for="name">Login: </label>
-                    <input id="name" type="text" name="user_name" placeholder="login">
-                </li>
-                <li>
-                    <label for="password">Password: </label>
-                    <input id="password" type="password" name="user_pass">
-                </li>
-                <input type="button" value="Login">
-            </ul>
-        </form>
+            <svg width="0" height="0">
+                <defs>
+                    <clipPath id="mainClip">
+                        <path d="M2828 0H0V1080H1801.65L2828 182.461V0Z" />
+                    </clipPath>
+                </defs>
+            </svg>
 
-        <form id="words">
-            <label for="word">Words: </label>
-            <textarea id="word" name="words">Type words</textarea>
+            <svg width="0" height="0">
+                <defs>
+                    <clipPath id="smallClip">
+                        <path d="M1047 0V916H0L1047 0Z" />
+                </defs>
+            </svg>
 
-            <input type="button" value="submit">
-        </form>
+            </svg>
+        </div>
 
         <script src="client/js/main.js"></script>
     </main>
