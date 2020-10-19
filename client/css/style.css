@@ -4,6 +4,7 @@ body, html {
 
 body {
     overflow: hidden;
+    --bcg: linear-gradient(135deg, rgb(235, 45, 118), rgb(52, 220, 226));
 }
 
 form {
@@ -33,17 +34,29 @@ main {
 
 #mainElement {
     position: absolute;
+    width: 2681px;
+    height: 1024px;
     right: 0;
     bottom: 0;
     z-index: -1;
+    clip-path: url(#mainClip);
+
+    background-image: var(--bcg);
+    background-attachment: fixed;
 }
 
 #smallElement {
     position: absolute;
+    width: 974px;
+    height: 852px;
     right: 0;
     bottom: 0;
     z-index: -1;
     transition: all 400ms ease;
+
+    clip-path: url(#smallClip);
+    background-image: var(--bcg);
+    background-attachment: fixed;
 }
 
 #switch {
@@ -54,5 +67,5 @@ main {
 }
 
 .moved {
-    transform: translate(250px, 250px);
+    transform: translate(300px, 300px);
 }

@@ -16,34 +16,54 @@
 <body>
     <main>
 
-    <input type="button" id="switch" value="animate">
+        <input type="button" id="switch" value="animate">
 
-    <img id="mainElement" src="client/resources/main_element.svg" height="1024px">
-    <img id="smallElement" class="" src="client/resources/small_element.svg" height="903px">
+        <div id="mainElement"> </div>
+        <div id="smallElement"> </div>
 
-    <form id="login">
-        <ul>
-            <li> 
-                <label for="name">Login: </label>
-                <input id="name" type="text" name="user_name" placeholder="login">
-            </li>
-            <li>
-                <label for="password">Password: </label>
-                <input id="password" type="password" name="user_pass">
-            </li>
-            <input type="button" value="Login">
-        </ul>
-    </form>
 
-    <form id="words">
+        <svg width="0" height="0">
+            <defs>
+                <clipPath id="mainClip">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2681 0H0V1024H1708L2681 173V0Z"/>
+
+                </clipPath>
+            </defs>
+        </svg>
+
+        <svg width="0" height="0">
+            <defs>
+                <clipPath id="smallClip">
+                    <path d="M974 0V852H0L974 0Z"/>
+            </defs>
+        </svg>
+
+        </svg>
+
+
+        <form id="login">
+            <ul>
+                <li>
+                    <label for="name">Login: </label>
+                    <input id="name" type="text" name="user_name" placeholder="login">
+                </li>
+                <li>
+                    <label for="password">Password: </label>
+                    <input id="password" type="password" name="user_pass">
+                </li>
+                <input type="button" value="Login">
+            </ul>
+        </form>
+
+        <form id="words">
             <label for="word">Words: </label>
             <textarea id="word" name="words">Type words</textarea>
 
-        <input type="button" value="submit">
-    </form>
+            <input type="button" value="submit">
+        </form>
 
-    <script src="client/js/main.js"></script>
-</main>
+        <script src="client/js/main.js"></script>
+    </main>
 </body>
 
 </html>
