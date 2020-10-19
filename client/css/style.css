@@ -48,6 +48,7 @@ article {
     margin: 0 30px;
     font-size: 26px;
     color: var(--text-color);
+    padding-right: 5%;
 }
 
 article li {
