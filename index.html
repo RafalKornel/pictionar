@@ -14,14 +14,36 @@
 </head>
 
 <body>
+    <main>
 
     <input type="button" id="switch" value="animate">
 
     <img id="mainElement" src="client/resources/main_element.svg" height="1024px">
-    <img id="smallElement" class="moved" src="client/resources/small_element.svg" height="903px">
+    <img id="smallElement" class="" src="client/resources/small_element.svg" height="903px">
 
+    <form id="login">
+        <ul>
+            <li> 
+                <label for="name">Login: </label>
+                <input id="name" type="text" name="user_name" placeholder="login">
+            </li>
+            <li>
+                <label for="password">Password: </label>
+                <input id="password" type="password" name="user_pass">
+            </li>
+            <input type="button" value="Login">
+        </ul>
+    </form>
+
+    <form id="words">
+            <label for="word">Words: </label>
+            <textarea id="word" name="words">Type words</textarea>
+
+        <input type="button" value="submit">
+    </form>
 
     <script src="client/js/main.js"></script>
+</main>
 </body>
 
 </html>
