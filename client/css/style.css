@@ -37,7 +37,7 @@ main {
     width: 2681px;
     height: 1024px;
     right: 0;
-    bottom: 0;
+    top: 0;
     z-index: -1;
     clip-path: url(#mainClip);
 
