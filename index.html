@@ -23,7 +23,9 @@
         <input type="button" id="switch" value="animate">
 
 
-        <section class="content">
+
+
+        <section class="content" id="loginContent">
 
             <article id="info">
                 <ul>
@@ -74,21 +76,42 @@
                 </ul>
             </form>
 
-            <form id="wordsForm" class="hidden">
-                <ul>
-                    <li>
-                        <label for="words">Words: </label>
-                        <div class="wrapper" tabindex="-1">
-                            <textarea id="words" name="words" placeholder="Type word(s) here"></textarea>
-                            <div class="bar"></div>
-                        </div>
-                    </li>
+        </section>
 
-                    <li>
-                        <button type="sumbit">Send</button>
-                    </li>
-                </ul>
-            </form>
+        <section class="content hidden" id="wordsContent">
+
+            <div class="contentColumn" id="left">
+                <article id="tutorial">
+                    <h2>Type word or words separated by coma, then hit “Send” button to add them to database!</h2>
+                </article>
+                <form id="wordsForm">
+                    <ul>
+                        <li>
+                            <label for="words">Words: </label>
+                            <div class="wrapper" tabindex="-1">
+                                <textarea id="words" name="words" placeholder="Type word(s) here"></textarea>
+                                <div class="bar"></div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <button type="sumbit">Send</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+
+            <div class="contentColumn" id="right">
+
+                <article>
+                    <h2>There is <span id="num">${num}</span> words in database.</h2>
+                    <h2>Hit button below to get words from database</h2>
+                </article>
+
+                <button id="dbButton">Get words!</button>
+
+            </div>
+
 
         </section>
 
@@ -96,32 +119,123 @@
         <!-- Wrapper for moving background part-->
         <div class="animationWrapper">
 
+            <div id="bcg"></div>
+
             <div id="mainElement"> </div>
             <div id="smallElement">
 
                 <div id="innerSmall"></div>
 
+                <div id="messages" class="">
+                    <div class="first row">
+
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+
+                    </div>
+
+                    <div class="second row">
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+
+                    </div>
+
+                    <div class="third row">
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+                        <div class="message">
+                            <p class="word">bajojajo</p>
+                            <p class="author">kornel</p>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
 
+        </div>
 
 
-            <svg width="0" height="0">
-                <defs>
-                    <clipPath id="mainClip">
-                        <path d="M2828 0H0V1080H1801.65L2828 182.461V0Z" />
-                    </clipPath>
-                </defs>
-            </svg>
 
-            <svg width="0" height="0">
-                <defs>
-                    <clipPath id="smallClip">
-                        <path d="M1047 0V916H0L1047 0Z" />
-                </defs>
-            </svg>
 
-            </svg>
+        <svg width="0" height="0">
+            <defs>
+                <clipPath id="mainClip">
+                    <path d="M2828 0H0V2189H1794L2828 1288V0Z"/>
+                </clipPath>
+            </defs>
+        </svg>
+
+        <svg width="0" height="0">
+            <defs>
+                <clipPath id="smallClip">
+                    <path d="M1047 0V916H0L1047 0Z" />
+            </defs>
+        </svg>
+
+        </svg>
         </div>
 
         <script src="client/js/main.js"></script>

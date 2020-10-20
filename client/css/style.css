@@ -9,7 +9,6 @@ body, html {
 }
 
 body {
-    background-color: var(--form-color);
     overflow: hidden;
 }
 
@@ -42,6 +41,7 @@ main {
     position: relative;
     display: flex;
     flex-direction: row;
+    transition: 300ms transform ease;
 }
 
 article {
@@ -56,6 +56,58 @@ article li {
     margin: 40px 0px;
 }
 
+#wordsContent {
+    width: 60%;
+}
+
+#wordsContent h2 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.contentColumn {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 0 5%;
+}
+
+#left {
+    flex: 3;
+}
+#right {
+    flex: 2;
+}
+
+#tutorial {
+    padding-right: 0;
+}
+
+#dbButton {
+    height: 50px;
+    background-color: var(--input-color);
+    color: var(--form-color);
+    border: none;
+    border-radius: 12px;
+    font-size: 36px;
+    margin: 0 30px;
+}
+
+#dbButton:focus {
+    outline: none;
+}
+
+#dbButton:hover {
+}
+
+button {
+    transition: 300ms all ease;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
 /* Forms positioning */
 
 #login {
@@ -65,40 +117,38 @@ article li {
 }
 
 #wordsForm {
-    position: absolute;
-    top: 400px;
-    left: 200px;
+    width: auto;
 }
 
 /* Messages styling */
 
 #messages {
+    background-color: var(--form-color);
     position: absolute;
-    display: grid;
-    top: -15%;
-    grid-template-rows: auto auto auto;
-    transform: rotate(-41deg) translate(-50%, 0);
-    z-index: -4;
+    transform-origin: top left;
+    display: flex;
+    flex-direction: column;
+    transform: rotate(-41deg) translate(-10%, -100%);
+    z-index: -3;
+    transition: 300ms opacity ease;
 }
 
 .row {
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: row;
 }
 
-#middle {
-    transform: translate(150px, 0);
+.second {
+    transform: translate(-150px, 0);
 }
 
 .message {
     position: relative;
     display: flex;
     width: 300px;
-    height: 100px;
+    height: 105px;
     padding: 0px 10px;
-    margin: 10px;
+    margin: 16.5px;
     background-color: var(--input-color);
     border-radius: 9px;
     color: var(--form-color);
@@ -144,10 +194,9 @@ article li {
 #mainElement {
     position: absolute;
     width: 2828px;
-    height: 1080px;
+    height: 2189px;
     right: 0;
     bottom: 0;
-    z-index: -3;
     clip-path: url(#mainClip);
 
     background-image: var(--bcg);
@@ -160,7 +209,7 @@ article li {
     height: 916px;
     right: 0;
     bottom: 0;
-    z-index: -4;
+    z-index: -2;
     transition: all 300ms ease;
 }
 
@@ -170,6 +219,17 @@ article li {
     clip-path: url(#smallClip);
     background-image: var(--bcg);
     background-attachment: fixed;
+}
+
+#bcg {
+    position: fixed;
+    top: -100%;
+    left: -100%;
+    width: 200vw;
+    height: 200vw;
+    background-image: var(--bcg);
+    background-attachment: fixed;
+    z-index: -3;
 }
  
 /* FOOTER styling */
@@ -214,8 +274,11 @@ footer a {
 }
 
 .hidden {
-    visibility: hidden;
     opacity: 0;
+    position: absolute;
+    visibility: hidden;
+    transform: translate(0, -100%);
+    height: 0px;
 }
 
 
@@ -229,6 +292,9 @@ footer a {
         background-color: var(--gradient-dark);
     }
 
+    main {
+        width: 100%;
+    }
 
     #title {
         width: 100%;
@@ -238,6 +304,12 @@ footer a {
     
     .content {
         flex-wrap: wrap;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    #wordsContent {
+
     }
 
     article {
@@ -253,7 +325,7 @@ footer a {
     #login {
         flex: 1 1 auto;
         align-content: center;
-        margin: 0 80px;
+        margin: 0 auto;
     }
 
     .animationWrapper {
