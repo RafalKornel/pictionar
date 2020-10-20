@@ -20,11 +20,6 @@
 
         <h1 id="title">KALAMBURY</h1>
 
-        <input type="button" id="switch" value="animate">
-
-
-
-
         <section class="content" id="loginContent">
 
             <article id="info">
@@ -53,7 +48,7 @@
 
             </article>
 
-            <form action="/url-to-login" id="login">
+            <form  id="loginForm" autocomplete="off">
                 <ul>
                     <li>
                         <label for="name">Login: </label>
@@ -71,7 +66,7 @@
                     </li>
 
                     <li>
-                        <button type="sumbit">Login</button>
+                        <button id="loginButton" type="submit">Login</button>
                     </li>
                 </ul>
             </form>
@@ -84,7 +79,8 @@
                 <article id="tutorial">
                     <h2>Type word or words separated by coma, then hit “Send” button to add them to database!</h2>
                 </article>
-                <form id="wordsForm">
+
+                <form id="wordsForm" autocomplete="off">
                     <ul>
                         <li>
                             <label for="words">Words: </label>
@@ -108,7 +104,7 @@
                     <h2>Hit button below to get words from database</h2>
                 </article>
 
-                <button id="dbButton">Get words!</button>
+                <button type="button" id="dbButton">Get words!</button>
 
             </div>
 
@@ -128,87 +124,17 @@
 
                 <div id="messages" class="">
                     <div class="first row">
-
                         <div class="message">
                             <p class="word">bajojajo</p>
                             <p class="author">kornel</p>
                         </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-
                     </div>
 
                     <div class="second row">
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-
                     </div>
 
                     <div class="third row">
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
+
 
                     </div>
                 </div>

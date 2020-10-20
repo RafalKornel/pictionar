@@ -84,7 +84,7 @@ article li {
 }
 
 #dbButton {
-    height: 50px;
+    height: 100px;
     background-color: var(--input-color);
     color: var(--form-color);
     border: none;
@@ -110,7 +110,7 @@ button:hover {
 
 /* Forms positioning */
 
-#login {
+#loginForm {
     flex: 0 0 375px;
     margin-right: 120px;
     margin-left: 120px;
@@ -152,8 +152,8 @@ button:hover {
     background-color: var(--input-color);
     border-radius: 9px;
     color: var(--form-color);
-    
 }
+
 
 .message > p {
     position: absolute;
@@ -262,13 +262,6 @@ footer a {
 
 /* Utilities */
 
-#switch {
-    position: absolute;
-    left: 100px;
-    bottom: 100px;
-    z-index: 4;
-}
-
 .moved {
     transform: translate(300px, 300px);
 }
@@ -322,7 +315,7 @@ footer a {
         margin: 0px 40px;
     }
 
-    #login {
+    #loginForm {
         flex: 1 1 auto;
         align-content: center;
         margin: 0 auto;
