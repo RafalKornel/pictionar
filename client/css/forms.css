@@ -1,11 +1,4 @@
-:root {
-    --main-color: #eee;
-    --text-color: #FAF0CA;
-    --form-color: #0D3B66;
-    --input-color: #F4D35E;
-  }
-  
-  body {
+   body {
     font-family: 'Rubik', sans-serif;
   }
   

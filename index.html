@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="client/css/style.css">
     <link rel="stylesheet" href="client/css/forms.css">
 
+    <script src="https://kit.fontawesome.com/af570d895f.js" crossorigin="anonymous"></script>
+
+
 
 </head>
 
@@ -48,19 +51,19 @@
 
             </article>
 
-            <form  id="loginForm" autocomplete="off">
+            <form method="POST" id="loginForm" autocomplete="off">
                 <ul>
                     <li>
                         <label for="name">Login: </label>
                         <div class="wrapper" tabindex="-1">
-                            <input id="name" type="text" name="user_name">
+                            <input id="name" type="text" name="user_name" required>
                             <div class="bar"></div>
                         </div>
                     </li>
                     <li>
                         <label for="password">Password: </label>
                         <div class="wrapper" tabindex="-1">
-                            <input id="password" type="password" name="user_pass">
+                            <input id="password" type="password" name="user_pass" required>
                             <div class="bar"></div>
                         </div>
                     </li>
@@ -143,13 +146,15 @@
 
         </div>
 
-
+        <article class="conent" id="experience">
+            <h3>For full experience please visit desktop version!</h3>
+        </article>
 
 
         <svg width="0" height="0">
             <defs>
                 <clipPath id="mainClip">
-                    <path d="M2828 0H0V2189H1794L2828 1288V0Z"/>
+                    <path d="M2828 0H0V2189H2226L2828 1664V0Z"/>
                 </clipPath>
             </defs>
         </svg>
@@ -157,7 +162,7 @@
         <svg width="0" height="0">
             <defs>
                 <clipPath id="smallClip">
-                    <path d="M1047 0V916H0L1047 0Z" />
+                    <path d="M632 0V553H0L632 0Z" />
             </defs>
         </svg>
 
@@ -170,8 +175,8 @@
     <footer>
         <p>Created by: </p>
         <ul>
-            <li> <a href="https://github.com/JakubSapko"> Jakub Sapko </a> </li>
-            <li> <a href="https://github.com/RafalKornel"> Rafał Kornel </a></li>
+            <li> <a href="https://github.com/JakubSapko">  <i class="fab fa-github-square"></i> Jakub Sapko </a></li>
+            <li> <a href="https://github.com/RafalKornel"> <i class="fab fa-github-square"></i>  Rafał Kornel </a>   </li>
         </ul>
     </footer>
 

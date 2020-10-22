@@ -81,19 +81,37 @@ function sendWord() {
 
 loginForm.addEventListener("submit", (event) => {
 
+    
     event.preventDefault();
     console.log(loginForm);
 
-    /*  here goes
-        code doing login
-        part 
-    */
-    
     let name = document.querySelector("#name").value;
     let pass = document.querySelector("#password").value;
 
     console.log(name, pass);
+
+    /*  here goes
+        code doing login
+        part 
     
+
+    const data = {
+        user: name,
+        pass: pass,
+    }
+
+    const params = {
+        headers: {
+            "content-type":"application/json; charset=UTF-8"
+        },
+        body: data,
+        method:"POST",
+    }
+
+    fetch("https://reqbin.com/echo/post/json", params)
+    .then(response => console.log(response))
+    .catch(err => console.error(err)); */
+
     isLoggedIn = name == "admin" && pass == "admin";
 
     if (isLoggedIn) {
@@ -101,13 +119,13 @@ loginForm.addEventListener("submit", (event) => {
         smallElement.classList.add("moved");
         loginContent.classList.add("hidden");
         words.classList.remove("hidden");
-        info.classList.add("hidden");
+        //info.classList.add("hidden");
     }
     else {
         smallElement.classList.remove("moved");
         loginContent.classList.remove("hidden");
         words.classList.add("hidden");
-        info.classList.remove("hidden");
+        //info.classList.remove("hidden");
     }
 })
 

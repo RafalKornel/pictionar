@@ -3,9 +3,54 @@ body, html {
 }
 
 :root {
+    /* DEFAULT STYLE 
     --gradient-light: #EE964B;
     --gradient-dark: #F95738;
-    --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 80%);
+    --text-color: #FAF0CA;
+    --form-color: #0D3B66;
+    --input-color: #F4D35E;
+    */
+
+    /* RED 
+    --gradient-light: #ef233c;
+    --gradient-dark: #d90429;
+    --text-color: #2b2d42;
+    --form-color: #edf2f4;
+    --input-color: #8d99ae;
+    */
+
+    /* GREEN 
+    --gradient-light: #4ecdc4;
+    --gradient-dark: #1a535c;
+    --text-color: #f7fff7;
+    --form-color: #ffe66d;
+    --input-color: #ff6b6b;
+    */
+
+    /* DARK RED
+    --gradient-light: #98c1d9;
+    --gradient-dark: #3d5a80;
+    --text-color: #e0fbfc;
+    --form-color: #293241;
+    --input-color: #ee6c4d;
+    */
+
+    /* GREEN - RED
+    --gradient-light: #a1c181;
+    --gradient-dark: #619b8a;
+    --text-color: #fcca46;
+    --form-color: #233d4d;
+    --input-color: #fe7f2d;
+    */
+
+    --gradient-light: #EE964B;
+    --gradient-dark: #F95738;
+    --text-color: #FAF0CA;
+    --form-color: #0D3B66;
+    --input-color: #F4D35E;
+      
+    
+    --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 70%);
 }
 
 body {
@@ -21,20 +66,17 @@ ul {
 }
 
 main {
-    position: absolute;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
 }
 
 #title {
-    margin: 40px 40px;
-    font-size: 144px;
+    margin: 10px 3% 0 3%;
+    font-size: 120px;
     color: var(--text-color);
     cursor: default;
     user-select: none;
-    width: 70%;
+    width: 90%;
 }
 
 .content {
@@ -46,9 +88,9 @@ main {
 
 article {
     margin: 0 30px;
-    font-size: 26px;
+    font-size: 22px;
     color: var(--text-color);
-    padding-right: 5%;
+    padding: 1% 10% 0 0;
 }
 
 article li {
@@ -57,7 +99,7 @@ article li {
 }
 
 #wordsContent {
-    width: 60%;
+    padding-right: 30%;
 }
 
 #wordsContent h2 {
@@ -69,6 +111,7 @@ article li {
     position: relative;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     padding: 0 5%;
 }
 
@@ -97,8 +140,6 @@ article li {
     outline: none;
 }
 
-#dbButton:hover {
-}
 
 button {
     transition: 300ms all ease;
@@ -113,7 +154,6 @@ button:hover {
 #loginForm {
     flex: 0 0 375px;
     margin-right: 120px;
-    margin-left: 120px;
 }
 
 #wordsForm {
@@ -145,10 +185,9 @@ button:hover {
 .message {
     position: relative;
     display: flex;
-    width: 300px;
-    height: 105px;
-    padding: 0px 10px;
-    margin: 16.5px;
+    width: 200px;
+    height: 70px;
+    margin: 5px 10px;
     background-color: var(--input-color);
     border-radius: 9px;
     color: var(--form-color);
@@ -168,14 +207,14 @@ button:hover {
     height: 70%;
     left: 0;
     top: 0;
-    font-size: 32px;
+    font-size: 24px;
     text-align: left;
 }
 
 .author {
     right: 0;
     bottom: 0;
-    font-size: 24px;
+    font-size: 18px;
     text-align: right;
 }
 
@@ -205,8 +244,8 @@ button:hover {
 
 #smallElement {
     position: absolute;
-    width: 1047px;
-    height: 916px;
+    width: 632px;
+    height: 553px;
     right: 0;
     bottom: 0;
     z-index: -2;
@@ -231,18 +270,23 @@ button:hover {
     background-attachment: fixed;
     z-index: -3;
 }
+
+#experience{
+    display: none;
+}
  
 /* FOOTER styling */
 
 footer {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 10px;
+    right: 10px;
     color: var(--form-color);
-    font-size: 18px;
+    font-size: 14px;
 }
 
 footer p {
+    text-align: right;
     margin: 0;
 }
 
@@ -252,7 +296,7 @@ footer ul {
 
 footer li {
     list-style: none;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 footer a {
@@ -260,10 +304,14 @@ footer a {
     color: var(--text-color);
 }
 
+i {
+    color: var(--form-color);
+}
+
 /* Utilities */
 
 .moved {
-    transform: translate(300px, 300px);
+    transform: translate(200px, 200px);
 }
 
 .hidden {
@@ -282,31 +330,28 @@ footer a {
 
     body {
         overflow: scroll;
-        background-color: var(--gradient-dark);
-    }
-
-    main {
-        width: 100%;
+        background-image: var(--bcg);
     }
 
     #title {
-        width: 100%;
         text-align: center;
         margin-bottom: 0;
     }
     
     .content {
-        flex-wrap: wrap;
-        width: 100%;
         flex-direction: column;
     }
 
     #wordsContent {
+        padding: 0px 10%;
+    }
 
+    .contentColumn {
+        margin: 5% 0;
     }
 
     article {
-        font-size: 36px;
+        font-size: 24px;
         text-align: center;
     }
 
@@ -323,5 +368,27 @@ footer a {
 
     .animationWrapper {
         display: none;
+    }
+
+    #experience {
+        display: flex;
+        justify-content: center;
+    }
+
+    footer {
+        position: relative;
+        display: flex;
+        padding-top: 5%;
+        justify-content: center;
+        color: var(--form-color);
+        font-size: 30px;
+    }
+    
+    footer p {
+        margin-right: 20px;
+    }
+
+    footer li {
+        font-size: 30px;
     }
 }
