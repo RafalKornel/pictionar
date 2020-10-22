@@ -49,7 +49,6 @@ body, html {
     --form-color: #0D3B66;
     --input-color: #F4D35E;
       
-    
     --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 70%);
 }
 
@@ -80,7 +79,9 @@ main {
 }
 
 .content {
-    position: relative;
+    position: absolute;
+    top:50%;
+    transform: translate(0, -50%);
     display: flex;
     flex-direction: row;
     transition: 300ms transform ease;
@@ -328,9 +329,11 @@ i {
 
 @media screen and (max-width: 1200px) {
 
-    body {
+    html, body {
+        height: 100%;
         overflow: scroll;
         background-image: var(--bcg);
+        background-repeat: no-repeat;
     }
 
     #title {
@@ -339,8 +342,12 @@ i {
     }
     
     .content {
+        position: relative;
+        top: 0;
+        transform: none;
         flex-direction: column;
     }
+
 
     #wordsContent {
         padding: 0px 10%;
