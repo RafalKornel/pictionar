@@ -25,7 +25,6 @@
     flex-direction: column;
     margin-top: 30px;
     width: 100%;
-    height: 90px;
   }
   
   form label {
@@ -80,15 +79,23 @@
   }
   
   #wordsForm {
-    height: 270px;
+    height: 370px;
   }
-  
+
+  #wordsForm textarea {
+    font-size: 1.6em;
+  }
+
   #wordsForm li {
-    height:140px;
+    height: 80%;
+  }
+
+  .wrapper {
+    height: 80%;
   }
   
   #words {
-    height: 110px;
+    height: 100%;
     resize: none;
     font-size: 14px;
   }

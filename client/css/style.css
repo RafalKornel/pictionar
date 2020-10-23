@@ -329,7 +329,7 @@ i {
 /* MEDIA QUERY */
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
 
     html, body {
         height: 100%;
@@ -349,9 +349,8 @@ i {
         flex-direction: column;
     }
 
-
     #wordsContent {
-        padding: 0px 10%;
+        padding: 0;
     }
 
     .contentColumn {
@@ -378,6 +377,12 @@ i {
         align-content: center;
         margin: 0 auto;
         width: 600px;
+    }
+
+    #wordsForm {
+        width: 700px;
+        height: 420px;
+        margin: 0 auto;
     }
 
     #experience {
