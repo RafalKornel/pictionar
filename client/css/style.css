@@ -81,7 +81,7 @@ main {
 .content {
     position: absolute;
     top:50%;
-    transform: translate(0, -50%);
+    transform: translate(0, -40%);
     display: flex;
     flex-direction: row;
     transition: 300ms transform ease;
@@ -91,12 +91,15 @@ article {
     margin: 0 30px;
     font-size: 22px;
     color: var(--text-color);
-    padding: 1% 10% 0 0;
 }
 
 article li {
     list-style: none;
     margin: 40px 0px;
+}
+
+#info {
+    padding: 0 10% 0 1%;
 }
 
 #wordsContent {
@@ -194,7 +197,6 @@ button:hover {
     color: var(--form-color);
 }
 
-
 .message > p {
     position: absolute;
     width: 95%;
@@ -221,7 +223,7 @@ button:hover {
 
 /* Animation element */
 
-.animationWrapper {
+#animationWrapper {
     position: fixed;
     left:0;
     top: 0;
@@ -367,13 +369,17 @@ i {
         margin: 0px 40px;
     }
 
+    #info {
+        padding: 0;
+    }
+
     #loginForm {
         flex: 1 1 auto;
         align-content: center;
         margin: 0 auto;
     }
 
-    .animationWrapper {
+    #animationWrapper {
         display: none;
     }
 

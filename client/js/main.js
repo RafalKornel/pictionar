@@ -9,11 +9,33 @@ const rows = document.getElementsByClassName("row");
 const loginButton = document.querySelector("#loginButton");
 const getWordsButton = document.querySelector("#dbButton");
 
-let messagesNumber = 20;
+let messagesNumber = 27;
 let entries = [];
 let data = [];
 let isLoggedIn = false;
 let loading = false;
+
+const msgElements = document.getElementsByClassName("message");
+
+let RAF;
+let speed = 1;
+
+function animateMessages() {
+    let w = msgElements[0].offsetParent.offsetWidth;
+    
+    for (let msg of msgElements) {
+        // if msg element has animIndex, then increment it by speed, else set it to 0
+        msg.animIndex = msg.animIndex + speed || 0;
+
+        if (msg.offsetLeft >= w) {
+            msg.animIndex = msg.animIndex -w;
+        }
+        msg.style.left = `${msg.animIndex}px`
+        
+    }
+
+    RAF = requestAnimationFrame(animateMessages);
+}
 
 function fetchAndAddWords() {
     loading = true;
@@ -40,6 +62,8 @@ function fetchAndAddWords() {
 
             attachMessages(data);
             loading = false;
+            requestAnimationFrame(animateMessages);
+
         })
         .catch(err => console.error("Unable to fetch data. Error: " + err.message));
 }
@@ -68,21 +92,21 @@ function attachMessages(messages) {
     }
 
     for (let i = 0; i < messages.length; i++) {
-        let rowId = i % 3;
+        let rowId = i % rows.length;
         let message = createMessage(messages[i].user, messages[i].entry)
         rows[rowId].appendChild(message);
     }
 }
 
 function sendWord() {
-    
+
     alert("hi")
 }
 
 loginForm.addEventListener("submit", (event) => {
 
-    
     event.preventDefault();
+
     console.log(loginForm);
 
     let name = document.querySelector("#name").value;
@@ -115,17 +139,19 @@ loginForm.addEventListener("submit", (event) => {
     isLoggedIn = name == "admin" && pass == "admin";
 
     if (isLoggedIn) {
-        fetchAndAddWords();
+        if (document.querySelector("#animationWrapper").clientWidth) {
+            console.log("fetching");
+            fetchAndAddWords();
+        }
+
         smallElement.classList.add("moved");
         loginContent.classList.add("hidden");
         words.classList.remove("hidden");
-        //info.classList.add("hidden");
     }
     else {
         smallElement.classList.remove("moved");
         loginContent.classList.remove("hidden");
         words.classList.add("hidden");
-        //info.classList.remove("hidden");
     }
 })
 
