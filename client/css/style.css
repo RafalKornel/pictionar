@@ -314,7 +314,7 @@ i {
 /* Utilities */
 
 .moved {
-    transform: translate(200px, 200px);
+    transform: translate(183px, 183px);
 }
 
 .hidden {
@@ -334,7 +334,6 @@ i {
     html, body {
         height: 100%;
         overflow: scroll;
-        background-image: var(--bcg);
         background-repeat: no-repeat;
     }
 
@@ -371,16 +370,14 @@ i {
 
     #info {
         padding: 0;
+        margin: 5% 0;
     }
 
     #loginForm {
         flex: 1 1 auto;
         align-content: center;
         margin: 0 auto;
-    }
-
-    #animationWrapper {
-        display: none;
+        width: 600px;
     }
 
     #experience {

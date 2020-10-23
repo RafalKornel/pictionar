@@ -139,10 +139,7 @@ loginForm.addEventListener("submit", (event) => {
     isLoggedIn = name == "admin" && pass == "admin";
 
     if (isLoggedIn) {
-        if (document.querySelector("#animationWrapper").clientWidth) {
-            console.log("fetching");
-            fetchAndAddWords();
-        }
+        fetchAndAddWords();
 
         smallElement.classList.add("moved");
         loginContent.classList.add("hidden");
