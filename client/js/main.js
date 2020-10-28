@@ -138,6 +138,12 @@ loginForm.addEventListener("submit", (event) => {
 
     isLoggedIn = name == "admin" && pass == "admin";
 
+    if (!isLoggedIn) {
+        const err = document.querySelector("#error");
+        console.log(err);
+        err.classList.remove("hidden");
+    }
+
     if (isLoggedIn) {
         fetchAndAddWords();
 

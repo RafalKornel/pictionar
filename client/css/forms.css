@@ -1,106 +1,117 @@
-   body {
-    font-family: 'Rubik', sans-serif;
-  }
-  
-  form{
-    position: relative;
-    background-color: var(--form-color);
-    color: var(--text-color);
-    width: 375px;
-    height: 400px;
-    display: flex;
-    padding: 30px;
-    border-radius: 9px;
-    transition: 200ms all ease;
-  }
-  
-  form ul {
-    width: 100%;
-    padding: 0px 40px 0px 40px;
-  }
-  
-  form li {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-    width: 100%;
-  }
-  
-  form label {
-    line-height: 2em;
-    font-size: 1.2em;
-  }
-  
-  form input, textarea {
-    position: relative;
-    left: 10%;
-    width: 90%;
-    height: 40px;
-    line-height: 1.5em;
-    font-size: 1.4em;
-    background-color: var(--form-color);
-    color: var(--text-color);
-    transition: 300ms all ease;
-    border: none;
-  }
-  
-  form input:focus, textarea:focus {
-    outline: none;
-  }
-  
-  .bar {
-    width: 90%;
-    height: 8px;
-    transition: 150ms all ease;
-    background-color: var(--input-color);
-    border-radius: 9px;
-    margin-left: auto;
-  }
-  
-  .wrapper:focus-within > .bar {
-    width: 100%;
-  
-  }
-  
-  .wrapper:focus-within {
-    outline: none;
-  }
-  
-  form button {
-    background-color: var(--input-color);
-    color: var(--form-color);
-    font-size: 1.15em;
-    width: 90px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    margin-left: auto;  
-  }
-  
-  #wordsForm {
-    height: 370px;
-  }
+  body {
+  font-family: 'Rubik', sans-serif;
+}
 
-  #wordsForm textarea {
-    font-size: 1.6em;
-  }
+form{
+  position: relative;
+  background-color: var(--form-color);
+  color: var(--text-color);
+  width: 375px;
+  height: 400px;
+  display: flex;
+  padding: 30px;
+  border-radius: 9px;
+  transition: 200ms all ease;
+}
 
-  #wordsForm li {
-    height: 80%;
-  }
+form ul {
+  width: 100%;
+  padding: 0px 40px 0px 40px;
+}
 
-  .wrapper {
-    height: 80%;
-  }
-  
-  #words {
-    height: 100%;
-    resize: none;
-    font-size: 14px;
-  }
-  
-  #wordsForm button {
-    margin-left: none;
-    margin: 0 auto 0 auto;
-  }
+form li {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+form label {
+  line-height: 2em;
+  font-size: 1.2em;
+}
+
+form input, textarea {
+  position: relative;
+  left: 10%;
+  width: 90%;
+  height: 40px;
+  line-height: 1.5em;
+  font-size: 1.4em;
+  background-color: var(--form-color);
+  color: var(--text-color);
+  transition: 300ms all ease;
+  border: none;
+}
+
+form input:focus, textarea:focus {
+  outline: none;
+}
+
+.bar {
+  width: 90%;
+  height: 8px;
+  transition: 150ms all ease;
+  background-color: var(--input-color);
+  border-radius: 9px;
+  margin-left: auto;
+}
+
+.wrapper:focus-within > .bar {
+  width: 100%;
+
+}
+
+.wrapper:focus-within {
+  outline: none;
+}
+
+form button {
+  background-color: var(--input-color);
+  color: var(--form-color);
+  font-size: 1.15em;
+  margin-left: 10px;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  margin-left: auto;  
+  outline: none;
+}
+
+
+form a {
+  width:100%; 
+  height: 100%; 
+  color: var(--form-color); 
+  text-decoration: none;
+  cursor: default;
+}
+
+#wordsForm {
+  height: 370px;
+}
+
+#wordsForm textarea {
+  font-size: 1.6em;
+}
+
+#wordsForm li {
+  height: 80%;
+}
+
+.wrapper {
+  height: 80%;
+}
+
+#words {
+  height: 100%;
+  resize: none;
+  font-size: 14px;
+}
+
+#wordsForm button {
+  margin-left: none;
+  margin: 0 auto 0 auto;
+}
