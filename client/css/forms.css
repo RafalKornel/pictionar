@@ -9,7 +9,7 @@ form{
   width: 375px;
   height: 400px;
   display: flex;
-  padding: 30px;
+  padding: 20px;
   border-radius: 9px;
   transition: 200ms all ease;
 }
@@ -23,7 +23,7 @@ form li {
   list-style: none;
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   width: 100%;
 }
 

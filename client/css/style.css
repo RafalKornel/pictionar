@@ -71,11 +71,10 @@ main {
 
 #title {
     margin: 10px 3% 0 3%;
-    font-size: 120px;
+    font-size: 100px;
     color: var(--text-color);
     cursor: default;
     user-select: none;
-    width: 90%;
 }
 
 .content {
@@ -299,12 +298,13 @@ footer ul {
 
 footer li {
     list-style: none;
+    font-weight: bold;
     font-size: 18px;
 }
 
 footer a {
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--form-color);
 }
 
 i {
