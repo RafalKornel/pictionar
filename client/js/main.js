@@ -40,7 +40,7 @@ function animateMessages() {
 function fetchAndAddWords() {
     loading = true;
 
-    fetch('https://jsonplaceholder.typicode.com/posts')
+    return fetch('https://jsonplaceholder.typicode.com/posts')
         .then(response => response.json())
         .then(data => {
             for (let i = 0; i < messagesNumber; i++) {
@@ -104,17 +104,65 @@ function sendWord() {
 }
 
 loginForm.addEventListener("submit", (event) => {
-
     event.preventDefault();
 
-    console.log(loginForm);
+    data = {
+        user_name: loginForm.name.value,
+        user_pass: loginForm.password.value,
+        csrf_token: loginForm.csrf_token.value,
+    }
 
-    let name = document.querySelector("#name").value;
-    let pass = document.querySelector("#password").value;
+    fetch("/login", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": data.csrf_token,
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res => {
+        if (res.status == 200) {
+            return fetchAndAddWords();
+        }
+        else {
+            const err = document.querySelector("#error");
+            err.classList.remove("hidden");
+            throw Error("Invalid credentials")
+        }
+    })
+    .then( (res) => {
+
+        smallElement.classList.add("moved");
+        loginContent.classList.add("hidden");
+        words.classList.remove("hidden");
+        
+    })
+    .catch(err => console.error(err))
 
     console.log(name, pass);
 
-    /*  here goes
+    /* 
+        if (!isLoggedIn) {
+        const err = document.querySelector("#error");
+        console.log(err);
+        err.classList.remove("hidden");
+    }
+    
+    
+
+
+        isLoggedIn = name == "admin" && pass == "admin";
+
+    if (isLoggedIn) {
+
+
+    }
+    else {
+
+    }
+    
+    here goes
         code doing login
         part 
     
@@ -136,26 +184,6 @@ loginForm.addEventListener("submit", (event) => {
     .then(response => console.log(response))
     .catch(err => console.error(err)); */
 
-    isLoggedIn = name == "admin" && pass == "admin";
-
-    if (!isLoggedIn) {
-        const err = document.querySelector("#error");
-        console.log(err);
-        err.classList.remove("hidden");
-    }
-
-    if (isLoggedIn) {
-        fetchAndAddWords();
-
-        smallElement.classList.add("moved");
-        loginContent.classList.add("hidden");
-        words.classList.remove("hidden");
-    }
-    else {
-        smallElement.classList.remove("moved");
-        loginContent.classList.remove("hidden");
-        words.classList.add("hidden");
-    }
 })
 
 getWordsButton.addEventListener("click", () => {

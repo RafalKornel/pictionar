@@ -53,6 +53,9 @@
             <form method="POST" id="loginForm" autocomplete="off">
                 <ul>
                     <li>
+                        <input type="hidden" name="csrf_token" value="{{csrf_token()}}" >
+                    </li>
+                    <li>
                         <label for="name">Login: </label>
                         <div class="wrapper" tabindex="-1">
                             <input id="name" type="text" name="user_name" required>
@@ -96,6 +99,9 @@
 
                 <form id="wordsForm" autocomplete="off">
                     <ul>
+                        <li style="display: none;">
+                            <input type="hidden" name="csrf_token" value="{{csrf_token()}}" >
+                        </li>
                         <li>
                             <label for="words">Words: </label>
                             <div class="wrapper" tabindex="-1">
