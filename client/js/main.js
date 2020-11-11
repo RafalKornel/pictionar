@@ -8,6 +8,7 @@ const smallElement = document.querySelector("#smallElement");
 const rows = document.getElementsByClassName("row");
 const loginButton = document.querySelector("#loginButton");
 const getWordsButton = document.querySelector("#dbButton");
+const wordsCount = document.querySelector("#num");
 
 let messagesNumber = 27;
 let entries = [];
@@ -37,7 +38,108 @@ function animateMessages() {
     RAF = requestAnimationFrame(animateMessages);
 }
 
-function fetchAndAddWords() {
+function createMessage(user, message) {
+    let div = document.createElement("div");
+    div.classList.add("message");
+    let word = document.createElement("p");
+    word.classList.add("word");
+    word.textContent = message;
+    let author = document.createElement("p");
+    author.classList.add("author");
+    author.textContent = user;
+    div.appendChild(word);
+    div.appendChild(author);
+
+    return div;
+}
+
+function attachMessages(messages) {
+
+    for (let id = 0; id < rows.length; id++) {
+        while (rows[id].firstChild) {
+            rows[id].firstChild.remove();
+        }
+    }
+
+    for (let i = 0; i < messages.length; i++) {
+        let rowId = i % rows.length;
+        let message = createMessage(messages[i].user, messages[i].word)
+        rows[rowId].appendChild(message);
+    }
+}
+
+
+loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    data = {
+        user_name: loginForm.name.value,
+        user_pass: loginForm.password.value,
+        csrf_token: loginForm.csrf_token.value,
+    }
+
+    fetch("/login", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": data.csrf_token,
+        },
+        body: JSON.stringify(data),
+    })
+    .then(res => {
+        if (res.status == 200) {
+            return fetch("/words").then(res => res.json())
+        }
+        else {
+            const err = document.querySelector("#error");
+            err.classList.remove("hidden");
+            throw Error("Invalid credentials")
+        }
+    })
+    .then(data => {
+        attachMessages(data)
+
+        fetch("/count").then(count => count.json())
+        .then(data => wordsCount.textContent =data); 
+
+        requestAnimationFrame(animateMessages);
+
+        smallElement.classList.add("moved");
+        loginContent.classList.add("hidden");
+        words.classList.remove("hidden");
+    })
+    .catch(err => console.error(err))
+
+})
+
+
+getWordsButton.addEventListener("click", () => {
+    window.open("bank");
+})
+
+
+wordsForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    let words_unfiltered = wordsForm.words.value.split(",");
+    let words = words_unfiltered.filter( (s) => s.match("^[A-Za-z0-9 ]+$"))
+
+    fetch("/add", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": wordsForm.csrf_token.value,
+        },
+        body: JSON.stringify({ words: words }),
+    })
+})
+
+    /* 
+
+
+    function fetchAndAddWords() {
     loading = true;
 
     return fetch('https://jsonplaceholder.typicode.com/posts')
@@ -67,82 +169,6 @@ function fetchAndAddWords() {
         })
         .catch(err => console.error("Unable to fetch data. Error: " + err.message));
 }
-
-function createMessage(user, message) {
-    let div = document.createElement("div");
-    div.classList.add("message");
-    let word = document.createElement("p");
-    word.classList.add("word");
-    word.textContent = message;
-    let author = document.createElement("p");
-    author.classList.add("author");
-    author.textContent = user;
-    div.appendChild(word);
-    div.appendChild(author);
-
-    return div;
-}
-
-function attachMessages(messages) {
-
-    for (let id = 0; id < rows.length; id++) {
-        while (rows[id].firstChild) {
-            rows[id].firstChild.remove();
-        }
-    }
-
-    for (let i = 0; i < messages.length; i++) {
-        let rowId = i % rows.length;
-        let message = createMessage(messages[i].user, messages[i].entry)
-        rows[rowId].appendChild(message);
-    }
-}
-
-function sendWord() {
-
-    alert("hi")
-}
-
-loginForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    data = {
-        user_name: loginForm.name.value,
-        user_pass: loginForm.password.value,
-        csrf_token: loginForm.csrf_token.value,
-    }
-
-    fetch("/login", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": data.csrf_token,
-        },
-        body: JSON.stringify(data),
-    })
-    .then(res => {
-        if (res.status == 200) {
-            return fetchAndAddWords();
-        }
-        else {
-            const err = document.querySelector("#error");
-            err.classList.remove("hidden");
-            throw Error("Invalid credentials")
-        }
-    })
-    .then( (res) => {
-
-        smallElement.classList.add("moved");
-        loginContent.classList.add("hidden");
-        words.classList.remove("hidden");
-        
-    })
-    .catch(err => console.error(err))
-
-    console.log(name, pass);
-
-    /* 
         if (!isLoggedIn) {
         const err = document.querySelector("#error");
         console.log(err);
@@ -183,15 +209,3 @@ loginForm.addEventListener("submit", (event) => {
     fetch("https://reqbin.com/echo/post/json", params)
     .then(response => console.log(response))
     .catch(err => console.error(err)); */
-
-})
-
-getWordsButton.addEventListener("click", () => {
-    window.open("https://jsonplaceholder.typicode.com/posts");
-})
-
-wordsForm.addEventListener("submit", event => {
-    event.preventDefault();
-    let words = document.querySelector("#words").value;
-    console.log(words);
-})

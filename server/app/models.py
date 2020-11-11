@@ -49,5 +49,9 @@ class Word(db.Model):
     word = db.Column(db.String(30), unique=True, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
+    def format(self):
+        return {"word": self.word,
+                "user": self.user.name }
+
     def __repr__(self):
         return f"<Word {self.word}>"
