@@ -262,7 +262,7 @@ button:hover {
     background-attachment: fixed;
 }
 
-#bcg {
+.bcg {
     position: fixed;
     top: -100%;
     left: -100%;
@@ -376,11 +376,11 @@ i {
         flex: 1 1 auto;
         align-content: center;
         margin: 0 auto;
-        width: 600px;
+        width: 70%;
     }
 
     #wordsForm {
-        width: 700px;
+        width: 90%;
         height: 420px;
         margin: 0 auto;
     }
