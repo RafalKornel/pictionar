@@ -1,8 +1,9 @@
 from . import main
-from flask import render_template, request, Response, json
+from flask import render_template, request, Response, json, jsonify
 from flask_login import login_required, current_user
 from .. import csrf, db
 from ..models import User, Word
+from .utilities import validate_word, clean_input
 
 @main.route("/")
 def index():
@@ -18,20 +19,27 @@ def secret():
 @login_required
 def add_word():
     data = request.get_json()
-    words = data["words"]
-    print(words)
-
-    user = User.query.filter_by(name=current_user.name).first()
+    words = clean_input(data["words"])
     
-    if user is None or len(words) == 0:
+    if not current_user.is_authenticated or len(words) == 0:
         return Response(status=405)
 
-    for w in words:
-        word = Word(word=w, user_id=user.id)
-        db.session.add(word)
-    db.session.commit()
+    added_words = []
 
-    return Response(status=200)
+    for w in words:
+        if validate_word(w) and not Word.query.filter_by(word=w).first():
+            added_words.append(w)
+
+            word = Word(word=w, user_id=current_user.get_id())
+            db.session.add(word)
+        db.session.commit()
+
+    if len(added_words) == 0:
+        return Response(status=405)
+
+
+    return {"added_words": added_words,
+            "count": len(added_words) }
 
 
 @main.route("/words")
@@ -42,8 +50,7 @@ def retrieve_words():
     for w in words:
         data.append( w.format() )
     
-    return json.dumps(data)
-
+    return jsonify(data)
 
 @main.route("/bank")
 @login_required

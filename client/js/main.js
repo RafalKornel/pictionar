@@ -134,6 +134,14 @@ wordsForm.addEventListener("submit", event => {
         },
         body: JSON.stringify({ words: words }),
     })
+    .then(res => {
+        if (res.status == 200)  return res.json()
+        else                    throw Error(`Bad response, status ${res.status}`)})
+    .then(data => {
+        // here would be code that will reload values on page
+        alert(`${data.added_words} len: ${data.count}`)
+    })
+    .catch(err => console.error(err))
 })
 
     /* 

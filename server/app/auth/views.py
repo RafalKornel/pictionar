@@ -15,6 +15,9 @@ from .. import db
 
 @auth.route("/login", methods=["POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("auth.logout"))
+
     data = request.get_json()
     form = LoginForm(
         user_name=data["user_name"],
@@ -37,7 +40,6 @@ def logout():
 
 @auth.route("/register", methods=["POST"])
 def register_post():
-    print(request)
     form = RegisterForm()
     if form.validate_on_submit():
         group = Group.query.filter_by(key=form.secret_key.data).first()
