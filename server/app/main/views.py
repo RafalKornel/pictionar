@@ -12,12 +12,6 @@ def index():
         logout_user()
     return render_template("index.html")
 
-@main.route("/secret")
-@login_required
-def secret():
-    return "<h1>top secret</h1>"
-
-
 @main.route("/add", methods=["POST"])
 @login_required
 def add_word():

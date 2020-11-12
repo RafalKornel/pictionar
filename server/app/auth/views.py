@@ -7,12 +7,6 @@ from flask_login import login_user, logout_user, current_user
 from ..models import User, Group
 from .. import db
 
-# @auth.before_request
-# def log_request_info():
-#     print('Headers: %s', request.headers)
-#     print('Body: %s', request.get_data())
-
-
 @auth.route("/login", methods=["POST"])
 def login():
     if current_user.is_authenticated:
