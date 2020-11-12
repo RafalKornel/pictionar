@@ -1,4 +1,4 @@
-from .kalambury import app
+from server.kalambury import app
 
 if __name__ == "__main__":
     app.run()
