@@ -67,6 +67,8 @@ ul {
 main {
     display: flex;
     flex-direction: column;
+    width: 100vw;
+    height: 100vh;
 }
 
 #title {
@@ -88,7 +90,7 @@ main {
 
 article {
     margin: 0 30px;
-    font-size: 22px;
+    font-size: 16px;
     color: var(--text-color);
 }
 
@@ -106,7 +108,7 @@ article li {
 }
 
 #wordsContent h2 {
-    font-size: 24px;
+    font-size: 22px;
     text-align: center;
 }
 
@@ -142,7 +144,6 @@ article li {
 #dbButton:focus {
     outline: none;
 }
-
 
 button {
     transition: 300ms all ease;

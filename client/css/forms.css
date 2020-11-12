@@ -6,8 +6,6 @@ form{
   position: relative;
   background-color: var(--form-color);
   color: var(--text-color);
-  width: 375px;
-  height: 400px;
   display: flex;
   padding: 20px;
   border-radius: 9px;
@@ -90,7 +88,7 @@ form a {
 }
 
 #wordsForm {
-  height: 370px;
+  height: 350px;
 }
 
 #wordsForm textarea {

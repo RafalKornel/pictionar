@@ -6,8 +6,8 @@
     <meta charset="utf-8">
 
     <title>Kalambury</title>
-    <meta name="description" content="Prosta aplikacja do zarządzania hasłami w grze kalambury">
-    <meta name="author" content="Rafał Kornel & Jakub Sapko">
+    <meta name="description" content="Simple application to manage words in pictionary game.">
+    <meta name="author" content="Rafał Kornel">
 
     <link rel="stylesheet" href="client/css/forms.css">
     <link rel="stylesheet" href="client/css/style.css">
@@ -29,21 +29,22 @@
                     <li>
                         <h2>
                             - This app allows you to create and
-                            store words pool. First, you have to
-                            log in.
+                            store words dictionary. First, you have to
+                            log in, or <a href="/register" style="text-decoration: none;">register</a>, if you don't have an account.
                         </h2>
                     </li>
                     <li>
                         <h2>
-                            - After loggin in you can peek
-                            already existing words, or add your
+                            - After login you can see already existing 
+                            words in slider, or add your
                             own ones!
                         </h2>
                     </li>
                     <li>
                         <h2>
-                            - You can also retrieve words stored
-                            in database.
+                            - You can also retrieve dictionary from the database.
+                            Words are returned in form of text, separated by comma (so they are 
+                            ready to put in pictionary game)
                         </h2>
                     </li>
                 </ul>
@@ -70,10 +71,6 @@
                         </div>
                     </li>
 
-                    <!-- 
-                    <li style="margin: 0; color: #ff0000" class="hidden" id="error">
-                    </li> -->
-
                     <li style="flex-direction: row;">
                         <p class="hidden" id="error" style="margin: auto 0; color: #ff0000" >Wrong password or username!</p>
                         <button id="loginButton" type="submit">Login</button>
@@ -82,7 +79,7 @@
                     <li style="flex-direction: row;">
                         <p style="width: auto;">Don't have an account?</p>
                         <button type="button" style="margin-top: auto; margin-bottom: auto;">
-                            <a href="/register" target="_blank">Register</a>
+                            <a href="/register">Register</a>
                         </button>
                     </li>
                 </ul>
@@ -94,7 +91,9 @@
 
             <div class="contentColumn" id="left">
                 <article id="tutorial">
-                    <h2>Type word or words separated by coma, then hit “Send” button to add them to database!</h2>
+                    <h2>Type phrases or words separated by coma, then hit “Send” button to add them to database!
+                        Words can only contain letters and numbers, and can be separated by spaces to form phrases.
+                    </h2>
                 </article>
 
                 <form id="wordsForm" autocomplete="off">
@@ -106,7 +105,7 @@
                             <label for="words">Words: </label>
                             <div class="wrapper" tabindex="-1">
                                 <textarea id="words" name="words" placeholder="Type word(s) here"></textarea>
-                                <div class="bar"></div>
+                                <div class="bar" id="wordsBar"></div>
                             </div>
                         </li>
 
@@ -121,7 +120,7 @@
 
                 <article>
                     <h2>There are <span id="num"></span> words in database.</h2>
-                    <h2>Hit button below to get words from database</h2>
+                    <h2>Hit the button below to get words from database</h2>
                 </article>
 
                 <button type="button" id="dbButton">Get words!</button>
@@ -144,10 +143,6 @@
 
                 <div id="messages" class="">
                     <div class="first row">
-                        <div class="message">
-                            <p class="word">bajojajo</p>
-                            <p class="author">kornel</p>
-                        </div>
                     </div>
 
                     <div class="second row">

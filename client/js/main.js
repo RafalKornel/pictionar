@@ -69,16 +69,35 @@ function attachMessages(messages) {
 }
 
 
-loginForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+function switchViews() {
+    smallElement.classList.add("moved");
+    loginContent.classList.add("hidden");
+    words.classList.remove("hidden");
+}
 
-    data = {
+async function updateCount() {
+    let countResponse = await fetch("/count");
+
+    if (countResponse.ok) {
+        let count = await countResponse.json();
+        wordsCount.textContent = count;
+    }
+}
+
+function loginError() {
+    const err = document.querySelector("#error");
+    err.classList.remove("hidden");
+    throw Error("Invalid credentials")
+}
+
+async function login(loginForm) {
+    let data = {
         user_name: loginForm.name.value,
         user_pass: loginForm.password.value,
         csrf_token: loginForm.csrf_token.value,
     }
 
-    fetch("/login", {
+    let options = {
         method: "POST",
         mode: "cors",
         headers: {
@@ -86,31 +105,34 @@ loginForm.addEventListener("submit", (event) => {
             "X-CSRF-TOKEN": data.csrf_token,
         },
         body: JSON.stringify(data),
-    })
-    .then(res => {
-        if (res.status == 200) {
-            return fetch("/words").then(res => res.json())
-        }
-        else {
-            const err = document.querySelector("#error");
-            err.classList.remove("hidden");
-            throw Error("Invalid credentials")
-        }
-    })
-    .then(data => {
-        attachMessages(data)
+    }
 
-        fetch("/count").then(count => count.json())
-        .then(data => wordsCount.textContent =data); 
+    let response = await fetch("/login", options);
 
-        requestAnimationFrame(animateMessages);
+    if (!response.ok) {
+        loginError();
+        return;
+    }
 
-        smallElement.classList.add("moved");
-        loginContent.classList.add("hidden");
-        words.classList.remove("hidden");
-    })
-    .catch(err => console.error(err))
+    let wordsResponse = await fetch("/words");
 
+    if (wordsResponse.ok) {
+        let words = await wordsResponse.json();
+        attachMessages(words);
+    }
+
+    updateCount();
+
+    requestAnimationFrame(animateMessages);
+    switchViews();
+    
+}
+
+
+loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    login(loginForm);
 })
 
 
@@ -135,11 +157,15 @@ wordsForm.addEventListener("submit", event => {
         body: JSON.stringify({ words: words }),
     })
     .then(res => {
-        if (res.status == 200)  return res.json()
+        if (res.ok)  return res.json()
         else                    throw Error(`Bad response, status ${res.status}`)})
     .then(data => {
-        // here would be code that will reload values on page
-        alert(`${data.added_words} len: ${data.count}`)
+        updateCount();
+        const bar = document.querySelector("#wordsBar");
+        let color = bar.style.backgroundColor;
+        bar.style.backgroundColor = "green";
+        setTimeout(() =>  bar.style.backgroundColor = color, 2000 );
+        //alert(`${data.added_words} len: ${data.count}`)
     })
     .catch(err => console.error(err))
 })
