@@ -1,6 +1,6 @@
 from . import main
 from flask import render_template, request, Response, json, jsonify
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user, logout_user
 from .. import csrf, db
 from ..models import User, Word
 from .utilities import validate_word, clean_input
@@ -8,6 +8,8 @@ import random, math
 
 @main.route("/")
 def index():
+    if current_user.is_authenticated:
+        logout_user()
     return render_template("index.html")
 
 @main.route("/secret")

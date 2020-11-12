@@ -16,7 +16,7 @@ from .. import db
 @auth.route("/login", methods=["POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("auth.logout"))
+        logout_user()
 
     data = request.get_json()
     form = LoginForm(
