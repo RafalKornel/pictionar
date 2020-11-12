@@ -5,8 +5,6 @@ import click
 
 app = create_app("production")
 
-migrate = Migrate(app, db)
-
 @app.shell_context_processor
 def make_shell_context():
     return { "db":db, "User":models.User, "Group":models.Group, "Word":models.Word }
@@ -30,7 +28,3 @@ def add_group(group_name, group_key):
     g = models.Group(name=group_name, key=group_key)
     db.session.add(g)
     db.session.commit()
-
-
-if __name__ == "__main__":
-    app.run()
