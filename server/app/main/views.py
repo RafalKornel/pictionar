@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from .. import csrf, db
 from ..models import User, Word
 from .utilities import validate_word, clean_input
+import random, math
 
 @main.route("/")
 def index():
@@ -45,7 +46,8 @@ def add_word():
 @main.route("/words")
 @login_required
 def retrieve_words():
-    words = Word.query.all()
+    length = db.session.query(Word).count()
+    words = [ Word.query.offset( math.floor(random.random() * length)).first() for _ in range(27) ]
     data = []
     for w in words:
         data.append( w.format() )
