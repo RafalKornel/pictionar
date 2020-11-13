@@ -84,6 +84,18 @@ async function updateCount() {
     }
 }
 
+async function updateWordsSlider() {
+    let wordsResponse = await fetch("/words");
+
+    if (wordsResponse.ok) {
+        let words = await wordsResponse.json();
+        attachMessages(words);
+    
+        if (RAF) cancelAnimationFrame(RAF);
+        requestAnimationFrame(animateMessages);
+    }
+}
+
 function loginError() {
     const err = document.querySelector("#error");
     err.classList.remove("hidden");
@@ -114,16 +126,9 @@ async function login(loginForm) {
         return;
     }
 
-    let wordsResponse = await fetch("/words");
-
-    if (wordsResponse.ok) {
-        let words = await wordsResponse.json();
-        attachMessages(words);
-    }
-
+    updateWordsSlider()
     updateCount();
 
-    requestAnimationFrame(animateMessages);
     switchViews();
     
 }
@@ -145,7 +150,7 @@ wordsForm.addEventListener("submit", event => {
     event.preventDefault();
 
     let words_unfiltered = wordsForm.words.value.split(",");
-    let words = words_unfiltered.filter( (s) => s.match("^[A-Za-z0-9 ]+$"))
+    let words = words_unfiltered.filter( (s) => s.match("^[A-Za-z0-9ąćęłńóśźżĄĘŁŃÓŚŹŻ ]+$"))
 
     fetch("/add", {
         method: "POST",
@@ -160,86 +165,14 @@ wordsForm.addEventListener("submit", event => {
         if (res.ok)  return res.json()
         else                    throw Error(`Bad response, status ${res.status}`)})
     .then(data => {
+    
+        updateWordsSlider()
         updateCount();
+
         const bar = document.querySelector("#wordsBar");
         let color = bar.style.backgroundColor;
         bar.style.backgroundColor = "green";
         setTimeout(() =>  bar.style.backgroundColor = color, 2000 );
-        //alert(`${data.added_words} len: ${data.count}`)
     })
     .catch(err => console.error(err))
 })
-
-    /* 
-
-
-    function fetchAndAddWords() {
-    loading = true;
-
-    return fetch('https://jsonplaceholder.typicode.com/posts')
-        .then(response => response.json())
-        .then(data => {
-            for (let i = 0; i < messagesNumber; i++) {
-                let index = Math.floor(Math.random() * data.length);
-                entries.push(data[index]);
-            }
-
-            return fetch("https://jsonplaceholder.typicode.com/users");
-        })
-        .then(response => response.json())
-        .then(users => {
-
-            for (let i = 0; i < entries.length; i++) {
-                data.push({
-                    user: users.find(e => e.id == entries[i].userId).name.split(" ")[0],
-                    entry: entries[i].body.split(" ")[0]
-                })
-            }
-
-            attachMessages(data);
-            loading = false;
-            requestAnimationFrame(animateMessages);
-
-        })
-        .catch(err => console.error("Unable to fetch data. Error: " + err.message));
-}
-        if (!isLoggedIn) {
-        const err = document.querySelector("#error");
-        console.log(err);
-        err.classList.remove("hidden");
-    }
-    
-    
-
-
-        isLoggedIn = name == "admin" && pass == "admin";
-
-    if (isLoggedIn) {
-
-
-    }
-    else {
-
-    }
-    
-    here goes
-        code doing login
-        part 
-    
-
-    const data = {
-        user: name,
-        pass: pass,
-    }
-
-    const params = {
-        headers: {
-            "content-type":"application/json; charset=UTF-8"
-        },
-        body: data,
-        method:"POST",
-    }
-
-    fetch("https://reqbin.com/echo/post/json", params)
-    .then(response => console.log(response))
-    .catch(err => console.error(err)); */
