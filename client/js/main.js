@@ -75,7 +75,7 @@ function switchViews() {
     words.classList.remove("hidden");
 }
 
-async function updateCount() {
+async function updateCounter() {
     let countResponse = await fetch("/count");
 
     if (countResponse.ok) {
@@ -127,7 +127,7 @@ async function login(loginForm) {
     }
 
     updateWordsSlider()
-    updateCount();
+    updateCounter();
 
     switchViews();
     
@@ -167,7 +167,7 @@ wordsForm.addEventListener("submit", event => {
     .then(data => {
     
         updateWordsSlider()
-        updateCount();
+        updateCounter();
 
         const bar = document.querySelector("#wordsBar");
         let color = bar.style.backgroundColor;
