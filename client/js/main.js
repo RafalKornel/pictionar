@@ -11,7 +11,7 @@ const getWordsButton        = document.querySelector("#dbButton");
 const wordsCounter          = document.querySelector("#num");
 const addedWordsContainer   = document.querySelector("#addedWordsContainer")
 const addedWords            = document.querySelector("#addedWords");
-const msgElements           = document.querySelector(".message");
+const msgElements           = document.getElementsByClassName("message");
 
 let RAF;
 let speed = 1;
