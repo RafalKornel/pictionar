@@ -66,4 +66,4 @@ def retrieve_words_clean():
 @main.route("/count")
 @login_required
 def words_count():
-    return str(len(Word.query.filter_by(group=current_user.group.name).all))
+    return str(len(Word.query.filter_by(group=current_user.group.name).all()))
