@@ -1,27 +1,21 @@
-const button = document.querySelector("#switch");
-const loginContent = document.querySelector("#loginContent");
-const loginForm = document.querySelector("#loginForm")
-const words = document.querySelector("#wordsContent");
-const wordsForm = document.querySelector("#wordsForm");
-const messages = document.querySelector("#messages");
-const smallElement = document.querySelector("#smallElement");
-const rows = document.getElementsByClassName("row");
-const loginButton = document.querySelector("#loginButton");
-const getWordsButton = document.querySelector("#dbButton");
-const wordsCounter = document.querySelector("#num");
-const addedWordsContainer = document.querySelector("#addedWordsContainer")
-const addedWords = document.querySelector("#addedWords");
-
-let messagesNumber = 27;
-let entries = [];
-let data = [];
-let isLoggedIn = false;
-let loading = false;
-
-const msgElements = document.getElementsByClassName("message");
+const button                = document.querySelector("#switch");
+const loginContent          = document.querySelector("#loginContent");
+const loginForm             = document.querySelector("#loginForm")
+const words                 = document.querySelector("#wordsContent");
+const wordsForm             = document.querySelector("#wordsForm");
+const messages              = document.querySelector("#messages");
+const smallElement          = document.querySelector("#smallElement");
+const rows                  = document.querySelector(".row");
+const loginButton           = document.querySelector("#loginButton");
+const getWordsButton        = document.querySelector("#dbButton");
+const wordsCounter          = document.querySelector("#num");
+const addedWordsContainer   = document.querySelector("#addedWordsContainer")
+const addedWords            = document.querySelector("#addedWords");
+const msgElements           = document.querySelector(".message");
 
 let RAF;
 let speed = 1;
+
 
 function animateMessages() {
     let w = msgElements[0].offsetParent.offsetWidth;
@@ -40,6 +34,7 @@ function animateMessages() {
     RAF = requestAnimationFrame(animateMessages);
 }
 
+
 function createMessage(user, message) {
     let div = document.createElement("div");
     div.classList.add("message");
@@ -54,6 +49,7 @@ function createMessage(user, message) {
 
     return div;
 }
+
 
 function attachMessages(messages) {
 
@@ -77,6 +73,7 @@ function switchViews() {
     words.classList.remove("hidden");
 }
 
+
 async function updateCounter() {
     let countResponse = await fetch("/count");
 
@@ -85,6 +82,7 @@ async function updateCounter() {
         wordsCounter.textContent = count;
     }
 }
+
 
 async function updateWordsSlider() {
     let wordsResponse = await fetch("/words");
@@ -98,13 +96,16 @@ async function updateWordsSlider() {
     }
 }
 
+
 function loginError() {
     const err = document.querySelector("#error");
     err.classList.remove("hidden");
     throw Error("Invalid credentials")
 }
 
+
 async function login(loginForm) {
+
     let data = {
         user_name: loginForm.name.value,
         user_pass: loginForm.password.value,
@@ -132,13 +133,12 @@ async function login(loginForm) {
     updateCounter();
 
     switchViews();
-    
 }
 
 
 loginForm.addEventListener("submit", (event) => {
     event.preventDefault();
-
+    
     login(loginForm);
 })
 
@@ -164,27 +164,27 @@ wordsForm.addEventListener("submit", event => {
         body: JSON.stringify({ words: words }),
     })
     .then(res => {
-        if (res.ok)  return res.json()
-        else                    throw Error(`Bad response, status ${res.status}`)})
-    .then(data => {
 
-        console.log(data)
+        if (res.ok)  return res.json()
+        else                    throw Error(`Bad response, status ${res.status}`)
+
+    })
+    .then(data => {
 
         addedWordsContainer.classList.remove("hidden");
         let message = data["added_words"].reduce( (c, w) => c += (", " + w))
         addedWords.textContent = message;
-        console.log(message);
 
         setTimeout( () => addedWordsContainer.classList.add("hidden"), 10000);
-
-    
-        updateWordsSlider()
-        updateCounter();
 
         const bar = document.querySelector("#wordsBar");
         let color = bar.style.backgroundColor;
         bar.style.backgroundColor = "green";
-        setTimeout(() =>  bar.style.backgroundColor = color, 2000 );
+        setTimeout(() =>  bar.style.backgroundColor = color, 2000);
+
+        updateWordsSlider()
+        updateCounter();
+
     })
     .catch(err => console.error(err))
 })
