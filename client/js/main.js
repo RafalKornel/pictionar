@@ -8,7 +8,9 @@ const smallElement = document.querySelector("#smallElement");
 const rows = document.getElementsByClassName("row");
 const loginButton = document.querySelector("#loginButton");
 const getWordsButton = document.querySelector("#dbButton");
-const wordsCount = document.querySelector("#num");
+const wordsCounter = document.querySelector("#num");
+const addedWordsContainer = document.querySelector("#addedWordsContainer")
+const addedWords = document.querySelector("#addedWords");
 
 let messagesNumber = 27;
 let entries = [];
@@ -80,7 +82,7 @@ async function updateCounter() {
 
     if (countResponse.ok) {
         let count = await countResponse.json();
-        wordsCount.textContent = count;
+        wordsCounter.textContent = count;
     }
 }
 
@@ -165,6 +167,16 @@ wordsForm.addEventListener("submit", event => {
         if (res.ok)  return res.json()
         else                    throw Error(`Bad response, status ${res.status}`)})
     .then(data => {
+
+        console.log(data)
+
+        addedWordsContainer.classList.remove("hidden");
+        let message = data["added_words"].reduce( (c, w) => c += (", " + w))
+        addedWords.textContent = message;
+        console.log(message);
+
+        setTimeout( () => addedWordsContainer.classList.add("hidden"), 10000);
+
     
         updateWordsSlider()
         updateCounter();

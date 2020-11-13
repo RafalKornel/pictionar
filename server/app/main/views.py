@@ -45,8 +45,6 @@ def retrieve_words():
     length = len(Word.query.filter_by(group=current_user.group.name).all())
     words = [ Word.query.filter_by(group=current_user.group.name)
                   .offset( math.floor(random.random() * length)).first() for _ in range(27) ]
-
-    print(words)
     data = []
     for w in words:
         if w:
