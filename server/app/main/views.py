@@ -55,7 +55,7 @@ def retrieve_words():
 @main.route("/bank")
 @login_required
 def retrieve_words_clean():
-    words = Word.query.all()
+    words = Word.query.filter_by(group=current_user.group.name).all()
     result = ""
     for w in words:
         result += f"{w.word}, "
@@ -66,4 +66,4 @@ def retrieve_words_clean():
 @main.route("/count")
 @login_required
 def words_count():
-    return str(db.session.query(Word).count())
+    return str(len(Word.query.filter_by(group=current_user.group.name).all))
