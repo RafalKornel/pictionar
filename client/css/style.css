@@ -338,6 +338,10 @@ i {
         background-repeat: no-repeat;
     }
 
+    main {
+        height: auto;
+    }
+
     #title {
         text-align: center;
         margin-bottom: 0;
