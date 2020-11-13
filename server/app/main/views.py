@@ -42,9 +42,11 @@ def add_word():
 @main.route("/words")
 @login_required
 def retrieve_words():
-    length = db.session.query(Word).count()
+    length = len(Word.query.filter_by(group=current_user.group.name).all())
     words = [ Word.query.filter_by(group=current_user.group.name)
                   .offset( math.floor(random.random() * length)).first() for _ in range(27) ]
+
+    print(words)
     data = []
     for w in words:
         if w:
