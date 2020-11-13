@@ -24,10 +24,10 @@ def add_word():
     added_words = []
 
     for w in words:
-        if validate_word(w) and not Word.query.filter_by(word=w).first():
+        if validate_word(w) and not Word.query.filter_by(group=current_user.group.name).filter_by(word=w).first():
             added_words.append(w)
 
-            word = Word(word=w, user_id=current_user.get_id())
+            word = Word(word=w, user_id=current_user.get_id(), group=current_user.group.name)
             db.session.add(word)
         db.session.commit()
 
@@ -43,10 +43,12 @@ def add_word():
 @login_required
 def retrieve_words():
     length = db.session.query(Word).count()
-    words = [ Word.query.offset( math.floor(random.random() * length)).first() for _ in range(27) ]
+    words = [ Word.query.filter_by(group=current_user.group.name)
+                  .offset( math.floor(random.random() * length)).first() for _ in range(27) ]
     data = []
     for w in words:
-        data.append( w.format() )
+        if w:
+            data.append( w.format() )
     
     return jsonify(data)
 

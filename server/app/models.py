@@ -46,8 +46,9 @@ class Group(db.Model):
 class Word(db.Model):
     __tablename__ = "words"
     id = db.Column(db.Integer, primary_key=True)
-    word = db.Column(db.String(30), unique=True, nullable=False)
+    word = db.Column(db.String(30), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    group = db.Column(db.String(30))
 
     def format(self):
         return {"word": self.word,
