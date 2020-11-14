@@ -60,7 +60,7 @@ def retrieve_words_clean():
     for w in words:
         result += f"{w.word}, "
     
-    return result
+    return jsonify(result)
 
 
 @main.route("/count")

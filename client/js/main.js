@@ -12,6 +12,7 @@ const wordsCounter          = document.querySelector("#num");
 const addedWordsContainer   = document.querySelector("#addedWordsContainer")
 const addedWords            = document.querySelector("#addedWords");
 const msgElements           = document.getElementsByClassName("message");
+const retrieveWords         = document.querySelector("#retrievedWords");
 
 let RAF;
 let speed = 1;
@@ -144,7 +145,19 @@ loginForm.addEventListener("submit", (event) => {
 
 
 getWordsButton.addEventListener("click", () => {
-    window.open("bank");
+    fetch("/bank")
+    .then( res => res.json() )
+    .then( data => {
+        let el = document.createElement("textarea");
+        el.value = data;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand("copy");
+        document.body.removeChild(el);
+        retrieveWords.classList.remove("hidden");
+        setTimeout( () => retrieveWords.classList.add("hidden"), 5000)
+    })
+    .catch( err => console.error(err) )
 })
 
 
