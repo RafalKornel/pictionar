@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+:root {
+  --gradient-light: #EE964B;
+  --gradient-dark: #F95738;
+  --text-color: #FAF0CA;
+  --form-color: #0D3B66;
+  --input-color: #F4D35E;
+    
+  --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 70%);
+}
+
+
+.bcg {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--bcg);
+  background-attachment: fixed;
+}

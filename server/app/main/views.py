@@ -10,7 +10,7 @@ import random, math
 def index():
     if current_user.is_authenticated:
         logout_user()
-    return render_template("index.html")
+    return "hello"
 
 @main.route("/add", methods=["POST"])
 @login_required
