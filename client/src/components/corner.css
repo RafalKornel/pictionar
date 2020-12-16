@@ -1,0 +1,34 @@
+.corner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    clip-path: url(#smallClip);
+    transition: transform 300ms ease;
+}
+
+.animationContainer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 632px;
+    height: 553px;
+    overflow: hidden;
+}
+
+.outer {
+    background-image: var(--bcg);
+    background-attachment: fixed;
+
+    z-index: 2;
+}
+
+.inner {
+    width: 99%;
+    height: 99%;
+    background-color: var(--form-color);
+    background-attachment: fixed;
+
+    z-index: 0;
+}
