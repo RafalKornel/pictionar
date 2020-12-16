@@ -2,13 +2,13 @@ import "./info.css"
 
 function Info() {
     return (
-        <article id="info">
+        <article className="info">
                 <ul>
                     <li>
                         <h2>
                             - This app allows you to create and
                             store words dictionary. First, you have to
-                            log in, or <a href="/register" style={{textDecoration: "none"}}>register</a>, if you don't have an account.
+                            log in, or register, if you don't have an account.
                         </h2>
                     </li>
                     <li>

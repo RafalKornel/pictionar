@@ -1,18 +1,3 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-
 :root {
   --gradient-light: #EE964B;
   --gradient-dark: #F95738;
@@ -23,12 +8,57 @@ code {
   --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 70%);
 }
 
+body {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bcg);
+  background-attachment: fixed;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  position: absolute;
+  height: 100vh;
+}
+
+.logo {
+  font-size: 100px;
+  line-height: 70px;
+  margin: 3rem;
+  cursor: default;
+  user-select: none;
+}
 
 .bcg {
   position: absolute;
   top: 0;
   width: 100vw;
   height: 100vh;
-  background: var(--bcg);
-  background-attachment: fixed;
+}
+
+.defaultScreen {
+  display: flex;
+}
+
+.info {
+  margin: auto 3rem;
+  margin-right: 10%;
+  flex: 1;
+  font-size: 1.2em;
+}
+
+.info ul{
+  padding-left: 0;
+  list-style: none;
+}
+
+.info li {
+  margin: 20px 0;
 }

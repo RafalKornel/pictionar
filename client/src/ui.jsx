@@ -1,8 +1,8 @@
 import React from "react"
 import './index.css';
 import Info from "./components/info"
-import LoginForm from "./components/login"
-import Corner from "./components/corner"
+import Corner from "./components/corner/"
+import LoginManager from "./components/loginManager/"
 
 class UI extends React.Component {
   constructor(props) {
@@ -11,8 +11,8 @@ class UI extends React.Component {
     this.changeStatus = this.changeStatus.bind(this);
     this.switch = this.switch.bind(this);
 
-    this.state = { 
-      loggedIn: false, 
+    this.state = {
+      loggedIn: false,
       switched: false,
     };
   }
@@ -26,16 +26,18 @@ class UI extends React.Component {
   }
 
   render() {
-    return this.state.loggedIn ? 
-    <LoggedScreen switched={this.state.switched} logout={this.changeStatus} switch={this.switch} /> 
-      : 
-    <DefaultScreen login={this.changeStatus} />
+    return this.state.loggedIn ?
+      <LoggedScreen switched={this.state.switched} logout={this.changeStatus} switch={this.switch} />
+      :
+      <DefaultScreen login={this.changeStatus} />
   }
 }
 
 function LoggedScreen(props) {
   return (
     <div className="bcg">
+      <Logo />
+
       <h1>Logged in</h1>
       <button type="button" onClick={props.logout}>Logout</button>
       <button type="button" onClick={props.switch}>switch</button>
@@ -46,12 +48,18 @@ function LoggedScreen(props) {
 
 function DefaultScreen(props) {
   return (
-    <div className="defaultScreen bcg">
-      <Info />
-      <LoginForm onLogin={props.login} />
+    <div>
+      <Logo />
+      <div className="defaultScreen bcg">
+        <Info />
+        <LoginManager onClick={props.login} />
+      </div>
     </div>
   )
 }
 
+function Logo() {
+  return <h1 className="logo">KALAMBURY</h1>;
+}
 
 export default UI;
