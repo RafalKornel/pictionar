@@ -11,6 +11,7 @@
     padding: 3em;
 
     background-color: var(--form-color);
+    color: var(--text-color);
 }
 
 .formField {
@@ -46,21 +47,6 @@
     outline: none;
 }
 
-.loginWindow button {
-    outline: none;
-    border-radius: 3px;
-    border: none;
-}
-
-.submitButton {
-    background-color: var(--input-color);
-    color: var(--form-color);
-    font-size: 1.15em;
-    width: 100px;
-    height: 30px;
-    margin-left: auto;  
-    margin-bottom: auto;
-}
 
 .loginWindow .switch {
     position: relative;

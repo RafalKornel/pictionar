@@ -1,0 +1,35 @@
+.wordsForm {
+    background-color: var(--form-color);
+    color: var(--text-color);
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 10px;
+    width: 25em;
+    padding: 3em;
+    margin: 0 auto;
+}
+
+.wordsForm textarea {
+    margin-left: 10%;
+    margin-top: 1em;
+    height: 12em;
+    width: 90%;
+    resize: none;
+    border: none;
+    outline: none;
+    background-color: var(--form-color);
+    color: var(--text-color);
+    font-size: 1.1em;
+}
+
+.wordsForm .bar {
+    width: 90%;
+    height: 6px;
+    transition: 150ms all ease;
+    background-color: var(--input-color);
+    border-radius: 9px;
+    margin-left: auto;
+    margin-bottom: 1em;
+}

@@ -1,0 +1,8 @@
+.wordsInfo {
+    text-align: center;
+    margin: auto;
+}
+
+.wordsInfo__count {
+    color: var(--form-color);
+}

@@ -36,7 +36,7 @@ code {
   user-select: none;
 }
 
-.bcg {
+.app {
   position: absolute;
   top: 0;
   width: 100vw;
@@ -45,6 +45,27 @@ code {
 
 .defaultScreen {
   display: flex;
+}
+
+.mainScreen {
+  display: flex;
+  padding-right: 20%;
+}
+
+.mainScreen section {
+  flex: 1;
+  margin: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+article {
+  margin: 0 3em;
+  text-align: center;
+}
+
+section {
+  z-index: 2;
 }
 
 .info {
@@ -61,4 +82,62 @@ code {
 
 .info li {
   margin: 20px 0;
+}
+
+button {
+  outline: none;
+  border-radius: 3px;
+  border: none;
+  transition: 300ms all ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.getWordsButton {
+  height: 100px;
+  background-color: var(--input-color);
+  color: var(--form-color);
+  border: none;
+  border-radius: 12px;
+  font-size: 36px;
+  margin: 0 30px;
+  width: 10em;
+}
+
+.getWordsButton:focus {
+  outline: none;
+}
+
+.submitButton {
+  background-color: var(--input-color);
+  color: var(--form-color);
+  font-size: 1.15em;
+  width: 100px;
+  height: 30px;
+  margin-left: auto;  
+  margin-bottom: auto;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0.5em;
+  text-align: right;
+  font-size: 0.9em;
+  color: var(--form-color);
+  z-index: 3;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--form-color);
+  font-size: 1.4em;
+  font-weight: bold;
 }

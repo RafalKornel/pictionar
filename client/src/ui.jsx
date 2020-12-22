@@ -1,46 +1,67 @@
 import React from "react"
 import './index.css';
 import Info from "./components/info"
+import Tutorial from "./components/tutorial"
 import Corner from "./components/corner/"
 import LoginManager from "./components/loginManager/"
+import WordsForm from "./components/wordsForm"
+import WordsInfo from "./components/wordsInfo"
+import Footer from "./components/footer"
 
 class UI extends React.Component {
   constructor(props) {
     super(props);
 
     this.changeStatus = this.changeStatus.bind(this);
-    this.switch = this.switch.bind(this);
+    this.switchCorner = this.switchCorner.bind(this);
 
     this.state = {
       loggedIn: false,
-      switched: false,
+      opened: false,
     };
   }
 
   changeStatus() {
     this.setState(state => ({ loggedIn: !state.loggedIn }));
+    setTimeout(() => this.switchCorner(), 0);
   }
 
-  switch() {
-    this.setState(state => ({ switched: !state.switched }));
+  switchCorner() {
+    this.setState(state => ({ opened: !state.opened }));
   }
 
   render() {
-    return this.state.loggedIn ?
-      <LoggedScreen switched={this.state.switched} logout={this.changeStatus} switch={this.switch} />
+    let content = this.state.loggedIn ?
+      <LoggedScreen switched={this.state.opened} logout={this.changeStatus} switch={this.switchCorner} />
       :
       <DefaultScreen login={this.changeStatus} />
+    return (
+      <div className="app">
+        <Logo />
+        { content }
+        <Footer />
+      </div>
+    )
   }
 }
 
 function LoggedScreen(props) {
   return (
-    <div className="bcg">
-      <Logo />
+    <div className="mainScreen bcg">
+      <div style={{ position: "absolute", bottom: "10px", left: 0 }}>
+        <h1>Logged in</h1>
+        <button type="button" onClick={props.logout}>Logout</button>
+        <button type="button" onClick={props.switch}>switch</button>
+      </div>
 
-      <h1>Logged in</h1>
-      <button type="button" onClick={props.logout}>Logout</button>
-      <button type="button" onClick={props.switch}>switch</button>
+      <section>
+        <Tutorial />
+        <WordsForm />
+      </section>
+      <section>
+        <WordsInfo />
+      </section>
+
       <Corner switched={props.switched} />
     </div>
   );
@@ -48,13 +69,10 @@ function LoggedScreen(props) {
 
 function DefaultScreen(props) {
   return (
-    <div>
-      <Logo />
       <div className="defaultScreen bcg">
         <Info />
         <LoginManager onClick={props.login} />
       </div>
-    </div>
   )
 }
 
