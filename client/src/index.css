@@ -92,6 +92,7 @@ button {
   border-radius: 3px;
   border: none;
   transition: 300ms all ease;
+  font-weight: bold;
 }
 
 button:hover {
