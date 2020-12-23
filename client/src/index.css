@@ -1,0 +1,146 @@
+:root {
+  --gradient-light: #EE964B;
+  --gradient-dark: #F95738;
+  --text-color: #FAF0CA;
+  --form-color: #0D3B66;
+  --input-color: #F4D35E;
+    
+  --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 70%);
+}
+
+body {
+  margin: 0;
+  font-family: 'Rubik', sans-serif;
+  color: var(--text-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--bcg);
+  background-attachment: fixed;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+#root {
+  position: absolute;
+  height: 100vh;
+}
+
+.logo {
+  position: absolute;
+  font-size: 100px;
+  line-height: 70px;
+  margin: 2rem;
+  cursor: default;
+  user-select: none;
+}
+
+.app {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.defaultScreen {
+  display: flex;
+  height: 100%;
+}
+
+.mainScreen {
+  display: flex;
+  height: 100%;
+  padding-right: 20%;
+}
+
+.mainScreen section {
+  flex: 1;
+  margin: auto 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+article {
+  margin: 0 3em;
+  text-align: center;
+}
+
+section {
+  z-index: 2;
+}
+
+.info {
+  margin: auto 3rem;
+  margin-right: 10%;
+  flex: 1;
+  font-size: 1.2em;
+}
+
+.info ul{
+  padding-left: 0;
+  list-style: none;
+}
+
+.info li {
+  margin: 20px 0;
+}
+
+button {
+  outline: none;
+  border-radius: 3px;
+  border: none;
+  transition: 300ms all ease;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+.getWordsButton {
+  height: 100px;
+  background-color: var(--input-color);
+  color: var(--form-color);
+  border: none;
+  border-radius: 12px;
+  font-size: 36px;
+  margin: 0 30px;
+  width: 10em;
+}
+
+.getWordsButton:focus {
+  outline: none;
+}
+
+.submitButton {
+  background-color: var(--input-color);
+  color: var(--form-color);
+  font-size: 1.15em;
+  width: 100px;
+  height: 30px;
+  margin-left: auto;  
+  margin-bottom: auto;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0.5em;
+  text-align: right;
+  font-size: 0.9em;
+  color: var(--form-color);
+  z-index: 3;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer a {
+  text-decoration: none;
+  color: var(--form-color);
+  font-size: 1.4em;
+  font-weight: bold;
+}

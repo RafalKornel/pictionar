@@ -55,10 +55,12 @@ def register_post():
         return { "csrf_token": form.csrf_token.current_token }
 
     data = request.get_json()
+    print(data)
     form = RegisterForm(
         user_name=data["user_name"],
         user_pass=data["user_pass"],
-        user_pass_repeat=data["user_pass_repeat"]
+        user_pass_repeat=data["user_pass_repeat"],
+        secret_key=data["secret_key"]
     )
 
     if form.validate_on_submit():
@@ -72,18 +74,6 @@ def register_post():
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for("main.index"))
+        return Response(status=200)
 
-    for field, e in form.errors.items():
-        err = e[0]
-
-    return render_template(
-        "register.html",
-        csrf_token = form.csrf_token,
-        message = err
-    )
-
-@auth.route("/register", methods=["GET"])
-def register_get():
-    form = RegisterForm()
-    return render_template("register.html", csrf_token=form.csrf_token)
+    return Response(status=400)
