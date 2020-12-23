@@ -20,11 +20,13 @@ class LoginForm extends React.Component {
         fetch("/api/login", {
             method: "GET",
         })
-        .then(res => {
-            if (res.ok) return res.json() })
-        .then(data => this.setState({ csrf: data.csrf_token })
-        )
-        .catch(err => console.error(err));
+            .then(res => {
+                if (res.ok) return res.json()
+            })
+            .then(data => {
+                this.setState({ csrf: data.csrf_token })
+            })
+            .catch(err => console.error(err));
     }
 
     handleChange(e) {
@@ -42,7 +44,6 @@ class LoginForm extends React.Component {
 
         let options = {
             method: "POST",
-            mode: "cors",
             headers: {
                 "Content-Type": "application/json",
                 "X-CSRF-TOKEN": this.state.csrf,
@@ -51,27 +52,29 @@ class LoginForm extends React.Component {
         }
 
         fetch("/api/login", options)
-        .then(res => {
-            if (!res.ok) {
-                this.setState({ errorMessage: "Something went wrong!"});
-                return;
-            }
+            .then(res => {
+                if (!res.ok) {
+                    this.setState({ errorMessage: "Something went wrong!" });
+                    return;
+                }
+                this.props.onLogin();
+            })
+            .catch(err => console.error(err));
 
-            this.props.onLogin();
-        });
     }
 
     render() {
+        console.log(this.state);
         return (
             <div>
                 <form onSubmit={this.handleSubmit} id="loginForm" autoComplete="off">
                     <FormField id="name" value={this.state.name} onChange={this.handleChange} class="loginField" name="user_name" type="text" >Login: </FormField>
                     <FormField id="password" value={this.state.password} onChange={this.handleChange} class="passwordField" name="user_pass" type="password" >Password: </FormField>
 
-                    <p className="errorMessage">{this.state.errorMessage}</p>
-                    
-                    <button type="submit" className="submitButton">Submit</button>
-
+                    <div className="buttonErrorWrapper">
+                        <p className="errorMessage">{this.state.errorMessage}</p>
+                        <button type="submit" className="submitButton">Submit</button>
+                    </div>
 
                 </form>
             </div>

@@ -22,7 +22,7 @@ class LoginManager extends React.Component {
     }
 
     render() {
-        const form = this.state.tab === "login" ? <LoginForm onLogin={this.props.onClick} /> : <RegisterForm />
+        const form = this.state.tab === "login" ? <LoginForm onLogin={this.props.onLogin} /> : <RegisterForm />
         const registerActive = this.state.tab === "register" ? "active" : "";
         const loginActive = this.state.tab === "login" ? "active" : "";
         return (

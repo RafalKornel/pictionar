@@ -9,15 +9,21 @@ from ..models import User, Group
 from .. import db
 
 
+@auth.route("/check")
+def check_if_logged():
+    print("User authenticated: ", current_user.is_authenticated)
+    return { "logged": current_user.is_authenticated }
+
+
 @auth.route("/login", methods=["GET", "POST"])
 def login():
-
-    if current_user.is_authenticated:
-        logout_user()
 
     if request.method == "GET":
         form = LoginForm()
         return { "csrf_token": form.csrf_token.current_token }
+
+    if current_user.is_authenticated:
+        return Response(status=200)
 
 
     data = request.get_json()
@@ -36,13 +42,25 @@ def login():
 @auth.route("/logout")
 @login_required
 def logout():
+    print("logging out")
     logout_user()
-    return redirect(url_for("main.index"))
+    return { "logged": "false" };
 
 
-@auth.route("/register", methods=["POST"])
+@auth.route("/register", methods=["GET", "POST"])
 def register_post():
-    form = RegisterForm()
+
+    if request.method == "GET":
+        form = RegisterForm()
+        return { "csrf_token": form.csrf_token.current_token }
+
+    data = request.get_json()
+    form = RegisterForm(
+        user_name=data["user_name"],
+        user_pass=data["user_pass"],
+        user_pass_repeat=data["user_pass_repeat"]
+    )
+
     if form.validate_on_submit():
         group = Group.query.filter_by(key=form.secret_key.data).first()
 

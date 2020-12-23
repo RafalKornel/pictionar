@@ -8,19 +8,19 @@
     border-radius: 10px;
     margin: auto;
     margin-right: 5em;
-    padding: 3em;
+    padding: 2.6em;
 
     background-color: var(--form-color);
     color: var(--text-color);
 }
 
 .formField {
-    margin: 1em 0;
+    margin: 0.9em 0;
 }
 
 .formField input {
     margin-left: 10%;
-    line-height: 2em;
+    line-height: 1.8em;
     border: none;
     outline: none;
     background-color: var(--form-color);
@@ -47,11 +47,21 @@
     outline: none;
 }
 
+.buttonErrorWrapper {
+    display: flex;
+    margin: 0.5em 0;
+}
+
+.errorMessage {
+    color: red;
+    margin: auto;
+    line-height: 100%;
+}
 
 .loginWindow .switch {
     position: relative;
     width: 100%;
-    margin-top: 4em;
+    margin-top: 1em;
     display: flex;
 }
 
@@ -67,6 +77,10 @@
     font-size: 1.8em;
     color: var(--input-color);
     font-weight: bold;
+}
+
+.loginWindow .switch > .active:hover {
+    transform: none;
 }
 
 .loginWindow .switch .divisor {

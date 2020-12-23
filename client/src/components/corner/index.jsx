@@ -35,6 +35,7 @@ class Corner extends React.Component {
         // test messages
         fetch("/api/words")
         .then(res => {
+            console.log(res);
             if (res.ok) return res.json();
         })
         .then(data => {
