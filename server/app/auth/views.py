@@ -1,3 +1,4 @@
+from flask.helpers import make_response
 from flask.templating import render_template
 from flask_login.utils import login_required
 from . import auth
@@ -7,10 +8,17 @@ from flask_login import login_user, logout_user, current_user
 from ..models import User, Group
 from .. import db
 
-@auth.route("/login", methods=["POST"])
+
+@auth.route("/login", methods=["GET", "POST"])
 def login():
+
     if current_user.is_authenticated:
         logout_user()
+
+    if request.method == "GET":
+        form = LoginForm()
+        return { "csrf_token": form.csrf_token.current_token }
+
 
     data = request.get_json()
     form = LoginForm(

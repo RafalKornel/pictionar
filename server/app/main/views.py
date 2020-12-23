@@ -6,11 +6,6 @@ from ..models import User, Word
 from .utilities import validate_word, clean_input
 import random, math
 
-@main.route("/")
-def index():
-    if current_user.is_authenticated:
-        logout_user()
-    return "hello"
 
 @main.route("/add", methods=["POST"])
 @login_required

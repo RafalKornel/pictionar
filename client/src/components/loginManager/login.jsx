@@ -12,7 +12,19 @@ class LoginForm extends React.Component {
             name: "",
             password: "",
             errorMessage: "",
+            csrf: "",
         };
+    }
+
+    componentDidMount() {
+        fetch("/api/login", {
+            method: "GET",
+        })
+        .then(res => {
+            if (res.ok) return res.json() })
+        .then(data => this.setState({ csrf: data.csrf_token })
+        )
+        .catch(err => console.error(err));
     }
 
     handleChange(e) {
@@ -22,8 +34,31 @@ class LoginForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state);
-        this.props.onLogin();
+
+        let data = {
+            user_name: this.state.name,
+            user_pass: this.state.password,
+        }
+
+        let options = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": this.state.csrf,
+            },
+            body: JSON.stringify(data),
+        }
+
+        fetch("/api/login", options)
+        .then(res => {
+            if (!res.ok) {
+                this.setState({ errorMessage: "Something went wrong!"});
+                return;
+            }
+
+            this.props.onLogin();
+        });
     }
 
     render() {

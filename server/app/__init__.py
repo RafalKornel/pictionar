@@ -1,4 +1,5 @@
 from flask import Flask
+from flask.helpers import url_for
 from flask_login import login_manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -23,7 +24,7 @@ def create_app(config_name):
     from .main import main as main_blueprint
     from .auth import auth as auth_blueprint
 
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(main_blueprint, url_prefix="/api")
+    app.register_blueprint(auth_blueprint, url_prefix="/api")
 
     return app
