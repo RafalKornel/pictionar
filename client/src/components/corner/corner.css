@@ -17,18 +17,60 @@
     overflow: hidden;
 }
 
-.outer {
+.corner__background {
     background-image: var(--bcg);
     background-attachment: fixed;
 
     z-index: 2;
 }
 
-.inner {
+.corner__slider {
     width: 99%;
     height: 99%;
     background-color: var(--form-color);
     background-attachment: fixed;
+    display: flex;
 
     z-index: 0;
+}
+
+.messagesWrapper {
+    display: flex;
+    transform-origin: top left;
+    transform: rotate(-41deg) translate(-60%, 76%);
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.panel {
+    position: relative;
+    min-width: 200px;
+    width: max-content;
+    height: 70px;
+    z-index: 2;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+
+    background-color: var(--input-color);
+    color: var(--form-color);
+}
+
+.panel p {
+    margin: 5px 10px;
+}
+
+.panel__word {
+    font-size: 1.6em;
+    text-align: left;
+}
+
+.panel__author {
+    font-size: 1.3em;
+    text-align: right;
 }

@@ -3,6 +3,10 @@
     margin: auto;
 }
 
+.wordsInfo button {
+    margin-bottom: 15%;
+}
+
 .wordsInfo__count {
     color: var(--form-color);
 }

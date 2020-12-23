@@ -11,8 +11,6 @@ class WordsInfo extends React.Component {
         }
     }
 
-
-
     render() {
         return (
             <div className="wordsInfo">

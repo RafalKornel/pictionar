@@ -1,5 +1,6 @@
-import "./corner.css"
-import React from "react"
+import "./corner.css";
+import Panel from "./panel";
+import React from "react";
 
 function SVGPath() {
     return (
@@ -18,6 +19,15 @@ function SVGPath() {
 class Corner extends React.Component {
     constructor(props) {
         super(props);
+
+        this.fetchMessages = this.fetchMessages.bind(this);
+
+        this.animationSpeed = 1;
+    }
+
+    fetchMessages() {
+        // test messages
+        return Array(21).fill(0).map( (e, i) => (<Panel author="rafal" word="test" speed={this.animationSpeed} />) );
     }
 
     render() {
@@ -25,12 +35,34 @@ class Corner extends React.Component {
             transform: "translate(200px, 200px)"
         } : {};
 
+        const messages = this.fetchMessages();
+        const firstRowData = messages.filter( (e, i) => i % 3 == 0 )
+        const secondRowData = messages.filter( (e, i) => i % 3 == 1 )
+        const thirdRowData = messages.filter( (e, i) => i % 3 == 2 )
+
+
         return (
-            <div>
+            <div className="animationContainer">
                 <SVGPath />
-                <div className="animationContainer">
-                    <div className="corner outer" style={moved}></div>
-                    <div className="corner inner"></div>
+
+                <div className="corner corner__background" style={moved}> </div>
+                <div className="corner corner__slider">
+
+
+                    <div className="messagesWrapper">
+                        <div className="row">
+                            {firstRowData}
+                        </div>
+
+                        <div className="row" style={{ transform: "translate(300px, 0)"}}>
+                            {secondRowData}
+                        </div>
+
+                        <div className="row">
+                            {thirdRowData}
+                        </div>
+                    </div>
+
                 </div>
             </div>
         )
