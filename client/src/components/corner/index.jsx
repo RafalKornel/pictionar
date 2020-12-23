@@ -23,23 +23,47 @@ class Corner extends React.Component {
         this.fetchMessages = this.fetchMessages.bind(this);
 
         this.animationSpeed = 1;
+
+        this.state = {
+            firstRowData: [],
+            secondRowData: [],
+            thirdRowData: [],
+        }
     }
 
     fetchMessages() {
         // test messages
-        return Array(21).fill(0).map( (e, i) => (<Panel author="rafal" word="test" speed={this.animationSpeed} />) );
+        fetch("/api/words")
+        .then(res => {
+            if (res.ok) return res.json();
+        })
+        .then(data => {
+            return data.map( ({user, word}, i) => (<Panel author={user} word={word} speed={this.animationSpeed} key={i} />) );
+        })
+        .then(panels => {
+            let panelsSorted = [ [], [], [] ];
+            panels.forEach(panel => {
+                let i = panel.key % 3;
+                panelsSorted[i].push(panel);
+            });
+
+            this.setState({
+                firstRowData: panelsSorted[0],
+                secondRowData: panelsSorted[1],
+                thirdRowData: panelsSorted[2],
+            });
+        })
+        .catch(err => console.error(err));
+    }
+
+    componentDidMount() {
+        this.fetchMessages();
     }
 
     render() {
         const moved = this.props.switched ? {
             transform: "translate(200px, 200px)"
         } : {};
-
-        const messages = this.fetchMessages();
-        const firstRowData = messages.filter( (e, i) => i % 3 == 0 )
-        const secondRowData = messages.filter( (e, i) => i % 3 == 1 )
-        const thirdRowData = messages.filter( (e, i) => i % 3 == 2 )
-
 
         return (
             <div className="animationContainer">
@@ -51,15 +75,15 @@ class Corner extends React.Component {
 
                     <div className="messagesWrapper">
                         <div className="row">
-                            {firstRowData}
+                            {this.state.firstRowData}
                         </div>
 
                         <div className="row" style={{ transform: "translate(300px, 0)"}}>
-                            {secondRowData}
+                            {this.state.secondRowData}
                         </div>
 
                         <div className="row">
-                            {thirdRowData}
+                            {this.state.thirdRowData}
                         </div>
                     </div>
 
