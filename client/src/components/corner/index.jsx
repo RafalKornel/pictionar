@@ -20,51 +20,22 @@ class Corner extends React.Component {
     constructor(props) {
         super(props);
 
-        this.fetchMessages = this.fetchMessages.bind(this);
-
         this.animationSpeed = 1;
-
-        this.state = {
-            firstRowData: [],
-            secondRowData: [],
-            thirdRowData: [],
-        }
     }
 
-    fetchMessages() {
-        // test messages
-        fetch("/api/words")
-        .then(res => {
-            console.log(res);
-            if (res.ok) return res.json();
-        })
-        .then(data => {
-            return data.map( ({user, word}, i) => (<Panel author={user} word={word} speed={this.animationSpeed} key={i} />) );
-        })
-        .then(panels => {
-            let panelsSorted = [ [], [], [] ];
-            panels.forEach(panel => {
-                let i = panel.key % 3;
-                panelsSorted[i].push(panel);
-            });
-
-            this.setState({
-                firstRowData: panelsSorted[0],
-                secondRowData: panelsSorted[1],
-                thirdRowData: panelsSorted[2],
-            });
-        })
-        .catch(err => console.error(err));
-    }
-
-    componentDidMount() {
-        this.fetchMessages();
-    }
 
     render() {
         const moved = this.props.switched ? {
             transform: "translate(200px, 200px)"
         } : {};
+
+        let panelsSorted = [ [], [], [] ];
+        let panels = this.props.messages.map( ({user, word}, i) => (<Panel author={user} word={word} speed={this.animationSpeed} key={i} />) );
+        
+        panels.forEach(panel => {
+            let i = panel.key % 3;
+            panelsSorted[i].push(panel);
+        });
 
         return (
             <div className="animationContainer">
@@ -76,15 +47,15 @@ class Corner extends React.Component {
 
                     <div className="messagesWrapper">
                         <div className="row">
-                            {this.state.firstRowData}
+                            {panelsSorted[0]}
                         </div>
 
                         <div className="row" style={{ transform: "translate(300px, 0)"}}>
-                            {this.state.secondRowData}
+                            {panelsSorted[1]}
                         </div>
 
                         <div className="row">
-                            {this.state.thirdRowData}
+                            {panelsSorted[2]}
                         </div>
                     </div>
 

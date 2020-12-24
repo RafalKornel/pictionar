@@ -52,30 +52,29 @@ class UI extends React.Component {
     fetch("/api/logout", {
       method: "GET"
     })
-    .then(res => {
-      if (res.ok) {
-        this.setState({ loggedIn: false });
-      }
-    })
-    .catch(err => console.error(err));
+      .then(res => {
+        if (res.ok) {
+          this.setState({ loggedIn: false });
+        }
+      })
+      .catch(err => console.error(err));
   }
 
   switchCorner() {
     setInterval(
       () => { this.setState(state => ({ opened: state.loggedIn })) }
-    , 0)
+      , 0)
   }
 
 
   render() {
-    let content = this.state.loggedIn ?
-      <LoggedScreen switched={this.state.opened} onLogout={this.onLogout} switch={this.switchCorner} />
-      :
-      <DefaultScreen onLogin={this.onLogin} />
+    let content = this.state.loggedIn 
+      ? <LoggedScreen switched={this.state.opened} onLogout={this.onLogout} />
+      : <DefaultScreen onLogin={this.onLogin} />
     return (
       <div className="app">
         <Logo />
-        { content }
+        { content}
         <Footer />
       </div>
     )
@@ -99,29 +98,82 @@ class LogoutButton extends React.Component {
       color: "var(--input-color)",
       backgroundColor: "var(--form-color)"
     }
-    return(<button onClick={this.props.onLogout} type="button" className="submitButton" style={style}>Logout</button>);
+    return (<button onClick={this.props.onLogout} type="button" className="submitButton" style={style}>Logout</button>);
   }
 }
 
 class LoggedScreen extends React.Component {
   constructor(props) {
     super(props);
+
+    this.addedNewWords = this.addedNewWords.bind(this);
+    this.setSuccessMessage = this.setSuccessMessage.bind(this);
+
+    this.state = {
+      count: 0,
+      messages: [],
+      copySuccess: "",
+      newWords: [],
+    }
+  }
+
+  addedNewWords(words) {
+    this.setState({ newWords: words });
+    setTimeout(() => this.setState({ newWords: "" }), 5000);
+    this.fetchWordsCount();
+    this.fetchWordsForSlider();
+  }
+
+  setSuccessMessage() {
+    this.setState({ copySuccess: "Database words have been copied to clipboard."});
+    setTimeout( () => this.setState({ copySuccess: "" }), 5000);
+  }
+
+  fetchWordsForSlider() {
+    fetch("/api/words")
+      .then(res => {
+        console.log(res);
+        if (res.ok) return res.json();
+      })
+      .then(data => {
+        this.setState({ messages: data });
+      })
+      .catch(err => console.error(err));
+  }
+
+  fetchWordsCount() {
+    fetch("/api/count")
+      .then(res => {
+        if (res.ok) return res.text()
+      })
+      .then(text => this.setState({ count: text }))
+      .catch(err => console.error(err));
+  }
+
+  componentDidMount() {
+    this.fetchWordsForSlider();
+    this.fetchWordsCount();
   }
 
   render() {
     return (
       <div className="mainScreen bcg">
-          <LogoutButton onLogout={this.props.onLogout} />
+        <LogoutButton onLogout={this.props.onLogout} />
 
         <section>
           <Tutorial />
-          <WordsForm />
+          <WordsForm addedNewWords={this.addedNewWords} />
         </section>
         <section>
-          <WordsInfo />
+          <WordsInfo
+            newWords={this.state.newWords}
+            wordsCount={this.state.count}
+            copySuccess={this.state.copySuccess}
+            setSuccessMessage={this.setSuccessMessage}
+          />
         </section>
 
-        <Corner switched={this.props.switched} />
+        <Corner switched={this.props.switched} messages={this.state.messages} />
       </div>
     );
   }
