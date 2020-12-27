@@ -4,7 +4,7 @@ from flask_login import login_manager
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
-from config import config
+from ..config import config
 
 db = SQLAlchemy()
 csrf = CSRFProtect()
@@ -12,7 +12,8 @@ login_manager = LoginManager()
 
 
 def create_app(config_name):
-    app = Flask(__name__, static_folder="../../client/public")
+    print(os.path.abspath("client/build"))
+    app = Flask(__name__, static_folder=os.path.abspath("client/build"), static_url_path="/")
     app.config.from_object(config[config_name])
 
     db.init_app(app)
@@ -24,5 +25,9 @@ def create_app(config_name):
 
     app.register_blueprint(main_blueprint, url_prefix="/api")
     app.register_blueprint(auth_blueprint, url_prefix="/api")
+
+    @app.route("/")
+    def index():
+        return app.send_static_file("index.html")
 
     return app
