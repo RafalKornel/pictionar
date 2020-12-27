@@ -35,3 +35,10 @@
     margin-left: auto;
     margin-bottom: 1em;
 }
+
+@media screen and (max-width: 1100px) {
+    .wordsForm {
+        width: 80%;
+        padding: 2em;
+      }
+}

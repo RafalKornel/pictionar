@@ -87,18 +87,7 @@ class LogoutButton extends React.Component {
   }
 
   render() {
-    const style = {
-      position: "absolute",
-      top: "1.5rem",
-      right: "1.5rem",
-      width: "6em",
-      height: "2em",
-      fontSize: "1.1em",
-      borderRadius: "10px",
-      color: "var(--input-color)",
-      backgroundColor: "var(--form-color)"
-    }
-    return (<button onClick={this.props.onLogout} type="button" className="submitButton" style={style}>Logout</button>);
+    return (<button onClick={this.props.onLogout} type="button" className="submitButton logoutButton">Logout</button>);
   }
 }
 

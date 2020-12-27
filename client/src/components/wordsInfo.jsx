@@ -16,7 +16,7 @@ class WordsInfo extends React.Component {
                     {addedWordsMessage}
                     <h2>There are <span className="wordsInfo__count">{this.props.wordsCount}</span> words in database.</h2>
                     <h2>Hit the button below to get words from database</h2>
-                    <h2 style={{ color: "var(--form-color)" }}>{this.props.copySuccess}</h2>
+                    <h2 style={{ color: "var(--form-color)", fontWeight: "bold" }}>{this.props.copySuccess}</h2>
                 </article>
 
                 <GetWordsButton showSuccessMessage={this.props.setSuccessMessage} />
@@ -52,7 +52,7 @@ function NewWordsInfo(props) {
     return (
         <div>
             <h2>Following words have been added to database:</h2>
-            <h2 style={{ fontSize: "1.1em", color: "var(--form-color)" }}>{props.newWords}</h2>
+            <h2 style={{ fontSize: "1.1em", color: "var(--form-color)", fontWeight: "bold" }}>{props.newWords}</h2>
         </div>
     )
 }
