@@ -178,7 +178,7 @@ function DefaultScreen(props) {
 }
 
 function Logo() {
-  return <h1 className="logo">KALAMBURY</h1>;
+  return <h1 className="logo">PICTIONAR</h1>;
 }
 
 export default UI;
