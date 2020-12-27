@@ -1,4 +1,4 @@
-from app import create_app, db, models
+from .app import create_app, db, models
 from flask_migrate import Migrate
 from flask import request, session
 import click
