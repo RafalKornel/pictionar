@@ -1,5 +1,7 @@
 import React from "react";
 import FormField from "./formField"
+import { Wrapper, ErrorMessage, SubmitButton } from "../utilities/common";
+
 
 class RegisterForm extends React.Component {
     constructor(props) {
@@ -15,7 +17,6 @@ class RegisterForm extends React.Component {
             secretKey: "",
             errorMessage: "",
             csrf: "",
-            style: {},
         };
     }
 
@@ -73,21 +74,55 @@ class RegisterForm extends React.Component {
 
     render() {
         return (
-            <div style={this.state.style}>
-                <form onSubmit={this.handleSubmit} id="registerForm" autocomplete="off">
-                    <FormField id="name" value={this.state.name} onChange={this.handleChange} className="loginField" name="user_name" type="text" >Login: </FormField>
-                    <FormField id="password" value={this.state.password} onChange={this.handleChange} className="passwordField" name="user_pass" type="password" >Password: </FormField>
-                    <FormField id="password2" value={this.state.password2} onChange={this.handleChange} className="passwordField" name="user_pass2" type="password" >Retype password: </FormField>
-                    <FormField id="secretKey" value={this.state.secretKey} onChange={this.handleChange} className="keyField" name="secret_key" type="text" >Group key: </FormField>
+            <form 
+                onSubmit={this.handleSubmit} 
+                id="registerForm" 
+                autocomplete="off" 
+                style={this.state.style}>
+
+                <FormField 
+                    id="name" 
+                    value={this.state.name} 
+                    onChange={this.handleChange} 
+                    name="user_name" 
+                    type="text" >
+                        Login: 
+                </FormField>
+                
+                <FormField 
+                    id="password" 
+                    value={this.state.password} 
+                    onChange={this.handleChange} 
+                    name="user_pass" 
+                    type="password" >
+                        Password: 
+                </FormField>
+
+                <FormField 
+                    id="password2" 
+                    value={this.state.password2} 
+                    onChange={this.handleChange} 
+                    name="user_pass2" 
+                    type="password" >
+                        Retype password: 
+                </FormField>
+
+                <FormField 
+                    id="secretKey" 
+                    value={this.state.secretKey} 
+                    onChange={this.handleChange} 
+                    name="secret_key" 
+                    type="text" >
+                        Group key: 
+                </FormField>
 
 
-                    <div className="buttonErrorWrapper">
-                        <p className="errorMessage">{this.state.errorMessage}</p>
-                        <button type="submit" className="submitButton" onSubmit={this.handleSubmit}>Submit</button>
-                    </div>
+                <Wrapper>
+                    <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
+                    <SubmitButton type="submit">Submit</SubmitButton>
+                </Wrapper>
 
-                </form>
-            </div>
+            </form>
         );
     }
 }

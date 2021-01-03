@@ -1,5 +1,6 @@
 import React from "react";
 import FormField from "./formField"
+import { Wrapper, ErrorMessage, SubmitButton } from "../utilities/common";
 
 class LoginForm extends React.Component {
     constructor(props) {
@@ -64,20 +65,36 @@ class LoginForm extends React.Component {
     }
 
     render() {
-        console.log(this.state);
         return (
-            <div>
-                <form onSubmit={this.handleSubmit} id="loginForm" autoComplete="off">
-                    <FormField id="name" value={this.state.name} onChange={this.handleChange} class="loginField" name="user_name" type="text" >Login: </FormField>
-                    <FormField id="password" value={this.state.password} onChange={this.handleChange} class="passwordField" name="user_pass" type="password" >Password: </FormField>
+            <form 
+                onSubmit={this.handleSubmit} 
+                id="loginForm" 
+                autoComplete="off">
+       
+                <FormField 
+                    id="name" 
+                    value={this.state.name} 
+                    onChange={this.handleChange} 
+                    name="user_name" 
+                    type="text" >
+                        Login: 
+                </FormField>
+       
+                <FormField 
+                    id="password" 
+                    value={this.state.password} 
+                    onChange={this.handleChange} 
+                    name="user_pass" 
+                    type="password" >
+                        Password: 
+                </FormField>
 
-                    <div className="buttonErrorWrapper">
-                        <p className="errorMessage">{this.state.errorMessage}</p>
-                        <button type="submit" className="submitButton">Submit</button>
-                    </div>
+                <Wrapper>
+                    <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
+                    <SubmitButton type="submit">Submit</SubmitButton>
+                </Wrapper>
 
-                </form>
-            </div>
+            </form>
         );
     }
 }
