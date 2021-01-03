@@ -1,5 +1,46 @@
 import React from "react";
-import "./wordsForm.css"
+import { SubmitButton, InnerFieldWrapper, Bar as ProtoBar } from "../Utilities/common"
+import styled from "styled-components";
+
+//  < STYLE >
+const Bar = styled(ProtoBar)`
+    margin-bottom: 1em;
+`;
+
+const Form = styled.form`
+    background-color: var(--form-color);
+    color: var(--text-color);
+
+    display: flex;
+    flex-direction: column;
+
+    transition: all 400ms ease;
+
+    border-radius: 10px;
+    width: 25em;
+    padding: 3em;
+    margin: 0 auto;
+    
+    textarea {
+        margin-left: 10%;
+        margin-top: 1em;
+        height: 12em;
+        width: 90%;
+        resize: none;
+        border: none;
+        outline: none;
+        background-color: var(--form-color);
+        color: var(--text-color);
+        font-size: 1.1em;
+    }
+
+    @media screen and (max-width: 1100px) {
+        width: 80%;
+        padding: 2em;
+    }
+`;
+//  </ STYLE >
+
 
 class WordsForm extends React.Component {
     constructor(props) {
@@ -60,14 +101,29 @@ class WordsForm extends React.Component {
 
     render() {
         return(
-            <form onSubmit={this.handleSubmit} autoComplete="off" className="wordsForm">
+            <Form 
+                onSubmit={this.handleSubmit} 
+                autoComplete="off" 
+                className="wordsForm">
+
                 <label htmlFor="words">Words: </label>
-                <div className="wrapper" tabIndex="-1">
-                    <textarea onChange={this.handleChange} id="words" name="words" placeholder="Type word(s) here">{this.state.words}</textarea>
-                    <div className="bar"></div>
-                </div>
-                <button type="submit" className="submitButton" onSubmit={this.handleSubmit}>Submit</button>
-            </form>
+                <InnerFieldWrapper>
+                    <textarea 
+                        onChange={this.handleChange} 
+                        id="words" 
+                        name="words" 
+                        placeholder="Type word(s) here">
+                            {this.state.words}
+                    </textarea>
+                    <Bar />
+                </InnerFieldWrapper>
+
+                <SubmitButton 
+                    type="submit" 
+                    onSubmit={this.handleSubmit}>
+                        Submit
+                </SubmitButton>
+            </Form>
         );
     }
 }

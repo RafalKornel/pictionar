@@ -1,8 +1,9 @@
 import React from "react"
 import './global.css';
-import Footer from "./utilities/footer";
-import MainPage from "./pages/main";
-import LoginPage from "./pages/login";
+import Footer from "./Utilities/footer";
+import Logo from "./Utilities/logo";
+import MainPage from "./MainPage";
+import LoginPage from "./LoginPage";
 
 class UI extends React.Component {
   constructor(props) {
@@ -64,22 +65,18 @@ class UI extends React.Component {
 
 
   render() {
-    let screen = this.state.loggedIn
+    let page = this.state.loggedIn
       ? <MainPage switched={this.state.opened} onLogout={this.onLogout} />
       : <LoginPage onLogin={this.onLogin} />
 
     return (
       <div className="app">
         <Logo />
-        { screen}
+        { page }
         <Footer />
       </div>
     )
   }
-}
-
-function Logo() {
-  return <h1 className="logo">PICTIONAR</h1>;
 }
 
 export default UI;

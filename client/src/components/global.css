@@ -4,7 +4,6 @@
   --text-color: #FAF0CA;
   --form-color: #0D3B66;
   --input-color: #F4D35E;
-    
   --bcg: linear-gradient(135deg, var(--gradient-dark) 10%, var(--gradient-light) 70%);
 }
 
@@ -16,16 +15,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: var(--bcg);
   background-attachment: fixed;
-
-}
-
-.logo {
-  position: absolute;
-  font-size: 100px;
-  line-height: 70px;
-  margin: 2rem;
-  cursor: default;
-  user-select: none;
 }
 
 .app {
@@ -47,51 +36,43 @@ button:hover {
   transform: scale(1.1);
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  margin: 0.5em;
-  text-align: right;
-  font-size: 0.9em;
-  color: var(--form-color);
-  z-index: 3;
+article {
+  margin: 0 3em;
+  text-align: center;
 }
 
-footer p {
-  margin: 0;
+article h2 {
+  font-weight: normal;
+  font-size: 20px;
 }
 
-footer a {
-  text-decoration: none;
-  color: var(--form-color);
-  font-size: 1.4em;
-  font-weight: bold;
+section {
+  z-index: 2;
+}
+
+@media screen and (min-width: 1601px) {
+  article h2 {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  article h2 {
+    font-size: 24px;
+  }
 }
 
 @media screen and (max-width: 1100px) {
-
   html, body {
     overflow: scroll;
     background-repeat: no-repeat;
   }
-
-  .logo {
+  article {
     margin: 0;
-    margin-top: 1rem;
-    font-size: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
   }
-
-  footer {
-    text-align: center;
-    top: 5em;
-    bottom: unset;
-    height: auto;
-    left: 50%;
-    transform: translateX(-50%);
+  article h2 {
+    font-size: 18px;
+    margin: 20px 0;
+    margin-bottom: 15px;
   }
-
 }

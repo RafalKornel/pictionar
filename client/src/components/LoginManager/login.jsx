@@ -1,9 +1,8 @@
 import React from "react";
 import FormField from "./formField"
-import { Wrapper, ErrorMessage, SubmitButton } from "../utilities/common";
+import { Wrapper, ErrorMessage, SubmitButton } from "../Utilities/common";
 
-
-class RegisterForm extends React.Component {
+class LoginForm extends React.Component {
     constructor(props) {
         super(props);
 
@@ -13,22 +12,19 @@ class RegisterForm extends React.Component {
         this.state = {
             name: "",
             password: "",
-            password2: "",
-            secretKey: "",
             errorMessage: "",
             csrf: "",
         };
     }
 
     componentDidMount() {
-        fetch("/api/register", {
+        fetch("/api/login", {
             method: "GET",
         })
             .then(res => {
                 if (res.ok) return res.json()
             })
             .then(data => {
-                console.log(data);
                 this.setState({ csrf: data.csrf_token })
             })
             .catch(err => console.error(err));
@@ -45,8 +41,6 @@ class RegisterForm extends React.Component {
         let data = {
             user_name: this.state.name,
             user_pass: this.state.password,
-            user_pass_repeat: this.state.password2,
-            secret_key: this.state.secretKey,
         }
 
         let options = {
@@ -58,28 +52,25 @@ class RegisterForm extends React.Component {
             body: JSON.stringify(data),
         }
 
-        fetch("/api/register", options)
+        fetch("/api/login", options)
             .then(res => {
                 if (!res.ok) {
-                    this.setState({ errorMessage: "Something went wrong" });
-                    return
+                    this.setState({ errorMessage: "Something went wrong!" });
+                    return;
                 }
-                console.log("sucess");
+                this.props.onLogin();
             })
             .catch(err => console.error(err));
 
-        console.log(this.state);
     }
-
 
     render() {
         return (
             <form 
                 onSubmit={this.handleSubmit} 
-                id="registerForm" 
-                autocomplete="off" 
-                style={this.state.style}>
-
+                id="loginForm" 
+                autoComplete="off">
+       
                 <FormField 
                     id="name" 
                     value={this.state.name} 
@@ -88,7 +79,7 @@ class RegisterForm extends React.Component {
                     type="text" >
                         Login: 
                 </FormField>
-                
+       
                 <FormField 
                     id="password" 
                     value={this.state.password} 
@@ -97,25 +88,6 @@ class RegisterForm extends React.Component {
                     type="password" >
                         Password: 
                 </FormField>
-
-                <FormField 
-                    id="password2" 
-                    value={this.state.password2} 
-                    onChange={this.handleChange} 
-                    name="user_pass2" 
-                    type="password" >
-                        Retype password: 
-                </FormField>
-
-                <FormField 
-                    id="secretKey" 
-                    value={this.state.secretKey} 
-                    onChange={this.handleChange} 
-                    name="secret_key" 
-                    type="text" >
-                        Group key: 
-                </FormField>
-
 
                 <Wrapper>
                     <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
@@ -128,4 +100,4 @@ class RegisterForm extends React.Component {
 }
 
 
-export default RegisterForm;
+export default LoginForm;

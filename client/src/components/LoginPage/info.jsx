@@ -1,6 +1,30 @@
+import styled from "styled-components";
+
+const Wrapper = styled.article`
+    margin: auto 3rem;
+    margin-right: 10%;
+    flex: 1;
+    font-size: 1.2em;
+
+    ul {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    li {
+        margin: 20px 0;
+    }
+
+    @media screen and (max-width: 1100px) {
+        margin: 0 1em;
+        flex: unset;
+    }
+
+`;
+
 function Info() {
     return (
-        <article className="info">
+        <Wrapper>
                 <ul>
                     <li>
                         <h2>
@@ -25,7 +49,7 @@ function Info() {
                     </li>
                 </ul>
 
-        </article>
+        </Wrapper>
     )
 }
 
