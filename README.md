@@ -1,5 +1,5 @@
 # pictionar
-Simple web app, which allow you to store words for popular charades game.
+Simple web app, which allow you to store words for popular pictionary game.
 
 # TODO
 
