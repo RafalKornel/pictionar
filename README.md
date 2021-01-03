@@ -16,3 +16,4 @@ Simple web app, which allow you to store words for popular pictionary game.
 - add settings icon
 - add themes
 - ✅ rewrite styling in styled-components
+- add error handling throughout whole application
