@@ -1,7 +1,8 @@
 # pictionar
 Simple web app, which allow you to store words for popular charades game.
 
-#TODO
+# TODO
+
 - ✅	create switchable login / register component
 - ✅ create words submition form
 - ✅	create words retrieving button
@@ -11,6 +12,7 @@ Simple web app, which allow you to store words for popular charades game.
 - fix retrieving words on mobile
 - fix sliding words animation gaps
 - save credientials when registering
-- reorganize files structure
+- ✅ reorganize files structure
 - add settings icon
 - add themes
+- ✅ rewrite styling in styled-components
