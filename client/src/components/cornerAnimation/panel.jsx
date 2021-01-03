@@ -1,4 +1,34 @@
 import React from "react";
+import styled from "styled-components";
+
+const Wrapper = styled.div`
+    position: relative;
+    min-width: 200px;
+    width: max-content;
+    height: 70px;
+    z-index: 2;
+    border-radius: 9px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+
+    background-color: var(--input-color);
+    color: var(--form-color);
+
+    p {
+        margin: 5px 10px;
+    }
+`;
+
+const Word = styled.p`
+    font-size: 1.6em;
+    text-align: left;
+`;
+
+const Author = styled.p`
+    font-size: 1.3em;
+    text-align: right;
+`;
 
 class Panel extends React.Component {
     constructor(props) {
@@ -46,10 +76,10 @@ class Panel extends React.Component {
 
     render() {
         return (
-            <div className="panel" ref={this.ref} style={{ left: this.state.animationIndex }}>
-                <p className="panel__word">{this.props.word}</p>
-                <p className="panel__author">{this.props.author}</p>
-            </div>
+            <Wrapper ref={this.ref} style={{ left: this.state.animationIndex }}>
+                <Word>{this.props.word}</Word>
+                <Author>{this.props.author}</Author>
+            </Wrapper>
         )
     }
 }
