@@ -29,7 +29,6 @@
     font-size: 1.1em;
 }
 
-
 .formField .bar {
     width: 90%;
     height: 6px;
@@ -52,6 +51,16 @@
     display: flex;
     margin: 0.5em 0;
 }
+
+.submitButton {
+    background-color: var(--input-color);
+    color: var(--form-color);
+    font-size: 1.15em;
+    width: 100px;
+    height: 30px;
+    margin-left: auto;  
+    margin-bottom: auto;
+  }
 
 .errorMessage {
     color: red;

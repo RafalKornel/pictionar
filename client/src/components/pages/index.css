@@ -1,0 +1,140 @@
+.mainPage {
+    padding-right: 20%;
+}
+
+.page {
+    display: flex;
+    height: 100%;
+}
+
+.mainPage section {
+    flex: 1;
+    margin: auto 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+article {
+    margin: 0 3em;
+    text-align: center;
+}
+
+article h2 {
+    font-weight: normal;
+    font-size: 20px;
+}
+
+section {
+    z-index: 2;
+}
+
+.tutorial {
+    padding-top: 5em;
+}
+
+.info {
+    margin: auto 3rem;
+    margin-right: 10%;
+    flex: 1;
+    font-size: 1.2em;
+}
+
+.info ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.info li {
+    margin: 20px 0;
+}
+
+.getWordsButton {
+    height: 3em;
+    background-color: var(--input-color);
+    color: var(--form-color);
+    border: none;
+    border-radius: 12px;
+    font-size: 36px;
+    margin: 0 30px;
+    width: 9em;
+}
+
+.getWordsButton:focus {
+    outline: none;
+}
+
+.logoutButton {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 6em;
+    height: 2em;
+    font-size: 1.1em;
+    border-radius: 10px;
+    z-index: 2;
+    color: var(--input-color);
+    background-color: var(--form-color);
+}
+
+@media screen and (min-width: 1601px) {
+    article h2 {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 1600px) {
+    article h2 {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    article {
+        margin: 0;
+      }
+    
+      article h2 {
+        font-size: 18px;
+        margin: 20px 0;
+        margin-bottom: 15px;
+      }
+      .mainPage, .loginPage {
+        flex-direction: column;
+        margin-top: 6.5em;
+      }
+    
+      .mainPage {
+        position: relative;
+        padding: 0;
+        height: auto;
+      }
+    
+      .logoutButton {
+        font-size: 0.9em;
+        top: unset;
+        bottom: 0.5em;
+        right: unset;
+        left: 0.5em;
+        width: 4.5em;
+      }
+    
+      .getWordsButton {
+        font-size: 32px;
+        width: 6.5em;
+        height: 2em;
+      }
+    
+      .loginPage .info {
+        margin: 0 1em;
+        flex: unset;
+      }
+    
+      .loginPage article h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+    
+      .loginPage article li {
+        margin: 10px 0;
+      }
+}

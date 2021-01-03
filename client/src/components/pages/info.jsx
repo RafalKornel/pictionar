@@ -1,5 +1,3 @@
-import "./info.css"
-
 function Info() {
     return (
         <article className="info">
