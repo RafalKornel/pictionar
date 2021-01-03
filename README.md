@@ -1,4 +1,4 @@
-# kalambury_app
+# pictionar
 Simple web app, which allow you to store words for popular charades game.
 
 #TODO
