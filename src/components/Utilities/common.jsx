@@ -53,3 +53,14 @@ export const Page = styled.div`
         margin-top: 6.5em;
     }
 `;
+
+export const GroupsSelect = (props) => (
+    <select 
+        name="group" 
+        id="group" 
+        onChange={props.handleChange} 
+        value={props.group}>
+            {props.groups.map(g => (
+                <option value={g}>{g}</option> ))}
+    </select>
+);

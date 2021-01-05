@@ -9,13 +9,33 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+associations = db.Table("associations", 
+    db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
+    db.Column("group_id", db.Integer, db.ForeignKey("groups.id")),
+)
+
+
 class User(db.Model, UserMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True, nullable=False)
     _password_hash = db.Column(db.String(200), nullable=False)
     group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
+    
+    groups = db.relationship("Group", 
+                secondary=associations,
+                backref=db.backref("users", lazy="dynamic"),
+                lazy="dynamic")
+
     words = db.relationship("Word", backref="user")
+
+    def groups_parsed(self):
+        return list(
+                    map(
+                        lambda g : g.name, 
+                        self.groups.all()
+                    )
+                )
 
     @property
     def password(self):
@@ -29,7 +49,7 @@ class User(db.Model, UserMixin):
         return check_password_hash(self._password_hash, password)
 
     def __repr__(self):
-        return f"<User {self.name}>"
+        return f"<User {self.name} | groups {self.groups.all()}>"
 
 
 class Group(db.Model):
@@ -37,7 +57,10 @@ class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True)
     key = db.Column(db.String(30), unique=True)
-    users = db.relationship("User", backref="group")
+    words = db.relationship("Word", backref="group")
+    #users = db.relationship("User", backref="group")
+
+
 
     def __repr__(self):
         return f"<Group {self.name}>"
@@ -48,7 +71,7 @@ class Word(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     word = db.Column(db.String(30), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    group = db.Column(db.String(30))
+    group_id = db.Column(db.Integer, db.ForeignKey("groups.id"))
 
     def format(self):
         return {"word": self.word,

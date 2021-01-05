@@ -12,7 +12,10 @@ from .. import db
 @auth.route("/check")
 def check_if_logged():
     print("User authenticated: ", current_user.is_authenticated)
-    return { "logged": current_user.is_authenticated }
+    return { 
+        "logged": current_user.is_authenticated,
+        "groups": current_user.groups_parsed(),
+         }
 
 
 @auth.route("/login", methods=["GET", "POST"])
@@ -35,7 +38,7 @@ def login():
         user = User.query.filter_by(name=form.user_name.data).first()
         if user and user.verify_password(form.user_pass.data):
             login_user(user)
-            return Response(status=200)
+            return {"groups": user.groups_parsed()}
         
     return Response(status=401)
 

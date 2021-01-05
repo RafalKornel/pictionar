@@ -68,6 +68,7 @@ export default class MainPage extends React.Component {
             messages: [],
             copySuccess: "",
             newWords: [],
+            groups: [],
         }
     }
 
@@ -120,7 +121,10 @@ export default class MainPage extends React.Component {
 
                 <section>
                     <Tutorial />
-                    <WordsForm addedNewWords={this.addedNewWords} />
+                    <WordsForm 
+                        addedNewWords={this.addedNewWords} 
+                        groups={this.props.groups} 
+                    />
                 </section>
                 <section>
                     <WordsInfo
@@ -128,6 +132,7 @@ export default class MainPage extends React.Component {
                         wordsCount={this.state.count}
                         copySuccess={this.state.copySuccess}
                         setSuccessMessage={this.setSuccessMessage}
+                        groups={this.props.groups}
                     />
                 </section>
 

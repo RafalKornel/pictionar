@@ -1,10 +1,33 @@
 import React from "react";
-import { SubmitButton, InnerFieldWrapper, Bar as ProtoBar } from "../Utilities/common"
+import { GroupsSelect, SubmitButton, InnerFieldWrapper, Bar as ProtoBar } from "../Utilities/common"
 import styled from "styled-components";
 
 //  < STYLE >
 const Bar = styled(ProtoBar)`
     margin-bottom: 1em;
+`;
+
+const ButtonWrapper = styled.div`
+    margin-left: auto;
+    display: flex;
+    width: 90%;
+
+    select {
+        margin-right: 1em;
+        margin-left: auto;
+        
+        outline: none;
+        border-radius: 3px;
+        border: none;
+        font-size: 1.1em;
+
+        color: var(--input-color);
+        background: var(--form-color);
+    }
+
+    ${SubmitButton} {
+        margin-left: 0;
+    }
 `;
 
 const Form = styled.form`
@@ -52,11 +75,14 @@ class WordsForm extends React.Component {
         this.state = { 
             words: "",
             csrf: "",
+            group: this.props.groups[0],
         };
     }
 
     handleChange(e) {
-        this.setState({ words:e.target.value });
+        console.log(e.target);
+        this.setState({ [e.target.id]:e.target.value });
+        console.log(this.state);
     }
 
     handleSubmit(e) {
@@ -73,7 +99,10 @@ class WordsForm extends React.Component {
                 "X-CSRF-TOKEN": this.state.csrf,
 
             },
-            body: JSON.stringify({ words: words }),
+            body: JSON.stringify({ 
+                words: words,
+                group: this.state.group,
+            }),
         })
         .then(res => {
     
@@ -88,6 +117,7 @@ class WordsForm extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props.groups);
         fetch("/api/add", {
             method: "GET",
         })
@@ -118,11 +148,19 @@ class WordsForm extends React.Component {
                     <Bar />
                 </InnerFieldWrapper>
 
-                <SubmitButton 
-                    type="submit" 
-                    onSubmit={this.handleSubmit}>
-                        Submit
-                </SubmitButton>
+                <ButtonWrapper>
+
+                    <GroupsSelect 
+                        handleChange={this.handleChange}
+                        group={this.state.group}
+                        groups={this.props.groups}
+                    />
+                    <SubmitButton 
+                        type="submit" 
+                        onSubmit={this.handleSubmit}>
+                            Submit
+                    </SubmitButton>
+                </ButtonWrapper>
             </Form>
         );
     }

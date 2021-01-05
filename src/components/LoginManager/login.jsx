@@ -56,9 +56,13 @@ class LoginForm extends React.Component {
             .then(res => {
                 if (!res.ok) {
                     this.setState({ errorMessage: "Something went wrong!" });
-                    return;
+                    throw new Error("Something went wrong.");
                 }
-                this.props.onLogin();
+                return res.json();
+            })
+            .then(data => {
+                console.log(data);
+                this.props.onLogin(data.groups);
             })
             .catch(err => console.error(err));
 

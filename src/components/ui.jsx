@@ -16,6 +16,7 @@ class UI extends React.Component {
     this.state = {
       loggedIn: false,
       opened: false,
+      groups: [],
     };
   }
 
@@ -40,8 +41,11 @@ class UI extends React.Component {
       .catch(err => console.error(err));
   }
 
-  onLogin() {
-    this.setState({ loggedIn: true });
+  onLogin(groups) {
+    this.setState({ 
+      loggedIn: true,
+      groups: groups,
+    });
     this.switchCorner();
   }
 
@@ -66,7 +70,7 @@ class UI extends React.Component {
 
   render() {
     let page = this.state.loggedIn
-      ? <MainPage switched={this.state.opened} onLogout={this.onLogout} />
+      ? <MainPage switched={this.state.opened} onLogout={this.onLogout} groups={this.state.groups} />
       : <LoginPage onLogin={this.onLogin} />
 
     return (
