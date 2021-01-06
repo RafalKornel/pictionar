@@ -1,6 +1,6 @@
 import Panel from "./panel";
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 // < SVG's components >
 function SVGPathSmall() {
@@ -83,13 +83,24 @@ const MessagesWrapper = styled.div`
     flex-direction: column;
 `;
 
+let slideshow = keyframes`
+    0% { transform: translate(-50%, 0); }
+    100% { transform: translate(50%, 0); }
+`;
+
 const Row = styled.div`
     display: flex;
     flex-direction: row;
     width: max-content;
+
+    animation: ${slideshow} 30s linear infinite;
+`;
+
+const RowWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
 `;
 // </ STYLE >
-
 
 
 class Corner extends React.Component {
@@ -99,8 +110,6 @@ class Corner extends React.Component {
         this.state = {
             panels: [],
         };
-
-        this.animationSpeed = 1;
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -114,7 +123,7 @@ class Corner extends React.Component {
             panelsSorted[i].push(panel);
         });
 
-        this.setState({panels: panelsSorted});
+        this.setState({ panels: panelsSorted });
     }
 
 
@@ -127,21 +136,23 @@ class Corner extends React.Component {
                 <SliderCorner moved={this.props.switched} />
                 <BackCorner >
                     <MessagesWrapper>
-                        <Row>
-                           {this.state.panels[0]}
-                        </Row>
-                        <Row style={{ transform: "translate(300px, 0)" }}>
-                            {this.state.panels[1]}
-                        </Row>
-                        <Row>
-                           {this.state.panels[2]}
-                        </Row>
+                        <RowWrapper>
+                            <Row>{this.state.panels[0]}</Row>
+                            <Row>{this.state.panels[0]}</Row>
+                        </RowWrapper>
+                        <RowWrapper>
+                            <Row>{this.state.panels[1]}</Row>
+                            <Row>{this.state.panels[1]}</Row>
+                        </RowWrapper>
+                        <RowWrapper>
+                            <Row>{this.state.panels[2]}</Row>
+                            <Row>{this.state.panels[2]}</Row>
+                        </RowWrapper>
                     </MessagesWrapper>
                 </BackCorner>
             </AnimationContainer>
         )
     }
 }
-
 
 export default Corner;
