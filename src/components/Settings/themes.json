@@ -1,0 +1,26 @@
+{
+    "Default": 
+    {
+        "--gradient-light": "#EE964B",
+        "--gradient-dark": "#F95738",
+        "--text-color": "#FAF0CA",
+        "--form-color": "#0D3B66",
+        "--input-color": "#F4D35E"
+    },
+    "Dark red": 
+    {
+        "--gradient-light": "#98c1d9",
+        "--gradient-dark": "#3d5a80",
+        "--text-color": "#e0fbfc",
+        "--form-color": "#293241",
+        "--input-color": "#ee6c4d"
+    },
+    "Green red": 
+    {
+        "--gradient-light": "#a1c181",
+        "--gradient-dark": "#619b8a",
+        "--text-color": "#fcca46",
+        "--form-color": "#233d4d",
+        "--input-color": "#fe7f2d"
+    }
+}

@@ -28,11 +28,12 @@ class UI extends React.Component {
         if (res.ok) return res.json()
       })
       .then(data => {
-        console.log("this is data ");
-        console.log(data);
         if (data.logged) {
-          this.setState({ loggedIn: true });
-          this.switchCorner();
+          this.setState({
+            loggedIn: true,
+            groups: data.groups
+          });
+          this.openCorner();
         }
         else if (data.logged == "False") {
           this.setState({ loggedIn: false });
@@ -42,11 +43,11 @@ class UI extends React.Component {
   }
 
   onLogin(groups) {
-    this.setState({ 
+    this.setState({
       loggedIn: true,
       groups: groups,
     });
-    this.switchCorner();
+    this.openCorner();
   }
 
   onLogout() {
@@ -61,22 +62,29 @@ class UI extends React.Component {
       .catch(err => console.error(err));
   }
 
-  switchCorner() {
-    setInterval(
+  openCorner() {
+    setTimeout(
       () => { this.setState(state => ({ opened: state.loggedIn })) }
       , 0)
+  }
+
+  switchCorner() {
+    setTimeout(
+      () => { this.setState(state => ({ opened: !state.opened })) }
+      , 0)
+    console.log(this.state)
   }
 
 
   render() {
     let page = this.state.loggedIn
-      ? <MainPage switched={this.state.opened} onLogout={this.onLogout} groups={this.state.groups} />
+      ? <MainPage switched={this.state.opened} switchCorner={this.switchCorner} onLogout={this.onLogout} groups={this.state.groups} />
       : <LoginPage onLogin={this.onLogin} />
 
     return (
       <div className="app">
         <Logo />
-        { page }
+        { page}
         <Footer />
       </div>
     )

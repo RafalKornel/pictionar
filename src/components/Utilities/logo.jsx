@@ -16,6 +16,11 @@ const Logo = styled.h1`
         transform: translateX(-50%);
         text-align: center;
     }
+
+    @media screen and (min-width: 1600px) {
+        margin: 4rem;
+    }
+
 `;
 
 export default (props) => {

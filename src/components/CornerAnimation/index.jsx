@@ -91,7 +91,6 @@ let slideshow = keyframes`
 const Row = styled.div`
     display: flex;
     flex-direction: row;
-    width: max-content;
 
     animation: ${slideshow} 30s linear infinite;
 `;
@@ -116,7 +115,7 @@ class Corner extends React.Component {
         if (prevProps.messages === this.props.messages || this.props.messages === []) return;
 
         let panelsSorted = [[], [], []];
-        let panels = this.props.messages.map(({ user, word }, i) => (<Panel author={user} word={word} speed={this.animationSpeed} key={i} />));
+        let panels = this.props.messages.map(({ user, word }, i) => (<Panel author={user} word={word} key={i} />));
 
         panels.forEach(panel => {
             let i = panel.key % 3;

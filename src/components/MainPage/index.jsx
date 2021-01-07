@@ -3,6 +3,7 @@ import Tutorial from "./tutorial";
 import Corner from "../CornerAnimation";
 import WordsForm from "./wordsForm";
 import WordsInfo from "./wordsInfo";
+import Settings from "../Settings";
 import styled from "styled-components";
 import { Page } from "../Utilities/common";
 
@@ -31,28 +32,6 @@ const Wrapper = styled(Page)`
         }
     }
 `;
-
-const Button = styled.button`
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    width: 6em;
-    height: 2em;
-    font-size: 1.1em;
-    border-radius: 10px;
-    z-index: 2;
-    color: var(--input-color);
-    background-color: var(--form-color);
-
-    @media screen and (max-width: 1100px) {
-        font-size: 0.9em;
-        top: unset;
-        bottom: 0.5em;
-        right: unset;
-        left: 0.5em;
-        width: 4.5em;
-    }
-`;
 // < STYLE >
 
 
@@ -62,6 +41,9 @@ export default class MainPage extends React.Component {
 
         this.addedNewWords = this.addedNewWords.bind(this);
         this.setSuccessMessage = this.setSuccessMessage.bind(this);
+        this.switchCorner = this.switchCorner.bind(this);
+
+        this.cache = [];
 
         this.state = {
             count: 0,
@@ -105,6 +87,17 @@ export default class MainPage extends React.Component {
             .catch(err => console.error(err));
     }
 
+    switchCorner() {
+        this.props.switchCorner();
+        if (this.state.messages.length > 0) {
+            this.cache = this.state.messages;
+            setTimeout(() => this.setState({ messages: [] }), 300);
+        }
+        else {
+            this.setState({ messages: this.cache });
+        }
+    }
+
     componentDidMount() {
         this.fetchWordsForSlider();
         this.fetchWordsCount();
@@ -113,12 +106,11 @@ export default class MainPage extends React.Component {
     render() {
         return (
             <Wrapper>
-                <Button 
-                    onClick={this.props.onLogout} 
-                    type="button">
-                        Logout
-                </Button>
-
+                <Settings 
+                    name="Rafal" 
+                    onLogout={this.props.onLogout} 
+                    switchCorner={this.switchCorner}
+                    />
                 <section>
                     <Tutorial />
                     <WordsForm 

@@ -10,6 +10,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     margin: 10px;
+    cursor: default;
 
     background-color: var(--input-color);
     color: var(--form-color);
