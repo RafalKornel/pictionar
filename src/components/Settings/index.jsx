@@ -15,6 +15,7 @@ const Button = styled.button`
     width: 8em;
     height: 2em;
     font-size: 1.1em;
+    line-height: 0.9em;
     color: var(--form-color);
     background-color: var(--input-color);
 
@@ -34,7 +35,7 @@ const Wrapper = styled.div`
     right: 2rem;
     padding: 2rem;
     width: 20%;
-    min-height: 60%;
+    min-height: 30rem;
     display: flex;
     flex-direction: column;
     z-index: 4;
