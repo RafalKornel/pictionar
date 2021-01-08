@@ -33,6 +33,7 @@ class UI extends React.Component {
                 }
                 else {
                     this.setState({ loggedIn: false });
+                    throw new Error("Not logged.");
                 }
             })
             .then(data => {
