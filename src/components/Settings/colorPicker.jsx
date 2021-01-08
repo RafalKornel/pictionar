@@ -15,6 +15,7 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     margin: 1em 0;
+    min-height: 30%;
 
     overflow-y: scroll;
 
