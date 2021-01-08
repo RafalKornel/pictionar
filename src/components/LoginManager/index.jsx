@@ -59,7 +59,9 @@ const Divisor = styled.div`
     margin: 0 auto;
 `;
 
-const DivisorWrapper = styled.div`flex: 1;`;
+const DivisorWrapper = styled.div`
+    flex: 1;
+`;
 // </ STYLE >
 
 

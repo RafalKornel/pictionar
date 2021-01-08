@@ -1,19 +1,19 @@
 import React from "react";
 import FormField from "../Utilities/formField"
 import { Wrapper, ErrorMessage, SubmitButton } from "../Utilities/common";
-import withFormLogic from "../Utilities/fetchLogic";
+import withFormLogic from "../Utilities/formLogic";
 
-function LoginTemplate(props) {
+function LoginFormTemplate(props) {
     return (
         <form
             onSubmit={props.handleSubmit}
-            id="loginForm"
-            autoComplete="off">
+            id="loginForm" >
 
             <FormField
                 id="user_name"
                 value={props.user_name}
                 onChange={props.handleChange}
+                autoComplete="on"
                 name="user_name"
                 type="text" >
                 Login:
@@ -37,9 +37,12 @@ function LoginTemplate(props) {
     );
 }
 
-const LoginForm = withFormLogic(LoginTemplate, {
-    user_name: "",
-    user_pass: "",
-}, "/api/login");
+const LoginForm = withFormLogic(
+    LoginFormTemplate, 
+    {
+        user_name: "",
+        user_pass: "",
+    }, 
+    "/api/login");
 
 export default LoginForm;

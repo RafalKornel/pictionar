@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-const Logo = styled.h1`
+// < STYLE >
+const LogoHeader = styled.h1`
     position: absolute;
     font-size: 100px;
     line-height: 70px;
@@ -20,9 +21,9 @@ const Logo = styled.h1`
     @media screen and (min-width: 1600px) {
         margin: 4rem;
     }
-
 `;
+// </ STYLE >
 
-export default (props) => {
-    return <Logo>PICTIONAR</Logo>;
+export default function Logo(props) {
+    return <LogoHeader>PICTIONAR</LogoHeader>;
   }

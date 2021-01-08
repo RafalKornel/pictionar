@@ -2,8 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { SubmitButton, ErrorMessage } from "../Utilities/common";
 import FormField from "../Utilities/formField";
-import withFormLogic from "../Utilities/fetchLogic";
+import withFormLogic from "../Utilities/formLogic";
 
+
+// < STYLE >
 const SuccessMessage = styled(ErrorMessage)`
     color: green;
 `;
@@ -49,7 +51,7 @@ const InputWrapper = styled.div`
         margin-top: 0.5em;
     }
 `;
-
+// </ STYLE >
 
 
 function JoinFormTemplate(props) {

@@ -6,7 +6,7 @@ import MainPage from "./MainPage";
 import LoginPage from "./LoginPage";
 import Settings from "./Settings";
 
-class UI extends React.Component {
+export default class App extends React.Component {
     constructor(props) {
         super(props);
 
@@ -103,11 +103,9 @@ class UI extends React.Component {
                     loggedIn={this.state.loggedIn}
                     fetchUserData={this.fetchUserData}
                 />
-                { page}
+                {page}
                 <Footer />
             </div>
         )
     }
 }
-
-export default UI;

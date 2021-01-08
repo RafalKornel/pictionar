@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Themes from "./themes";
 
+
+// < STYLE >
 const labels = [
     "light gradient",
     "dark gradient",
@@ -55,6 +57,8 @@ const Button = styled.div`
         backdrop-filter: contrast(120%);
     }
 `;
+// </ STYLE >
+
 
 export default class ColorPicker extends React.Component {
     constructor(props) {
@@ -83,9 +87,8 @@ export default class ColorPicker extends React.Component {
                     <Button onClick={() => this.setTheme(name)} key={i}>
                         <p>{name}</p>
                         {Object.values(this.themes[name]).map( (rgb, i) => <Box rgb={rgb} key={i} title={labels[i]} />)}
-                    </Button>)
-                )
-                }
+                    </Button>))
+                    }
             </Wrapper>
         );
     }

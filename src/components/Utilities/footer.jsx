@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
-const FooterEl = styled.footer`
+
+// < STYLE >
+const FooterWrapper = styled.footer`
   position: absolute;
   bottom: 0;
   right: 0;
@@ -30,12 +32,14 @@ const FooterEl = styled.footer`
         transform: translateX(-50%);
     }
 `;
+// </ STYLE >
+
 
 function Footer(props) {
     return(
-    <FooterEl>
-        <p>Created by: <br /> <a href="https://github.com/RafalKornel"> <i class="fab fa-github-square"></i> Rafał Kornel </a> </p>
-    </FooterEl>
+    <FooterWrapper>
+        <p>Created by: <br /> <a href="https://github.com/RafalKornel"> <i className="fab fa-github-square"></i> Rafał Kornel </a> </p>
+    </FooterWrapper>
     )
 }
 

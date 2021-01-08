@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { GroupsSelect } from "../Utilities/common";
 
+// < STYLE >
 const ButtonWrapper = styled.div`
     position: relative;
     width: max-content;
@@ -103,42 +104,14 @@ const Wrapper = styled.div`
         padding-bottom: 15em;
     }
 `;
+// </ STYLE >
 
-
-class WordsInfo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        const addedWordsMessage = this.props.newWords.length > 0
-            ? <NewWordsInfo newWords={this.props.newWords} />
-            : null;
-
-        return (
-            <Wrapper>
-                <article>
-                    {addedWordsMessage}
-                    <h2>There are <span>{this.props.count}</span> words in group <span>{this.props.selectedGroup}</span>.</h2>
-                    <h2>Hit the button below to get words from database</h2>
-                    <CopySucess>{this.props.copySuccess}</CopySucess>
-                </article>
-
-                <GetWordsButton
-                    showSuccessMessage={this.props.setSuccessMessage}
-                    groups={this.props.groups}
-                    setSelectedGroup={this.props.setSelectedGroup}
-                />
-            </Wrapper>
-        );
-    }
-}
 
 class GetWordsButton extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = { 
+        this.state = {
             group: "all",
             groups: [
                 "all",
@@ -152,17 +125,18 @@ class GetWordsButton extends React.Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevProps !== this.props) {
-            this.setState({ groups: [
-                "all", 
-                ...this.props.groups,
-            ]});
+            this.setState({
+                groups: [
+                    "all",
+                    ...this.props.groups,
+                ]
+            });
         }
     }
 
     handleClick(e) {
-
-        let groups = this.state.group == "all" ? this.state.groups.slice(1) : [ this.state.group ];
-        let query = groups.reduce( (p, c) => (p += (c + ",") ), "" ).slice(0, -1);
+        let groups = this.state.group === "all" ? this.state.groups.slice(1) : [this.state.group];
+        let query = groups.reduce((p, c) => (p += (c + ",")), "").slice(0, -1);
 
         fetch(`/api/bank?groups=${query}`)
             .then(res => res.json())
@@ -205,4 +179,25 @@ function NewWordsInfo(props) {
     )
 }
 
-export default WordsInfo;
+export default function WordsInfo(props) {
+    const addedWordsMessage = props.newWords.length > 0
+        ? <NewWordsInfo newWords={props.newWords} />
+        : null;
+
+    return (
+        <Wrapper>
+            <article>
+                {addedWordsMessage}
+                <h2>There are <span>{props.count}</span> words in group <span>{props.selectedGroup}</span>.</h2>
+                <h2>Hit the button below to get words from database</h2>
+                <CopySucess>{props.copySuccess}</CopySucess>
+            </article>
+
+            <GetWordsButton
+                showSuccessMessage={props.setSuccessMessage}
+                groups={props.groups}
+                setSelectedGroup={props.setSelectedGroup}
+            />
+        </Wrapper>
+    );
+}

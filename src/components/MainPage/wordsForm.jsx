@@ -1,7 +1,7 @@
 import React from "react";
 import { GroupsSelect, SubmitButton, InnerFieldWrapper, Bar as ProtoBar } from "../Utilities/common"
 import styled from "styled-components";
-import withFormLogic from "../Utilities/fetchLogic";
+import withFormLogic from "../Utilities/formLogic";
 
 //  < STYLE >
 const Bar = styled(ProtoBar)`
@@ -67,7 +67,6 @@ const Form = styled.form`
 
 
 class WordsFormTemplate extends React.Component {
-
     componentDidMount() {
         this.props.handleChange({
             target: {
@@ -89,9 +88,8 @@ class WordsFormTemplate extends React.Component {
                         onChange={this.props.handleChange}
                         id="words"
                         name="words"
-                        placeholder="Type word(s) here">
-                        {this.props.words}
-                    </textarea>
+                        placeholder="Type word(s) here" 
+                        value={this.props.words} />
                     <Bar />
                 </InnerFieldWrapper>
 
@@ -120,105 +118,5 @@ const WordsForm = withFormLogic(
     },
     "/api/add",
 )
-
-class WordsFormOld extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
-        this.state = {
-            words: "",
-            csrf: "",
-            group: this.props.groups[0],
-        };
-    }
-
-    handleChange(e) {
-        console.log(e.target);
-        this.setState({ [e.target.id]: e.target.value });
-        console.log(this.state);
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        let words_unfiltered = this.state.words.split(",");
-        let words = words_unfiltered.filter((s) => s.match("^[A-Za-z0-9ąćęłńóśźżĄĘŁŃÓŚŹŻ ]+$"))
-
-        fetch("/api/add", {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": this.state.csrf,
-
-            },
-            body: JSON.stringify({
-                words: words,
-                group: this.state.group,
-            }),
-        })
-            .then(res => {
-
-                if (res.ok) return res.json()
-                else throw Error(`Bad response, status ${res.status}`)
-
-            })
-            .then(data => { console.log(data); return data; })
-            .then(data => this.props.addedNewWords(data.added_words))
-            .catch(err => console.error(err));
-
-    }
-
-    componentDidMount() {
-        fetch("/api/add", {
-            method: "GET",
-        })
-            .then(res => {
-                if (res.ok) return res.json()
-            })
-            .then(data => this.setState({ csrf: data.csrf_token }))
-            .then(() => console.log(this.state))
-            .catch(err => console.error(err));
-    }
-
-    render() {
-        return (
-            <Form
-                onSubmit={this.handleSubmit}
-                autoComplete="off"
-                className="wordsForm">
-
-                <label htmlFor="words">Words: </label>
-                <InnerFieldWrapper>
-                    <textarea
-                        onChange={this.handleChange}
-                        id="words"
-                        name="words"
-                        placeholder="Type word(s) here">
-                        {this.state.words}
-                    </textarea>
-                    <Bar />
-                </InnerFieldWrapper>
-
-                <ButtonWrapper>
-
-                    <GroupsSelect
-                        handleChange={this.handleChange}
-                        group={this.state.group}
-                        groups={this.props.groups}
-                    />
-                    <SubmitButton
-                        type="submit"
-                        onSubmit={this.handleSubmit}>
-                        Submit
-                    </SubmitButton>
-                </ButtonWrapper>
-            </Form>
-        );
-    }
-}
 
 export default WordsForm;

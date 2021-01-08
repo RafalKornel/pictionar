@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 // </ STYLE >
 
 
-function FormField(props) {
+export default function FormField(props) {
     return (
         <Wrapper>
             <label htmlFor={props.id}>{props.children}</label>
@@ -39,5 +39,3 @@ function FormField(props) {
         </Wrapper>
     );
 }
-
-export default FormField;

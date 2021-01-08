@@ -1,50 +1,49 @@
 import React from "react";
 import FormField from "../Utilities/formField"
 import { Wrapper, ErrorMessage, SubmitButton } from "../Utilities/common";
-import withFormLogic from "../Utilities/fetchLogic";
+import withFormLogic from "../Utilities/formLogic";
 
-function RegisterTemplate(props) {
+function RegisterFormTemplate(props) {
     return (
-        <form 
-            onSubmit={props.handleSubmit} 
-            id="registerForm" 
-            autocomplete="off" 
+        <form
+            onSubmit={props.handleSubmit}
+            id="registerForm"
             style={props.style}>
 
-            <FormField 
-                id="user_name" 
-                value={props.user_name} 
-                onChange={props.handleChange} 
-                name="user_name" 
+            <FormField
+                id="user_name"
+                value={props.user_name}
+                onChange={props.handleChange}
+                name="user_name"
                 type="text" >
-                    Login: 
-            </FormField>
-            
-            <FormField 
-                id="user_pass" 
-                value={props.user_pass} 
-                onChange={props.handleChange} 
-                name="user_pass" 
-                type="password" >
-                    Password: 
+                Login:
             </FormField>
 
-            <FormField 
-                id="user_pass_repeat" 
-                value={props.user_pass_repeat} 
-                onChange={props.handleChange} 
-                name="user_pass_repeat" 
+            <FormField
+                id="user_pass"
+                value={props.user_pass}
+                onChange={props.handleChange}
+                name="user_pass"
                 type="password" >
-                    Retype password: 
+                Password:
             </FormField>
 
-            <FormField 
-                id="secret_key" 
-                value={props.secret_key} 
-                onChange={props.handleChange} 
-                name="secret_key" 
+            <FormField
+                id="user_pass_repeat"
+                value={props.user_pass_repeat}
+                onChange={props.handleChange}
+                name="user_pass_repeat"
+                type="password" >
+                Retype password:
+            </FormField>
+
+            <FormField
+                id="secret_key"
+                value={props.secret_key}
+                onChange={props.handleChange}
+                name="secret_key"
                 type="text" >
-                    Group key: 
+                Group key:
             </FormField>
 
 
@@ -57,11 +56,14 @@ function RegisterTemplate(props) {
     );
 }
 
-const RegisterForm = withFormLogic(RegisterTemplate, {
-    user_name: "",
-    user_pass: "",
-    user_pass_repeat: "",
-    secret_key: "",
-}, "/api/register");
+const RegisterForm = withFormLogic(
+    RegisterFormTemplate,
+    {
+        user_name: "",
+        user_pass: "",
+        user_pass_repeat: "",
+        secret_key: "",
+    },
+    "/api/register");
 
 export default RegisterForm;

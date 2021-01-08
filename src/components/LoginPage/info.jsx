@@ -22,7 +22,7 @@ const Wrapper = styled.article`
 
 `;
 
-function Info() {
+export default function Info() {
     return (
         <Wrapper>
                 <ul>
@@ -52,5 +52,3 @@ function Info() {
         </Wrapper>
     )
 }
-
-export default Info;

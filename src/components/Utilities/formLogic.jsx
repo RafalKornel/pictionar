@@ -1,7 +1,7 @@
 import React from "react";
 
-
-export default function withFormLogic(WrappedComponent, 
+export default function withFormLogic(
+        WrappedComponent, 
         dataShape, 
         endpoint, 
         createSuccessMessage=undefined) {
@@ -46,8 +46,6 @@ export default function withFormLogic(WrappedComponent,
         handleSubmit(e) {
             e.preventDefault();
 
-            console.log(this.state);
-
             let options = {
                 method: "POST",
                 headers: {
@@ -69,7 +67,6 @@ export default function withFormLogic(WrappedComponent,
                 .then(data => {
                     if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch(data);
                     let message = createSuccessMessage ? createSuccessMessage(data) : "Success!"; 
-                    console.log(message);
                     this.setMessage("success", message);
 
                 })
