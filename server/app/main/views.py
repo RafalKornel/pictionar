@@ -79,13 +79,12 @@ def retrieve_words():
 
     words = Word.query \
                 .join(associations, Word.group_id == associations.columns.group_id) \
-                .filter_by(user_id=current_user.id) \
                 .filter( associations.columns.group_id.in_(group_ids) ) \
                 .all()
     result = ""
     for w in words:
         result += f"{w.word}, "
-    
+
     return jsonify(result)
 
 

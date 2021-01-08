@@ -60,7 +60,7 @@ export const GroupsSelect = (props) => (
         id="group" 
         onChange={props.handleChange} 
         value={props.group}>
-            {props.groups.map(g => (
-                <option value={g}>{g}</option> ))}
+            {props.groups.map( (group, i) => (
+                <option value={group} key={i}>{group}</option> ))}
     </select>
 );

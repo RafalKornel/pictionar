@@ -1,7 +1,10 @@
 import React from "react";
 
 
-export default function withFormLogic(WrappedComponent, dataShape, endpoint, createSuccessMessage) {
+export default function withFormLogic(WrappedComponent, 
+        dataShape, 
+        endpoint, 
+        createSuccessMessage=undefined) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -64,9 +67,9 @@ export default function withFormLogic(WrappedComponent, dataShape, endpoint, cre
                     return res.json();
                 })
                 .then(data => {
-                    if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch();
-                    let unsafeMessage = createSuccessMessage(data);
-                    let message = unsafeMessage ? unsafeMessage : "Success!"; 
+                    if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch(data);
+                    let message = createSuccessMessage ? createSuccessMessage(data) : "Success!"; 
+                    console.log(message);
                     this.setMessage("success", message);
 
                 })

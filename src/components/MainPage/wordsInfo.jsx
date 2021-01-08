@@ -115,7 +115,6 @@ class WordsInfo extends React.Component {
             ? <NewWordsInfo newWords={this.props.newWords} />
             : null;
 
-        console.log(this.props.count);
         return (
             <Wrapper>
                 <article>

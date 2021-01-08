@@ -56,8 +56,9 @@ export default class MainPage extends React.Component {
         }
     }
 
-    addedNewWords(words) {
-        this.setState({ newWords: words });
+    addedNewWords(data) {
+        this.setState({ newWords: data.added_words });
+        console.log(this.state);
         setTimeout(() => this.setState({ newWords: "" }), 5000);
         this.fetchWordsCount();
         this.fetchWordsForSlider();
@@ -121,7 +122,7 @@ export default class MainPage extends React.Component {
                 <section>
                     <Tutorial />
                     <WordsForm 
-                        addedNewWords={this.addedNewWords} 
+                        afterSuccessfulFetch={this.addedNewWords} 
                         groups={this.props.groups} 
                     />
                 </section>
