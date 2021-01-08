@@ -84,7 +84,7 @@ class LoginManager extends React.Component {
     render() {
         const form =
             this.state.tab === "login"
-                ? <LoginForm onLogin={this.props.onLogin} />
+                ? <LoginForm afterSuccessfulFetch={this.props.onLogin} />
                 : <RegisterForm />
 
         return (

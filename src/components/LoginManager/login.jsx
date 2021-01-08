@@ -1,102 +1,45 @@
 import React from "react";
 import FormField from "../Utilities/formField"
 import { Wrapper, ErrorMessage, SubmitButton } from "../Utilities/common";
+import withFormLogic from "./fetchLogic";
 
-class LoginForm extends React.Component {
-    constructor(props) {
-        super(props);
+function LoginTemplate(props) {
+    return (
+        <form
+            onSubmit={props.handleSubmit}
+            id="loginForm"
+            autoComplete="off">
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+            <FormField
+                id="user_name"
+                value={props.user_name}
+                onChange={props.handleChange}
+                name="user_name"
+                type="text" >
+                Login:
+            </FormField>
 
-        this.state = {
-            name: "",
-            password: "",
-            errorMessage: "",
-            csrf: "",
-        };
-    }
+            <FormField
+                id="user_pass"
+                value={props.user_pass}
+                onChange={props.handleChange}
+                name="user_pass"
+                type="password" >
+                Password:
+            </FormField>
 
-    componentDidMount() {
-        fetch("/api/login", {
-            method: "GET",
-        })
-            .then(res => {
-                if (res.ok) return res.json()
-            })
-            .then(data => {
-                this.setState({ csrf: data.csrf_token })
-            })
-            .catch(err => console.error(err));
-    }
+            <Wrapper>
+                <ErrorMessage>{props.errorMessage}</ErrorMessage>
+                <SubmitButton type="submit">Submit</SubmitButton>
+            </Wrapper>
 
-    handleChange(e) {
-        this.setState({ [e.target.id]: e.target.value });
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-
-        let data = {
-            user_name: this.state.name,
-            user_pass: this.state.password,
-        }
-
-        let options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": this.state.csrf,
-            },
-            body: JSON.stringify(data),
-        }
-
-        fetch("/api/login", options)
-            .then(res => {
-                if (!res.ok) {
-                    this.setState({ errorMessage: "Something went wrong!" });
-                    throw new Error("Something went wrong.");
-                }
-                this.props.onLogin();
-            })
-            .catch(err => console.error(err));
-
-    }
-
-    render() {
-        return (
-            <form 
-                onSubmit={this.handleSubmit} 
-                id="loginForm" 
-                autoComplete="off">
-       
-                <FormField 
-                    id="name" 
-                    value={this.state.name} 
-                    onChange={this.handleChange} 
-                    name="user_name" 
-                    type="text" >
-                        Login: 
-                </FormField>
-       
-                <FormField 
-                    id="password" 
-                    value={this.state.password} 
-                    onChange={this.handleChange} 
-                    name="user_pass" 
-                    type="password" >
-                        Password: 
-                </FormField>
-
-                <Wrapper>
-                    <ErrorMessage>{this.state.errorMessage}</ErrorMessage>
-                    <SubmitButton type="submit">Submit</SubmitButton>
-                </Wrapper>
-
-            </form>
-        );
-    }
+        </form>
+    );
 }
 
+const LoginForm = withFormLogic(LoginTemplate, {
+    user_name: "",
+    user_pass: "",
+}, "/api/login");
 
 export default LoginForm;

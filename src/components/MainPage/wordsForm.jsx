@@ -117,7 +117,6 @@ class WordsForm extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.groups);
         fetch("/api/add", {
             method: "GET",
         })
