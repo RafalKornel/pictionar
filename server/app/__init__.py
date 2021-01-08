@@ -13,9 +13,13 @@ login_manager = LoginManager()
 
 
 def create_app(config_name):
-    print(os.path.abspath("./"))
-    print(os.listdir())
-
+    print(os.listdir("build/"))
+    print(os.listdir("public/"))
+    for (root, dirs, files) in os.walk("./", topdown=True):
+        print(root)
+        print(dirs)
+        print(files)
+        print("-----------------")
     app = Flask(__name__, static_folder=os.path.abspath("build"), static_url_path="/")
     app.config.from_object(config[config_name])
 
