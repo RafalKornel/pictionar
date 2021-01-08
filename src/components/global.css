@@ -15,6 +15,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: var(--bcg);
   background-attachment: fixed;
+  scrollbar-color: var(--input-color) var(--form-color);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--input-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
+
+::-webkit-scrollbar-track-piece {
+  display: none;
 }
 
 .app {

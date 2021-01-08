@@ -12,8 +12,12 @@ class LoginForm(FlaskForm):
     user_pass = PasswordField("Password", validators=[DataRequired(), Length(1, 30), regex])
 
 
-class GroupForm(FlaskForm):
+class CreateGroupForm(FlaskForm):
     group_name = StringField("Name", validators=[DataRequired(), Length(1, 30), regex])
+    group_key = StringField("Key", validators=[DataRequired(), Length(1, 30), regex])
+
+
+class JoinGroupForm(FlaskForm):
     group_key = StringField("Key", validators=[DataRequired(), Length(1, 30), regex])
 
 

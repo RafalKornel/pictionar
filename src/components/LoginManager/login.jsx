@@ -1,5 +1,5 @@
 import React from "react";
-import FormField from "./formField"
+import FormField from "../Utilities/formField"
 import { Wrapper, ErrorMessage, SubmitButton } from "../Utilities/common";
 
 class LoginForm extends React.Component {
@@ -32,7 +32,6 @@ class LoginForm extends React.Component {
 
     handleChange(e) {
         this.setState({ [e.target.id]: e.target.value });
-        console.log(this.state);
     }
 
     handleSubmit(e) {
@@ -58,11 +57,7 @@ class LoginForm extends React.Component {
                     this.setState({ errorMessage: "Something went wrong!" });
                     throw new Error("Something went wrong.");
                 }
-                return res.json();
-            })
-            .then(data => {
-                console.log(data);
-                this.props.onLogin(data.groups);
+                this.props.onLogin();
             })
             .catch(err => console.error(err));
 

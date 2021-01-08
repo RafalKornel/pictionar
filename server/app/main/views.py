@@ -92,10 +92,15 @@ def retrieve_words():
 @main.route("/count")
 @login_required
 def words_count():
-    return str(
-            len(
-                Word.query\
-                    .join(associations, Word.group_id == associations.columns.group_id)\
-                    .filter_by(user_id=current_user.id).all()
-                )
-            )
+
+    groups = current_user.groups.all()
+    count = { 
+        group.name : len( Word.query.filter_by(group_id=group.id).all() ) 
+                    for group in groups }
+
+    total = 0
+    for group in count.keys():
+        total += count[group]
+    count["all"] = total
+
+    return count

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import Themes from "./themes";
+import ColorPicker from "./colorPicker";
+import GroupManager from "./groupManager";
 
 const Icon = (props) => (
     <svg version="1.1" id="Layer_1" x="0px" y="0px" width="122.88px" height="122.878px" viewBox="0 0 122.88 122.878" enable-background="new 0 0 122.88 122.878"><g>
@@ -31,9 +32,9 @@ const Wrapper = styled.div`
     position: absolute;
     top: 2rem;
     right: 2rem;
-    padding: 2.5rem;
-    width: 20rem;
-    height: 30rem;
+    padding: 2rem;
+    width: 20%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     z-index: 4;
@@ -41,7 +42,7 @@ const Wrapper = styled.div`
     background-color: var(--form-color);
     transition: 500ms all cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-    clip-path: circle(8% at 90% 8%);
+    clip-path: circle(8% at 88% 8%);
 
     & > * {
         transition: 500ms all ease-in-out;
@@ -59,9 +60,9 @@ const Wrapper = styled.div`
     > svg {
         transition: 200ms opacity ease;
         position: absolute;
-        right: 4%;
-        top: -3%;
-        width: 3rem;
+        transform: translate(-50%, -50%) scale(0.35);
+        left: 88%;
+        top: 8%;
         opacity: 1;
         fill: var(--input-color);
     }
@@ -72,6 +73,23 @@ const Wrapper = styled.div`
 
     h1 {
         margin: 0;
+    }
+
+    @media screen and (max-width: 1100px) {
+        width: 60%;
+        height: auto;
+
+        top: 1rem;
+        right: 1rem;
+
+        clip-path: circle(5% at 92% 2em);
+
+        > svg {
+            left: 92%;
+            top: 2em;
+            transform: translate(-50%, -50%) scale(0.15);
+        }
+
     }
 `;
 
@@ -89,49 +107,7 @@ const ButtonsWrapper = styled.div`
     margin-top: auto;
 `;
 
-const ColorsWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 1em 0;
 
-    & > h3 {
-        margin: 0;
-    }
-`;
-
-const ColorBox = styled.div`
-    height: 2em;
-    width: 2em;
-
-    box-sizing: border-box;
-    border: 2px solid black;
-    ${props => "background: " + props.rgb + ";"}
-`;
-
-const ColorButton = styled.div`
-    width: 100%;
-    height: 100%;
-    padding: 0 0.5em;
-    display: flex;
-    align-items: center;
-    
-    transition: 400ms backdrop-filter ease;
-
-    p {
-        margin-right: auto;
-        cursor: default;
-    }
-
-    ${ColorBox} {
-        margin: 0.5em 0;
-        margin-left: 5px;
-    }
-
-    &:hover {
-        backdrop-filter: contrast(120%);
-    }
-`;
 
 const LogoutButton = (props) => (
     <Button
@@ -148,40 +124,6 @@ const CornerButton = (props) => (
     </Button>
 );
 
-class ColorPicker extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.setTheme = this.setTheme.bind(this);
-
-        this.themes = Themes;
-        this.names = Object.keys(this.themes);
-    }
-
-    setTheme(themeName) {
-        let theme = this.themes[themeName];
-
-        for (let prop in theme) {
-            document.documentElement.style.setProperty(prop, theme[prop]);
-        }
-    }
-
-    render() {
-        return (
-            <ColorsWrapper>
-                <h3>Select theme</h3>
-
-                {this.names.map(name => (
-                    <ColorButton onClick={() => this.setTheme(name)}>
-                        <p>{name}</p>
-                        {Object.values(this.themes[name]).map(c => <ColorBox rgb={c} />)}
-                    </ColorButton>)
-                )
-                }
-            </ColorsWrapper>
-        );
-    }
-}
 
 export default class Settings extends React.Component {
     constructor(props) {
@@ -193,11 +135,17 @@ export default class Settings extends React.Component {
             <Wrapper>
                 <Icon />
                 <Header>Hello {this.props.name}!</Header>
+                <GroupManager 
+                    loggedIn={this.props.loggedIn} 
+                    fetchUserData={this.props.fetchUserData}
+                    />
                 <ColorPicker />
-                <ButtonsWrapper>
+                { this.props.loggedIn 
+                ? <ButtonsWrapper>
                     <LogoutButton onLogout={this.props.onLogout} />
                     <CornerButton switchCorner={this.props.switchCorner} />
                 </ButtonsWrapper>
+                : "" }
             </Wrapper>
         );
     }

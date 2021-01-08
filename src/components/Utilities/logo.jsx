@@ -11,8 +11,8 @@ const Logo = styled.h1`
     @media screen and (max-width: 1100px) {
         margin: 0;
         margin-top: 1rem;
-        font-size: 50px;
-        left: 50%;
+        font-size: 40px;
+        left: 40%;
         transform: translateX(-50%);
         text-align: center;
     }

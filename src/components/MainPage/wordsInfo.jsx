@@ -18,13 +18,13 @@ const ButtonWrapper = styled.div`
     }
 
     button {
-        padding-right: 20%;
+        padding-bottom: 8%;
     }
 
     select {
         position: absolute;
-        bottom: 50%;
-        right: 1em;
+        bottom: 25%;
+        left: 50%;
         transform: translate(-50%, 50%);
         border: none;
         background-color: var(--input-color);
@@ -59,7 +59,8 @@ const Button = styled.button`
 
     @media screen and (max-width: 1100px) {
         font-size: 32px;
-        height: 2em;
+        height: 2.5em;
+        width: 7em;
     }
 `;
 
@@ -114,11 +115,12 @@ class WordsInfo extends React.Component {
             ? <NewWordsInfo newWords={this.props.newWords} />
             : null;
 
+        console.log(this.props.count);
         return (
             <Wrapper>
                 <article>
                     {addedWordsMessage}
-                    <h2>There are <span>{this.props.wordsCount}</span> words in database.</h2>
+                    <h2>There are <span>{this.props.count}</span> words in group <span>{this.props.selectedGroup}</span>.</h2>
                     <h2>Hit the button below to get words from database</h2>
                     <CopySucess>{this.props.copySuccess}</CopySucess>
                 </article>
@@ -126,6 +128,7 @@ class WordsInfo extends React.Component {
                 <GetWordsButton
                     showSuccessMessage={this.props.setSuccessMessage}
                     groups={this.props.groups}
+                    setSelectedGroup={this.props.setSelectedGroup}
                 />
             </Wrapper>
         );
@@ -148,6 +151,15 @@ class GetWordsButton extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps !== this.props) {
+            this.setState({ groups: [
+                "all", 
+                ...this.props.groups,
+            ]});
+        }
+    }
+
     handleClick(e) {
 
         let groups = this.state.group == "all" ? this.state.groups.slice(1) : [ this.state.group ];
@@ -163,7 +175,8 @@ class GetWordsButton extends React.Component {
     }
 
     handleChange(e) {
-        this.setState({ group: e.target.value })
+        this.setState({ group: e.target.value });
+        this.props.setSelectedGroup(e.target.value);
     }
 
     render() {

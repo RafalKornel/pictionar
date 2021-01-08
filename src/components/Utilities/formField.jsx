@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { InnerFieldWrapper, Bar } from "../Utilities/common"
+import { InnerFieldWrapper, Bar } from "./common"
 
 // < STYLE >
 const Wrapper = styled.div`
@@ -25,7 +25,15 @@ function FormField(props) {
         <Wrapper>
             <label htmlFor={props.id}>{props.children}</label>
             <InnerFieldWrapper>
-                <input value={props.value} onChange={props.onChange} id={props.id} type={props.type} name={props.name} required />
+                <input 
+                    value={props.value} 
+                    onChange={props.onChange} 
+                    id={props.id} 
+                    type={props.type} 
+                    name={props.name} 
+                    placeholder={props.placeholder}
+                    autoComplete={props.autoComplete || "off"}
+                    required />
                 <Bar />
             </InnerFieldWrapper>
         </Wrapper>

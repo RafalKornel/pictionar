@@ -139,7 +139,7 @@ class Corner extends React.Component {
                             <Row>{this.state.panels[0]}</Row>
                             <Row>{this.state.panels[0]}</Row>
                         </RowWrapper>
-                        <RowWrapper>
+                        <RowWrapper style={{transform:"translate(300px, 0)"}}>
                             <Row>{this.state.panels[1]}</Row>
                             <Row>{this.state.panels[1]}</Row>
                         </RowWrapper>

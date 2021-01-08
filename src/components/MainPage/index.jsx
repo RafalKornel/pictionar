@@ -42,15 +42,18 @@ export default class MainPage extends React.Component {
         this.addedNewWords = this.addedNewWords.bind(this);
         this.setSuccessMessage = this.setSuccessMessage.bind(this);
         this.switchCorner = this.switchCorner.bind(this);
+        this.setSelectedGroup = this.setSelectedGroup.bind(this);
 
         this.cache = [];
 
         this.state = {
             count: 0,
+            groupsCount: [],
             messages: [],
             copySuccess: "",
             newWords: [],
             groups: [],
+            selectedCountGroup: "all",
         }
     }
 
@@ -66,10 +69,15 @@ export default class MainPage extends React.Component {
         setTimeout(() => this.setState({ copySuccess: "" }), 5000);
     }
 
+    setSelectedGroup(group) {
+        this.setState({ selectedCountGroup: group });
+        let c = this.state.groupsCount[group];
+        this.setState({ count:c });
+    }
+
     fetchWordsForSlider() {
         fetch("/api/words")
             .then(res => {
-                console.log(res);
                 if (res.ok) return res.json();
             })
             .then(data => {
@@ -81,9 +89,14 @@ export default class MainPage extends React.Component {
     fetchWordsCount() {
         fetch("/api/count")
             .then(res => {
-                if (res.ok) return res.text()
+                if (res.ok) return res.json()
             })
-            .then(text => this.setState({ count: text }))
+            .then(data => { 
+                this.setState(state => ({ 
+                    groupsCount: data, 
+                    count: data[state.selectedCountGroup],
+                }))
+            })
             .catch(err => console.error(err));
     }
 
@@ -106,11 +119,6 @@ export default class MainPage extends React.Component {
     render() {
         return (
             <Wrapper>
-                <Settings 
-                    name="Rafal" 
-                    onLogout={this.props.onLogout} 
-                    switchCorner={this.switchCorner}
-                    />
                 <section>
                     <Tutorial />
                     <WordsForm 
@@ -121,7 +129,9 @@ export default class MainPage extends React.Component {
                 <section>
                     <WordsInfo
                         newWords={this.state.newWords}
-                        wordsCount={this.state.count}
+                        count={this.state.count}
+                        selectedGroup={this.state.selectedCountGroup}
+                        setSelectedGroup={this.setSelectedGroup}
                         copySuccess={this.state.copySuccess}
                         setSuccessMessage={this.setSuccessMessage}
                         groups={this.props.groups}
