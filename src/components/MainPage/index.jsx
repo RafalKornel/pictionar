@@ -3,7 +3,6 @@ import Tutorial from "./tutorial";
 import Corner from "../CornerAnimation";
 import WordsForm from "./wordsForm";
 import WordsInfo from "./wordsInfo";
-import Settings from "../Settings";
 import styled from "styled-components";
 import { Page } from "../Utilities/common";
 

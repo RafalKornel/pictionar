@@ -1,7 +1,7 @@
 import React from "react";
 import FormField from "../Utilities/formField"
 import { Wrapper, ErrorMessage, SubmitButton } from "../Utilities/common";
-import withFormLogic from "./fetchLogic";
+import withFormLogic from "../Utilities/fetchLogic";
 
 function LoginTemplate(props) {
     return (

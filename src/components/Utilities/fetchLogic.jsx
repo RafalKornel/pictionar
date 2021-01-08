@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function withFormLogic(WrappedComponent, dataShape, fetchEndpoint) {
+export default function withFormLogic(WrappedComponent, dataShape, endpoint, createSuccessMessage) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -11,11 +11,20 @@ export default function withFormLogic(WrappedComponent, dataShape, fetchEndpoint
                 ...dataShape,
                 csrf: "",
                 errorMessage: "",
+                successMessage: "",
             };
         }
 
+        setMessage(type, message, timeout=5000)
+        {
+            let messageType = type === "success" ? "successMessage" : "errorMessage";
+            this.setState({ [messageType]: message });
+            setTimeout(() => this.setState({ [messageType]: "" }), timeout);
+        }
+
+
         componentDidMount() {
-            fetch(fetchEndpoint, {
+            fetch(endpoint, {
                 method: "GET",
             })
                 .then(res => {
@@ -34,6 +43,8 @@ export default function withFormLogic(WrappedComponent, dataShape, fetchEndpoint
         handleSubmit(e) {
             e.preventDefault();
 
+            console.log(this.state);
+
             let options = {
                 method: "POST",
                 headers: {
@@ -43,14 +54,21 @@ export default function withFormLogic(WrappedComponent, dataShape, fetchEndpoint
                 body: JSON.stringify(this.state),
             }
 
-            fetch(fetchEndpoint, options)
+            fetch(endpoint, options)
                 .then(res => {
                     if (!res.ok) {
-                        this.setState({ errorMessage: "Something went wrong!" });
-                        setTimeout(() => this.setState({ errorMessage: "" }), 5000);
+                        let message = "Something went wrong";
+                        this.setMessage("error", message);
                         throw new Error("Something went wrong.");
                     }
-                    this.props.afterSuccessfulFetch();
+                    return res.json();
+                })
+                .then(data => {
+                    if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch();
+                    let unsafeMessage = createSuccessMessage(data);
+                    let message = unsafeMessage ? unsafeMessage : "Success!"; 
+                    this.setMessage("success", message);
+
                 })
                 .catch(err => console.error(err));
         }

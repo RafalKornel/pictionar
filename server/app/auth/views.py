@@ -29,8 +29,8 @@ def create_group():
 
     data = request.get_json()
     form = CreateGroupForm(
-        group_name = data["group_name"],
-        group_key = data["group_key"])
+        group_name = data["group_name_create"],
+        group_key = data["group_key_create"])
 
     if form.validate():
         group = Group.query.filter( (Group.name == form.group_name.data) | (Group.key == form.group_key.data) ).first()
@@ -45,6 +45,8 @@ def create_group():
         db.session.commit()
 
         return {"name": group.name, "key": group.key}
+    
+    return "Something went wrong", 400
 
 
 @login_required
@@ -56,7 +58,7 @@ def join_group():
 
     data = request.get_json()
     form = JoinGroupForm(
-        group_key = data["group_key"])
+        group_key = data["group_key_join"])
 
     if form.validate():
         group = Group.query.filter_by(key=form.group_key.data).first()

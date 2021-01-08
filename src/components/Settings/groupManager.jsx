@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { SubmitButton, ErrorMessage } from "../Utilities/common";
 import FormField from "../Utilities/formField";
+import withFormLogic from "../Utilities/fetchLogic";
 
 const SuccessMessage = styled(ErrorMessage)`
     color: green;
@@ -51,201 +52,77 @@ const InputWrapper = styled.div`
 
 
 
-class JoinForm extends React.Component {
-    componentDidMount() {
-        this.props.onMount();
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.props.onSubmit}>
-                <InputWrapper>
-                    <h3>Join existing group</h3>
-                    <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
-                    <SuccessMessage>{this.props.successMessage}</SuccessMessage>
-                    <FormField
-                        value={this.props.groupKey}
-                        id="joinKey"
-                        type="text"
-                        onChange={this.props.onChange}
-                        name="joinKey"
-                        placeholder="Key" />
-                </InputWrapper>
-                <SubmitButton type="submit">Join</SubmitButton>
-            </form>
-        );
-    }
+function JoinFormTemplate(props) {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <InputWrapper>
+                <h3>Join existing group</h3>
+                <ErrorMessage>{props.errorMessage}</ErrorMessage>
+                <SuccessMessage>{props.successMessage}</SuccessMessage>
+                <FormField
+                    value={props.group_key_join}
+                    id="group_key_join"
+                    type="text"
+                    onChange={props.handleChange}
+                    name="group_key_join"
+                    placeholder="Key" />
+            </InputWrapper>
+            <SubmitButton type="submit">Join</SubmitButton>
+        </form>
+    );
 }
-class CreateForm extends React.Component {
-    componentDidMount() {
-        this.props.onMount();
-    }
 
-    render() {
-        return (
-            <form onSubmit={this.props.onSubmit} id="createForm">
-                <InputWrapper>
-                    <h3>Create new group</h3>
-                    <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
-                    <SuccessMessage>{this.props.successMessage}</SuccessMessage>
-                    <FormField
-                        value={this.props.name}
-                        id="createName"
-                        type="text"
-                        onChange={this.props.onChange}
-                        name="createName"
-                        placeholder="Name" />
-                    <FormField
-                        value={this.props.groupKey}
-                        id="createKey"
-                        type="text"
-                        onChange={this.props.onChange}
-                        name="createKey"
-                        placeholder="Key" />
-                </InputWrapper>
-                <SubmitButton type="submit">Create</SubmitButton>
-            </form>
-        );
-    }
+function CreateFormTemplate(props) {
+    return (
+        <form onSubmit={props.handleSubmit} id="createForm">
+            <InputWrapper>
+                <h3>Create new group</h3>
+                <ErrorMessage>{props.errorMessage}</ErrorMessage>
+                <SuccessMessage>{props.successMessage}</SuccessMessage>
+                <FormField
+                    value={props.group_name_create}
+                    id="group_name_create"
+                    type="text"
+                    onChange={props.handleChange}
+                    name="group_name_create"
+                    placeholder="Name" />
+                <FormField
+                    value={props.group_key_create}
+                    id="group_key_create"
+                    type="text"
+                    onChange={props.handleChange}
+                    name="group_key_create"
+                    placeholder="Key" />
+            </InputWrapper>
+            <SubmitButton type="submit">Create</SubmitButton>
+        </form>
+    );
 }
-export default class GroupManager extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.joinGroup = this.joinGroup.bind(this);
-        this.createGroup = this.createGroup.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.getCreateCSRF = this.getCreateCSRF.bind(this);
-        this.getJoinCSRF = this.getJoinCSRF.bind(this);
+const JoinForm = withFormLogic(
+    JoinFormTemplate,
+    { group_key_join: "" },
+    "/api/join_group",
+    (data) => `Joined ${data.name} group.`
+);
 
-        this.state = {
-            joinKey: "",
-            createName: "",
-            createKey: "",
-            joinErrorMessage: "",
-            createErrorMessage: "",
-            create_csrf: "",
-            join_csrf: "",
-        }
-    }
+const CreateForm = withFormLogic(
+    CreateFormTemplate,
+    { 
+        group_name_create: "",
+        group_key_create: "",
+    },
+    "/api/create_group",
+    (data) => `Created group ${data.name} with key ${data.key}`
+);
 
-    handleChange(e) {
-        this.setState({ [e.target.id]: e.target.value });
-    }
-
-    getCreateCSRF() {
-        fetch("/api/create_group")
-            .then(res => {
-                if (res.ok) return res.json();
-            })
-            .then(data => {
-                this.setState({ create_csrf: data.csrf_token });
-            })
-            .catch(err => console.error(err));
-    }
-
-    getJoinCSRF() {
-        fetch("/api/join_group")
-            .then(res => {
-                if (res.ok) return res.json();
-            })
-            .then(data => {
-                this.setState({ join_csrf: data.csrf_token });
-            })
-            .catch(err => console.error(err));
-    }
-
-
-    joinGroup(e) {
-        e.preventDefault();
-
-        let data = {
-            group_key: this.state.joinKey,
-        }
-
-        let options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": this.state.create_csrf,
-            },
-            body: JSON.stringify(data),
-        }
-
-        fetch("/api/join_group", options)
-        .then(res => {
-            if (!res.ok) {
-                this.setState({ joinErrorMessage: "Something went wrong!" });
-                setTimeout(() => this.setState({ joinErrorMessage: ""}), 5000);
-                throw new Error("Something went wrong.");
-            }
-            return res.json();
-        })
-        .then(data => {
-            this.setState({ joinSuccessMessage: "Joined group " + data.name });
-            this.props.fetchUserData();
-            setTimeout(() => this.setState({ joinSuccessMessage: "" }), 5000);
-        })
-        .catch(err => console.error(err));
-    }
-
-    createGroup(e) {
-        e.preventDefault();
-
-        let data = {
-            group_key: this.state.createKey,
-            group_name: this.state.createName
-        }
-
-        let options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": this.state.create_csrf,
-            },
-            body: JSON.stringify(data),
-        }
-
-        fetch("/api/create_group", options)
-        .then(res => {
-            if (!res.ok) {
-                this.setState({ createErrorMessage: "Something went wrong!" });
-                setTimeout(() => this.setState({ createErrorMessage: "" }), 5000);
-                throw new Error("Something went wrong.");
-            }
-            return res.json();
-        })
-        .then(data => {
-            this.setState({ createSuccessMessage: "Created group " + data.name + " with key " + data.key });
-            setTimeout(() => this.setState({ createSuccessMessage: "" }), 5000);
-        })
-        .catch(err => console.error(err));
-    }
-
-    render() {
-        const join = this.props.loggedIn
-            ? (<JoinForm
-                onSubmit={this.joinGroup}
-                onChange={this.handleChange}
-                groupKey={this.state.joinKey}
-                errorMessage={this.state.joinErrorMessage}
-                successMessage={this.state.joinSuccessMessage}
-                onMount={this.getJoinCSRF}
-            />)
-            : "";
+export default function GroupManager(props) {
         return (
             <Wrapper>
-                { join}
-                <CreateForm
-                    onSubmit={this.createGroup}
-                    onChange={this.handleChange}
-                    name={this.state.createName}
-                    groupKey={this.state.createKey}
-                    errorMessage={this.state.createErrorMessage}
-                    successMessage={this.state.createSuccessMessage}
-                    onMount={this.getCreateCSRF}
-                />
+                { props.loggedIn 
+                ? <JoinForm afterSuccessfulFetch={props.fetchUserData} /> 
+                : "" }
+                <CreateForm />
             </Wrapper>
         );
-    }
 }
