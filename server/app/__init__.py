@@ -13,7 +13,6 @@ login_manager = LoginManager()
 
 
 def create_app(config_name):
-    print(os.path.abspath("build"))
     app = Flask(__name__, static_folder=os.path.abspath("build"), static_url_path="/")
     app.config.from_object(config[config_name])
 
