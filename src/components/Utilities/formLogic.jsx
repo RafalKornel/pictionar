@@ -75,8 +75,9 @@ export default function withFormLogic(
 
 
         render() {
+            const { afterSuccessfulFetch, ...passThroughProps} = this.props;
             return <WrappedComponent 
-                {...this.props} 
+                {...passThroughProps} 
                 {...this.state}
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit} />;
