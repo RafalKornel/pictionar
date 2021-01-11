@@ -11,7 +11,7 @@ function LoginFormTemplate(props) {
 
             <FormField
                 id="user_name"
-                value={props.user_name}
+                value={props.user_name || props.login}
                 onChange={props.handleChange}
                 autoComplete="on"
                 name="user_name"
@@ -21,7 +21,7 @@ function LoginFormTemplate(props) {
 
             <FormField
                 id="user_pass"
-                value={props.user_pass}
+                value={props.user_pass || props.pass}
                 onChange={props.handleChange}
                 name="user_pass"
                 type="password" >

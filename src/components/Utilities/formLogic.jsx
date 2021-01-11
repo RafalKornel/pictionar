@@ -4,7 +4,8 @@ export default function withFormLogic(
         WrappedComponent, 
         dataShape, 
         endpoint, 
-        createSuccessMessage=undefined) {
+        createSuccessMessage=undefined,
+        messageTimeout=5000) {
     return class extends React.Component {
         constructor(props) {
             super(props);
@@ -48,10 +49,10 @@ export default function withFormLogic(
                 .catch(err => console.error(err));
         }
 
-        setMessage(type, message, timeout=5000) {
+        setMessage(type, message) {
             let messageType = type === "success" ? "successMessage" : "errorMessage";
             this.setState({ [messageType]: message });
-            setTimeout(() => this.setState({ [messageType]: "" }), timeout);
+            setTimeout(() => this.setState({ [messageType]: "" }), messageTimeout);
         }
 
         handleChange(e) {

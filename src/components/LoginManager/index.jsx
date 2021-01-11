@@ -72,7 +72,9 @@ class LoginManager extends React.Component {
         this.switchToLogin = this.switchToLogin.bind(this);
         this.switchToRegister = this.switchToRegister.bind(this);
 
-        this.state = { tab: "login" };
+        this.state = { 
+            tab: "login",
+        };
     }
 
     switchToLogin() {
@@ -86,7 +88,8 @@ class LoginManager extends React.Component {
     render() {
         const form =
             this.state.tab === "login"
-                ? <LoginForm afterSuccessfulFetch={this.props.onLogin} />
+                ? <LoginForm 
+                    afterSuccessfulFetch={this.props.onLogin} />
                 : <RegisterForm />
 
         return (

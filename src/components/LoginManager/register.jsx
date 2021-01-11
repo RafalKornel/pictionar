@@ -66,7 +66,8 @@ const RegisterForm = withFormLogic(
         secret_key: "",
     },
     "/api/register", 
-    (data) => "Successfuly registered!"
+    (data) => "Successfuly registered!",
+    15 * 1000
     );
 
 export default RegisterForm;
