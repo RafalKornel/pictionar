@@ -9,7 +9,7 @@ Simple web app, which allow you to store words for popular pictionary game.
 - ✅	create words animation
 - ✅	style components based on figma / previous version
 - ✅	code login logic / glue front and back end
-- fix retrieving words on mobile
+- ✅ fix retrieving words on mobile
 - ✅ fix sliding words animation gaps
 - ✅ reorganize files structure
 - ✅ add settings icon
