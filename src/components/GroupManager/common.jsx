@@ -16,6 +16,12 @@ export const ComponentWrapper = styled.div`
     flex-direction: column;
     width: 100%;
 
+    form {
+        transform-origin: center top;
+        transition: all 200ms ease;
+    }
+
+
     &, & * {
         transition: all 400ms ease;
     }
@@ -27,6 +33,7 @@ export const ComponentWrapper = styled.div`
 
     .hidden {
         opacity: 0;
+        transform: scaleY(0);
         height: 0;
     }
 
