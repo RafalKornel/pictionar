@@ -1,7 +1,7 @@
 import withFormLogic from "../Utilities/formLogic";
-import { SubmitButton, ErrorMessage } from "../Utilities/common";
+import { SubmitButton, SuccessMessage, ErrorMessage, } from "../Utilities/common";
 import FormField from "../Utilities/formField";
-import { SuccessMessage, GroupComponentWrapper, Header } from "./common";
+import { GroupComponentWrapper, Header } from "./common";
 
 
 function CreateFormTemplate(props) {

@@ -1,5 +1,5 @@
 import React from "react";
-import { GroupsSelect, SubmitButton, InnerFieldWrapper, Bar as ProtoBar } from "../Utilities/common"
+import { ErrorMessage, GroupsSelect, SubmitButton, InnerFieldWrapper, Bar as ProtoBar } from "../Utilities/common"
 import styled from "styled-components";
 import withFormLogic from "../Utilities/formLogic";
 
@@ -94,6 +94,7 @@ class WordsFormTemplate extends React.Component {
                 </InnerFieldWrapper>
 
                 <ButtonWrapper>
+                    <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
                     <GroupsSelect
                         handleChange={this.props.handleChange}
                         group={this.props.group}

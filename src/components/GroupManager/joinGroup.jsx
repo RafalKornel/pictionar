@@ -1,7 +1,7 @@
 import FormField from "../Utilities/formField";
 import withFormLogic from "../Utilities/formLogic";
-import { SubmitButton, ErrorMessage } from "../Utilities/common";
-import { SuccessMessage, GroupComponentWrapper, Header } from "./common";
+import { SubmitButton, SuccessMessage, ErrorMessage, } from "../Utilities/common";
+import { GroupComponentWrapper, Header } from "./common";
 
 
 function JoinFormTemplate(props) {

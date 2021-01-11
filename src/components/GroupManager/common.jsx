@@ -1,14 +1,10 @@
 import styled from "styled-components";
-import { ErrorMessage } from "../Utilities/common";
+import { SuccessMessage, ErrorMessage } from "../Utilities/common";
 
 const H3 = styled.h3`
     margin: 0;
     cursor: default;
     user-select: none;
-`;
-
-export const SuccessMessage = styled(ErrorMessage)`
-    color: green;
 `;
 
 export const GroupComponentWrapper = styled.div`
@@ -21,6 +17,10 @@ export const GroupComponentWrapper = styled.div`
         transform-origin: center top;
         transition: all 200ms ease;
         margin-bottom: 0 !important;
+    }
+
+    form > div {
+        width: 100%;
     }
 
 

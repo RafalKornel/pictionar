@@ -34,7 +34,13 @@ export default function withFormLogic(
                 method: "GET",
             })
                 .then(res => {
-                    if (res.ok) return res.json()
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    else {
+                        window.location.reload();
+                        throw new Error("Refreshing page");
+                    }
                 })
                 .then(data => {
                     this.setState({ csrf: data.csrf_token })
@@ -64,7 +70,7 @@ export default function withFormLogic(
                 body: JSON.stringify(this.state),
             }
 
-            let res = await fetch(endpoint, options);
+            let res = await fetch(endpoint, options).catch(err => console.error(err));
 
             if (!res.ok) {
                 let text = await res.text();
@@ -73,7 +79,7 @@ export default function withFormLogic(
                 return;
             }
 
-            let data = await res.json();
+            let data = await res.json().catch(err => console.log(err));
 
             if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch(data);
             let message = createSuccessMessage ? createSuccessMessage(data) : "Success!"; 

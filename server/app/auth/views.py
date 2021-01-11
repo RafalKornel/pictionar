@@ -49,8 +49,8 @@ def create_group():
     return "Something went wrong", 400
 
 
-@login_required
 @auth.route("/join_group", methods=["GET", "POST"])
+@login_required
 def join_group():
     if request.method == "GET":
         form = JoinGroupForm()
@@ -193,4 +193,4 @@ def register():
 
         return Response(status=200)
 
-    return Response(status=400)
+    return list(form.errors.values())[0][0], 400

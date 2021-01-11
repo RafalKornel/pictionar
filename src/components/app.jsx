@@ -32,7 +32,7 @@ export default class App extends React.Component {
                     return res.json();
                 }
                 else {
-                    this.setState({ loggedIn: false });
+                    this.onLogout();
                     throw new Error("Not logged.");
                 }
             })
@@ -60,12 +60,10 @@ export default class App extends React.Component {
             method: "GET"
         })
             .then(res => {
-                if (res.ok) {
-                    this.setState({ 
-                        loggedIn: false,
-                        username: "stranger",
-                    });
-                }
+                this.setState({
+                    loggedIn: false,
+                    username: "stranger",
+                });
             })
             .catch(err => console.error(err));
     }
@@ -86,10 +84,10 @@ export default class App extends React.Component {
 
     render() {
         let page = this.state.loggedIn
-            ? <MainPage 
-                switched={this.state.opened} 
-                switchCorner={this.switchCorner} 
-                groups={this.state.groups} 
+            ? <MainPage
+                switched={this.state.opened}
+                switchCorner={this.switchCorner}
+                groups={this.state.groups}
                 fetchUserData={this.fetchUserData} />
             : <LoginPage onLogin={this.onLogin} />
 
@@ -102,7 +100,7 @@ export default class App extends React.Component {
                     switchCorner={this.switchCorner}
                     loggedIn={this.state.loggedIn}
                     fetchUserData={this.fetchUserData}
-                    groups={this.state.groups} 
+                    groups={this.state.groups}
                 />
                 {page}
                 <Footer />

@@ -12,6 +12,10 @@ export const ErrorMessage = styled.p`
     line-height: 100%;
 `;
 
+export const SuccessMessage = styled(ErrorMessage)`
+    color: green;
+`;
+
 export const SubmitButton = styled.button`
     background-color: var(--input-color);
     color: var(--form-color);

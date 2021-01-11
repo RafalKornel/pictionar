@@ -1,6 +1,6 @@
 import React from "react";
 import FormField from "../Utilities/formField"
-import { Wrapper, ErrorMessage, SubmitButton } from "../Utilities/common";
+import { Wrapper, ErrorMessage, SuccessMessage, SubmitButton } from "../Utilities/common";
 import withFormLogic from "../Utilities/formLogic";
 
 function RegisterFormTemplate(props) {
@@ -49,6 +49,7 @@ function RegisterFormTemplate(props) {
 
             <Wrapper>
                 <ErrorMessage>{props.errorMessage}</ErrorMessage>
+                <SuccessMessage>{props.successMessage}</SuccessMessage>
                 <SubmitButton type="submit">Submit</SubmitButton>
             </Wrapper>
 
@@ -64,6 +65,8 @@ const RegisterForm = withFormLogic(
         user_pass_repeat: "",
         secret_key: "",
     },
-    "/api/register");
+    "/api/register", 
+    (data) => "Successfuly registered!"
+    );
 
 export default RegisterForm;

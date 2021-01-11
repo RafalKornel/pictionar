@@ -99,8 +99,13 @@ export default class ManageForm extends React.Component {
                 <div className={this.props.opened ? "" : "hidden"}>
                     <Label />
                     <GroupsWrapper>
-                        {this.props.groups.map(group => (
-                            <GroupPanel style={{ gridColumn: 1 / 3 }} name={group.name} groupKey={group.key} handleClick={this.handleClick} />
+                        {this.props.groups.map( (group, i) => (
+                            <GroupPanel 
+                                style={{ gridColumn: 1 / 3 }} 
+                                name={group.name} 
+                                groupKey={group.key} 
+                                handleClick={this.handleClick} 
+                                key={i} />
                         ))}
                     </GroupsWrapper>
                 </div>

@@ -31,6 +31,10 @@ const Box = styled.div`
     height: 1.5em;
     width: 1.5em;
 
+    @media screen and (max-width: 1100px) {
+        height: 1em;
+        width: 1em;
+    }
     box-sizing: border-box;
     border: 2px solid black;
     ${props => "background: " + props.rgb + ";"}

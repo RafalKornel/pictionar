@@ -13,7 +13,7 @@ const Icon = (props) => (
 );
 
 const Button = styled.button`
-    width: 8em;
+    width: 7.5em;
     height: 2em;
     font-size: 1.1em;
     line-height: 0.9em;
