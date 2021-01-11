@@ -75,6 +75,60 @@ def join_group():
 
     return "Something went wrong.", 400
 
+
+@login_required
+@auth.route("/leave_group", methods=["GET", "POST"])
+def leave_group():
+    if request.method == "GET":
+        form = JoinGroupForm()
+        return { "csrf_token": form.csrf_token.current_token }
+
+    data = request.get_json()
+    form = JoinGroupForm(
+        group_key = data["group_key_leave"])
+
+    if form.validate():
+        group = Group.query.filter_by(key=form.group_key.data).first()
+
+        if group is None:
+            return "Group doesn't exist", 400
+        
+        user_groups = current_user.groups.all()
+
+        if group not in user_groups:
+            return "You are not in this group", 400
+        
+        current_user.groups.remove(group)
+
+        db.session.add(current_user)
+        db.session.commit()
+
+        return "Succesfully left group.", 200
+
+    return "Something went wrong.", 400
+
+
+@login_required
+@auth.route("/leave_group/<group_key>")
+def leave(group_key):
+    group = Group.query.filter_by(key=group_key).first()
+
+    if group is None:
+        return "Group doesn't exist", 400
+        
+    user_groups = current_user.groups.all()
+    
+    if group not in user_groups:
+        return "You are not in this group", 400
+    
+    current_user.groups.remove(group)
+    
+    db.session.add(current_user)
+    db.session.commit()
+    
+    return "Succesfully left group.", 200
+
+
 @auth.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -97,7 +151,7 @@ def login():
             login_user(user)
             return {"groups": user.groups_parsed()}
         
-    return Response(status=401)
+    return "Username or password is incorrect.", 400
 
 @auth.route("/logout")
 @login_required

@@ -89,7 +89,8 @@ export default class App extends React.Component {
             ? <MainPage 
                 switched={this.state.opened} 
                 switchCorner={this.switchCorner} 
-                groups={this.state.groups} />
+                groups={this.state.groups} 
+                fetchUserData={this.fetchUserData} />
             : <LoginPage onLogin={this.onLogin} />
 
         return (

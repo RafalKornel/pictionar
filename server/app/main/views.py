@@ -28,7 +28,7 @@ def add_word():
     if group is None:
         return "Wrong group.", 400
 
-    if group.name not in current_user.groups_parsed():
+    if group.name not in current_user.group_names():
         return "Not allowed", 405
 
     added_words = []

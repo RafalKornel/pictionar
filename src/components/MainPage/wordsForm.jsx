@@ -71,7 +71,7 @@ class WordsFormTemplate extends React.Component {
         this.props.handleChange({
             target: {
                 id: "group",
-                value: this.props.groups[0],
+                value: this.props.groups[0].name,
             }
         })
     }
@@ -97,7 +97,7 @@ class WordsFormTemplate extends React.Component {
                     <GroupsSelect
                         handleChange={this.props.handleChange}
                         group={this.props.group}
-                        groups={this.props.groups}
+                        groups={this.props.groups.map(e => e.name)}
                     />
                     <SubmitButton
                         type="submit"

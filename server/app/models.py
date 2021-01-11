@@ -32,6 +32,19 @@ class User(db.Model, UserMixin):
     def groups_parsed(self):
         return list(
                     map(
+                        lambda g : 
+                        { 
+                            "name": g.name, 
+                            "key": g.key,
+                            "count": len(g.words)
+                        }, 
+                        self.groups.all()
+                    )
+                )
+
+    def group_names(self):
+        return list(
+                    map(
                         lambda g : g.name, 
                         self.groups.all()
                     )

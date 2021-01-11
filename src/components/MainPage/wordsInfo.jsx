@@ -115,7 +115,7 @@ class GetWordsButton extends React.Component {
             group: "all",
             groups: [
                 "all",
-                ...this.props.groups,
+                ...(this.props.groups.map(e => e.name)),
             ]
         };
 
@@ -128,7 +128,7 @@ class GetWordsButton extends React.Component {
             this.setState({
                 groups: [
                     "all",
-                    ...this.props.groups,
+                    ...(this.props.groups.map(e => e.name)),
                 ]
             });
         }
@@ -184,11 +184,15 @@ export default function WordsInfo(props) {
         ? <NewWordsInfo newWords={props.newWords} />
         : null;
 
+    const count = props.selectedGroup === "all"
+        ? props.groups.reduce((p, c) => p += c.count , 0)
+        : props.groups.filter(e => e.name === props.selectedGroup)[0].count;
+
     return (
         <Wrapper>
             <article>
                 {addedWordsMessage}
-                <h2>There are <span>{props.count}</span> words in group <span>{props.selectedGroup}</span>.</h2>
+                <h2>There are <span>{count}</span> words in group <span>{props.selectedGroup}</span>.</h2>
                 <h2>Hit the button below to get words from database</h2>
                 <CopySucess>{props.copySuccess}</CopySucess>
             </article>

@@ -60,7 +60,7 @@ export default class MainPage extends React.Component {
         this.setState({ newWords: data.added_words });
         console.log(this.state);
         setTimeout(() => this.setState({ newWords: "" }), 5000);
-        this.fetchWordsCount();
+        this.props.fetchUserData();
         this.fetchWordsForSlider();
     }
 
@@ -86,6 +86,7 @@ export default class MainPage extends React.Component {
             .catch(err => console.error(err));
     }
 
+    /*
     fetchWordsCount() {
         fetch("/api/count")
             .then(res => {
@@ -98,7 +99,7 @@ export default class MainPage extends React.Component {
                 }))
             })
             .catch(err => console.error(err));
-    }
+    } */
 
     switchCorner() {
         this.props.switchCorner();
@@ -113,7 +114,7 @@ export default class MainPage extends React.Component {
 
     componentDidMount() {
         this.fetchWordsForSlider();
-        this.fetchWordsCount();
+        //this.fetchWordsCount();
     }
 
     render() {
@@ -129,7 +130,6 @@ export default class MainPage extends React.Component {
                 <section>
                     <WordsInfo
                         newWords={this.state.newWords}
-                        count={this.state.count}
                         selectedGroup={this.state.selectedCountGroup}
                         setSelectedGroup={this.setSelectedGroup}
                         copySuccess={this.state.copySuccess}
