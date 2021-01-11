@@ -41,6 +41,7 @@ export const GroupComponentWrapper = styled.div`
 
     span {
         display: inline-block;
+        margin-right: 1em;
     }
 
     .opened {

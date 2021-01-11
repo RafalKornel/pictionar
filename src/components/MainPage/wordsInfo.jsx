@@ -27,7 +27,8 @@ const ButtonWrapper = styled.div`
         bottom: 25%;
         left: 50%;
         transform: translate(-50%, 50%);
-        border: none;
+        border: 2px solid var(--form-color);
+        border-radius: 10px;
         background-color: var(--input-color);
         color: var(--form-color);
         font-size: 1.1em;
@@ -106,6 +107,14 @@ const Wrapper = styled.div`
 `;
 // </ STYLE >
 
+function copyToClipboard(text) {
+    let textField = document.createElement("textarea");
+    textField.innerText = text;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand("copy");
+    textField.remove();
+}
 
 class GetWordsButton extends React.Component {
     constructor(props) {
@@ -141,7 +150,7 @@ class GetWordsButton extends React.Component {
         fetch(`/api/bank?groups=${query}`)
             .then(res => res.json())
             .then(data => {
-                navigator.clipboard.writeText(data);
+                copyToClipboard(data);
                 this.props.showSuccessMessage();
             })
             .catch(err => console.error(err))
@@ -185,7 +194,7 @@ export default function WordsInfo(props) {
         : null;
 
     const count = props.selectedGroup === "all"
-        ? props.groups.reduce((p, c) => p += c.count , 0)
+        ? props.groups.reduce((p, c) => p += c.count, 0)
         : props.groups.filter(e => e.name === props.selectedGroup)[0].count;
 
     return (
