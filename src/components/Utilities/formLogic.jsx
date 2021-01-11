@@ -10,6 +10,7 @@ export default function withFormLogic(
             super(props);
             this.handleChange = this.handleChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
+            this.fetchInterval = undefined;
             this.state = {
                 ...dataShape,
                 csrf: "",
@@ -18,15 +19,17 @@ export default function withFormLogic(
             };
         }
 
-        setMessage(type, message, timeout=5000)
-        {
-            let messageType = type === "success" ? "successMessage" : "errorMessage";
-            this.setState({ [messageType]: message });
-            setTimeout(() => this.setState({ [messageType]: "" }), timeout);
+        componentDidMount() {
+            this.fetchCSRFToken();
+
+            this.fetchInterval = setInterval(this.fetchCSRFToken, 1000 * 60 * 5);
         }
 
+        componentWillUnmount() {
+            clearInterval(this.fetchInterval);
+        }
 
-        componentDidMount() {
+        fetchCSRFToken() {
             fetch(endpoint, {
                 method: "GET",
             })
@@ -37,6 +40,12 @@ export default function withFormLogic(
                     this.setState({ csrf: data.csrf_token })
                 })
                 .catch(err => console.error(err));
+        }
+
+        setMessage(type, message, timeout=5000) {
+            let messageType = type === "success" ? "successMessage" : "errorMessage";
+            this.setState({ [messageType]: message });
+            setTimeout(() => this.setState({ [messageType]: "" }), timeout);
         }
 
         handleChange(e) {
