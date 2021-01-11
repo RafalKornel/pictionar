@@ -13,7 +13,6 @@ const Icon = (props) => (
 );
 
 const Button = styled.button`
-
     width: 8em;
     height: 2em;
     font-size: 1.1em;
@@ -38,6 +37,7 @@ const Wrapper = styled.div`
     padding: 2rem;
     width: 20%;
     min-height: 30rem;
+    max-height: 40rem;
     display: flex;
     flex-direction: column;
     z-index: 4;
@@ -135,6 +135,7 @@ export default function Settings(props) {
             <GroupManager 
                 loggedIn={props.loggedIn} 
                 fetchUserData={props.fetchUserData}
+                groups={props.groups}
                 />
             <ColorPicker />
             { props.loggedIn 

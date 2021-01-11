@@ -11,14 +11,16 @@ export const SuccessMessage = styled(ErrorMessage)`
     color: green;
 `;
 
-export const ComponentWrapper = styled.div`
+export const GroupComponentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-bottom: 1em;
 
     form {
         transform-origin: center top;
         transition: all 200ms ease;
+        margin-bottom: 0 !important;
     }
 
 

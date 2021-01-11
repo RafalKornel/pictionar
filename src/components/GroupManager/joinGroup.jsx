@@ -1,12 +1,12 @@
 import FormField from "../Utilities/formField";
 import withFormLogic from "../Utilities/formLogic";
 import { SubmitButton, ErrorMessage } from "../Utilities/common";
-import { SuccessMessage, ComponentWrapper, Header } from "./common";
+import { SuccessMessage, GroupComponentWrapper, Header } from "./common";
 
 
 function JoinFormTemplate(props) {
     return (
-        <ComponentWrapper>
+        <GroupComponentWrapper>
             <Header 
                 for="join"
                 handleClick={props.handleClick}
@@ -29,7 +29,7 @@ function JoinFormTemplate(props) {
                 </div>
                 <SubmitButton type="submit">Join</SubmitButton>
             </form>
-        </ComponentWrapper>
+        </GroupComponentWrapper>
 
     );
 }

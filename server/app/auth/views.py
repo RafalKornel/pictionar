@@ -65,6 +65,9 @@ def join_group():
 
         if group is None:
             return "Group doesn't exist", 400
+
+        if group in current_user.groups.all():
+            return "You are already in group.", 400
         
         current_user.groups.append(group)
 
@@ -120,10 +123,11 @@ def leave(group_key):
     
     if group not in user_groups:
         return "You are not in this group", 400
+
+    if len(user_groups) == 1: 
+        return "You have to be in at least one group", 400
     
     current_user.groups.remove(group)
-    
-    db.session.add(current_user)
     db.session.commit()
     
     return "Succesfully left group.", 200

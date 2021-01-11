@@ -102,6 +102,7 @@ export default class App extends React.Component {
                     switchCorner={this.switchCorner}
                     loggedIn={this.state.loggedIn}
                     fetchUserData={this.fetchUserData}
+                    groups={this.state.groups} 
                 />
                 {page}
                 <Footer />

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CreateForm from "./createGroup";
 import JoinForm from "./joinGroup";
+import ManageForm from "./manageGroups";
 
 // < STYLE >
 const Wrapper = styled.div`
@@ -34,29 +35,42 @@ export default class GroupManager extends React.Component {
         this.state = {
             join: false,
             create: true,
+            manage: false,
         }
     }
 
     handleClick(sectionName) {
-        this.setState(state => ({
-            [sectionName]: !state[sectionName]
-        }));
+        this.setState(state => {
+            let tempState = { ...state };
+            for (let i in tempState) {
+                tempState[i] = (i === sectionName ? !tempState[i] : false);
+            }
+            return tempState;
+        }
+        )
     }
 
     render() {
         return (
             <Wrapper>
-                { this.props.loggedIn && 
-                    <JoinForm 
-                        afterSuccessfulFetch={this.props.fetchUserData} 
+                { this.props.loggedIn &&
+                    <ManageForm
+                        afterSuccessfulFetch={this.props.fetchUserData}
                         handleClick={this.handleClick}
-                        opened={this.state.join} /> 
+                        opened={this.state.manage}
+                        groups={this.props.groups} />
                 }
-                
-                <CreateForm 
+                { this.props.loggedIn &&
+                    <JoinForm
+                        afterSuccessfulFetch={this.props.fetchUserData}
+                        handleClick={this.handleClick}
+                        opened={this.state.join} />
+                }
+
+                <CreateForm
                     handleClick={this.handleClick}
                     opened={this.state.create}
-                    />
+                />
             </Wrapper>
         );
     }
