@@ -17,10 +17,7 @@ const Wrapper = styled.div`
     margin-top: 1em;
 
     button {
-        margin: 0;
-        margin-top: auto;
-        margin-left: 1em;
-        margin-bottom: 0.2em;
+        margin: auto 0 calc(0.9em - 6px) 1em;
     }
 
     form {
@@ -32,53 +29,79 @@ const Wrapper = styled.div`
     }
 `;
 
-const InputWrapper = styled.div`
+const ComponentWrapper = styled.div`
     display: flex;
     flex-direction: column;
-
     width: 100%;
 
-    > div {
-        margin: 0.2em 0;
+    &, & * {
+        transition: all 400ms ease;
     }
 
     h3 {
         margin: 0;
+        cursor: default;
+        user-select: none;
     }
 
     ${ErrorMessage}, ${SuccessMessage} {
         margin-left: 10%;
         margin-top: 0.5em;
     }
+
+    .hidden {
+        opacity: 0;
+        height: 0;
+    }
+
+    span {
+        display: inline-block;
+    }
+
+    .opened {
+        transform: rotate(-90deg);
+    }
 `;
 // </ STYLE >
 
-
 function JoinFormTemplate(props) {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <InputWrapper>
-                <h3>Join existing group</h3>
-                <ErrorMessage>{props.errorMessage}</ErrorMessage>
-                <SuccessMessage>{props.successMessage}</SuccessMessage>
-                <FormField
-                    value={props.group_key_join}
-                    id="group_key_join"
-                    type="text"
-                    onChange={props.handleChange}
-                    name="group_key_join"
-                    placeholder="Key" />
-            </InputWrapper>
-            <SubmitButton type="submit">Join</SubmitButton>
-        </form>
+        <ComponentWrapper>
+            <h3 onClick={() => props.handleClick("join")}>
+                <span className={props.opened ? "" : "opened"}>▼</span>Join existing group
+            </h3>
+            <form 
+                onSubmit={props.handleSubmit}
+                className={props.opened ? "" : "hidden"} >
+                <div>
+                    <ErrorMessage>{props.errorMessage}</ErrorMessage>
+                    <SuccessMessage>{props.successMessage}</SuccessMessage>
+                    <FormField
+                        value={props.group_key_join}
+                        id="group_key_join"
+                        type="text"
+                        onChange={props.handleChange}
+                        name="group_key_join"
+                        placeholder="Key" />
+                </div>
+                <SubmitButton type="submit">Join</SubmitButton>
+            </form>
+        </ComponentWrapper>
+
     );
 }
 
 function CreateFormTemplate(props) {
     return (
-        <form onSubmit={props.handleSubmit} id="createForm">
-            <InputWrapper>
-                <h3>Create new group</h3>
+        <ComponentWrapper>
+        <h3 onClick={() => props.handleClick("create")}>
+            <span className={props.opened ? "" : "opened"}>▼</span>Create new group
+        </h3>
+        <form 
+            onSubmit={props.handleSubmit} 
+            id="createForm"
+            className={props.opened ? "" : "hidden"} >
+            <div>
                 <ErrorMessage>{props.errorMessage}</ErrorMessage>
                 <SuccessMessage>{props.successMessage}</SuccessMessage>
                 <FormField
@@ -95,9 +118,10 @@ function CreateFormTemplate(props) {
                     onChange={props.handleChange}
                     name="group_key_create"
                     placeholder="Key" />
-            </InputWrapper>
+            </div>
             <SubmitButton type="submit">Create</SubmitButton>
         </form>
+        </ComponentWrapper>
     );
 }
 
@@ -110,7 +134,7 @@ const JoinForm = withFormLogic(
 
 const CreateForm = withFormLogic(
     CreateFormTemplate,
-    { 
+    {
         group_name_create: "",
         group_key_create: "",
     },
@@ -118,13 +142,39 @@ const CreateForm = withFormLogic(
     (data) => `Created group ${data.name} with key ${data.key}`
 );
 
-export default function GroupManager(props) {
+export default class GroupManager extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleClick = this.handleClick.bind(this);
+
+        this.state = {
+            join: true,
+            create: false,
+        }
+    }
+
+    handleClick(sectionName) {
+        this.setState(state => ({
+            [sectionName]: !state[sectionName]
+        }));
+    }
+
+    render() {
         return (
             <Wrapper>
-                { props.loggedIn 
-                ? <JoinForm afterSuccessfulFetch={props.fetchUserData} /> 
-                : "" }
-                <CreateForm />
+                { this.props.loggedIn
+                    ? <JoinForm 
+                        afterSuccessfulFetch={this.props.fetchUserData} 
+                        handleClick={this.handleClick}
+                        opened={this.state.join}
+                        />
+                    : ""}
+                <CreateForm 
+                    handleClick={this.handleClick}
+                    opened={this.state.create}
+                    />
             </Wrapper>
         );
+    }
 }
