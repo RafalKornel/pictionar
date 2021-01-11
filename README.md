@@ -11,10 +11,11 @@ Simple web app, which allow you to store words for popular pictionary game.
 - ✅	code login logic / glue front and back end
 - fix retrieving words on mobile
 - ✅ fix sliding words animation gaps
-- save credientials when registering
 - ✅ reorganize files structure
 - ✅ add settings icon
 - ✅ add themes
 - ✅ rewrite styling in styled-components
-- add error handling throughout whole application
-- change settings panel (group manager) to accordion
+- ✅ add error handling throughout whole application
+- ✅ change settings panel (group manager) to accordion
+- ✅ add management of user's groups
+- improve color picking feature (allow user to change, create and save themes)
