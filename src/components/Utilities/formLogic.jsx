@@ -52,7 +52,7 @@ export default function withFormLogic(
             this.setState({ [e.target.id]: e.target.value });
         }
 
-        handleSubmit(e) {
+        async handleSubmit(e) {
             e.preventDefault();
 
             let options = {
@@ -64,12 +64,30 @@ export default function withFormLogic(
                 body: JSON.stringify(this.state),
             }
 
+            let res = await fetch(endpoint, options);
+
+            if (!res.ok) {
+                let text = await res.text();
+                console.error(text);
+                this.setMessage("error", text);
+                return;
+            }
+
+            let data = await res.json();
+
+            if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch(data);
+            let message = createSuccessMessage ? createSuccessMessage(data) : "Success!"; 
+            this.setMessage("success", message);
+            
+
+            /*
             fetch(endpoint, options)
                 .then(res => {
                     if (!res.ok) {
                         let message = "Something went wrong";
                         this.setMessage("error", message);
-                        throw new Error("Something went wrong.");
+                        throw res.text().then(text => new Error(text));
+                        
                     }
                     return res.json();
                 })
@@ -79,7 +97,7 @@ export default function withFormLogic(
                     this.setMessage("success", message);
 
                 })
-                .catch(err => console.error(err));
+                .catch(err => console.error(err)); */
         }
 
 
