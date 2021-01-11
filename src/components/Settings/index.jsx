@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ColorPicker from "./colorPicker";
-import GroupManager from "./groupManager";
+import GroupManager from "../GroupManager";
 
 
 // < STYLE >
