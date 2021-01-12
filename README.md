@@ -1,6 +1,9 @@
 # Pictionar
 This application allows you to manage words collections, primarly for pictionary / charades game (like [skribbl.io](https://skribbl.io/)).
-You can see live demo [here](https://pictionar.herokuapp.com/). Register using key: *public* (or create your own group).
+
+You can see live demo [here](https://pictionar.herokuapp.com/). 
+
+Register using key: *public* (or create your own group).
 
 After login in you can add new words, or retrieve them from database.
 Here's how it looks like:
