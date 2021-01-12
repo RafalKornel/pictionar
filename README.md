@@ -1,21 +1,39 @@
-# pictionar
-Simple web app, which allow you to store words for popular pictionary game.
+# Pictionar
+This application allows you to manage words collections, primarly for pictionary / charades game (like [skribbl.io](https://skribbl.io/)).
+You can see live demo [here](https://pictionar.herokuapp.com/). Register using key: *public* (or create your own group).
 
-# TODO
+After login in you can add new words, or retrieve them from database.
+Here's how it looks like:
+<img width="700" align="center" src="showcase.gif">
 
-- ✅	create switchable login / register component
-- ✅ create words submition form
-- ✅	create words retrieving button
-- ✅	create words animation
-- ✅	style components based on figma / previous version
-- ✅	code login logic / glue front and back end
-- ✅ fix retrieving words on mobile
-- ✅ fix sliding words animation gaps
-- ✅ reorganize files structure
-- ✅ add settings icon
-- ✅ add themes
-- ✅ rewrite styling in styled-components
-- ✅ add error handling throughout whole application
-- ✅ change settings panel (group manager) to accordion
-- ✅ add management of user's groups
-- improve color picking feature (allow user to change, create and save themes)
+To run locally, first create virtual environment:
+```
+python -m venv server/app/venv
+```
+Then install python dependencies:
+```
+source server/app/venv/bin/activate
+pip install -r requirements.txt
+```
+After installing all dependencies, run:
+```
+gunicorn wsgi:app
+```
+and your app will be served.
+If you are developing in react, remember to build before deploying.
+
+### Tech stack:
+On front end:
+- React (originally was just HTML + CSS + vanilla JS)
+- Styled components
+
+On back end:
+- Flask (python microframework)
+- PostgreSQL (Sqlite3 in development environment)
+- SQLAlchemy (Flask-SQLAlchemy)
+
+### Want to contribute? Feel free to file issue with ideas, or fork and develop!
+
+### TODO
+- [ ] improve color picking feature (allow user to change, create and save themes)
+- [ ] retouch "hero" component
