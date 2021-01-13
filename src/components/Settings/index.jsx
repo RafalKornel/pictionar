@@ -137,10 +137,13 @@ export default function Settings(props) {
                 fetchUserData={props.fetchUserData}
                 groups={props.groups}
                 />
+    
+            { props.loggedIn &&
             <ColorPicker 
                 loggedIn={props.loggedIn} 
                 themes={props.themes}
-                afterSuccessfulFetch={props.fetchUserData} />
+                afterSuccessfulFetch={props.fetchUserData} /> }
+    
             { props.loggedIn &&
              <ButtonsWrapper>
                 <LogoutButton onLogout={props.onLogout} />

@@ -135,19 +135,17 @@ class ColorPickerTemplate extends React.Component {
                         themes={this.defaultThemes}
                         setTheme={this.setTheme} />
 
-                    {this.props.loggedIn &&
                         <ThemeSection
                             themes={this.props.themes}
                             setTheme={this.setTheme}
-                            removeTheme={this.removeTheme} />}
+                            removeTheme={this.removeTheme} />
                 </InnerWrapper>
 
-                {this.props.loggedIn &&
                     <ColorFormTemplate
                         colors={theme}
                         themeName={this.props.themeName}
                         handleChange={this.props.handleChange}
-                        handleSubmit={this.props.handleSubmit} />}
+                        handleSubmit={this.props.handleSubmit} />
 
                 <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
             </Wrapper>
