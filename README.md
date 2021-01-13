@@ -38,5 +38,5 @@ On back end:
 ### Want to contribute? Feel free to file issue with ideas, or fork and develop!
 
 ### TODO
-- [ ] improve color picking feature (allow user to change, create and save themes)
+- [x] improve color picking feature (allow user to change, create and save themes)
 - [ ] retouch "hero" component
