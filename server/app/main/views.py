@@ -5,8 +5,9 @@ from . import main
 from flask import render_template, request, Response, json, jsonify
 from flask_login import login_required, current_user, logout_user
 from .. import  db
-from ..models import Group, User, Word, associations
+from ..models import Group, User, Word, associations, Theme
 from .utilities import validate_word, clean_input
+from .forms import ThemeForm
 import random, math
 
 
@@ -88,18 +89,51 @@ def retrieve_words():
     return jsonify(result)
 
 
-@main.route("/count")
+@main.route("/add_theme", methods=["GET", "POST"])
 @login_required
-def words_count():
+def add_theme():
+    if request.method == "GET":
+        form = ThemeForm()
+        return { "csrf_token": form.csrf_token.current_token }
 
-    groups = current_user.groups.all()
-    count = { 
-        group.name : len( Word.query.filter_by(group_id=group.id).all() ) 
-                    for group in groups }
+    data = request.get_json()
+    name = data["name"]
+    colors = data["colors"]
 
-    total = 0
-    for group in count.keys():
-        total += count[group]
-    count["all"] = total
+    schema = [ "--gradient-light", 
+               "--gradient-dark",
+               "--text-color",
+               "--form-color",
+               "--input-color" ]
 
-    return count
+    for entry in schema:
+        if entry not in colors:
+            return "Wrong theme format", 400
+
+    form = ThemeForm(
+        name = name,
+        gradient_light = colors[schema[0]],
+        gradient_dark = colors[schema[1]],
+        text_color = colors[schema[2]],
+        main_color = colors[schema[3]],
+        accent_color = colors[schema[4]]
+    )
+
+    if form.validate():
+        theme = Theme(
+            name = name,
+            user_id = current_user.get_id(),
+            gradient_light = colors[schema[0]],
+            gradient_dark = colors[schema[1]],
+            text_color = colors[schema[2]],
+            main_color = colors[schema[3]],
+            accent_color = colors[schema[4]]
+        )
+
+        db.session.add(theme)
+        db.session.commit()
+    
+        return "Color added.", 200
+    
+    return list(form.errors.values())[0][0], 400
+    

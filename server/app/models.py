@@ -28,6 +28,7 @@ class User(db.Model, UserMixin):
                 lazy="dynamic")
 
     words = db.relationship("Word", backref="user")
+    themes = db.relationship("Theme", backref="user")
 
     def groups_parsed(self):
         return list(
@@ -49,6 +50,14 @@ class User(db.Model, UserMixin):
                         self.groups.all()
                     )
                 )
+
+    def themes_parsed(self):
+        return list(
+            map(
+                lambda t : t.parse()
+            , self.themes
+            )
+        )
 
     @property
     def password(self):
@@ -92,3 +101,29 @@ class Word(db.Model):
 
     def __repr__(self):
         return f"<Word {self.word}>"
+
+
+class Theme(db.Model):
+    __tablename__ = "themes"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    gradient_light = db.Column(db.String(7), nullable=False)
+    gradient_dark = db.Column(db.String(7), nullable=False)
+    text_color = db.Column(db.String(7), nullable=False)
+    main_color = db.Column(db.String(7), nullable=False)
+    accent_color = db.Column(db.String(7), nullable=False)
+
+
+    def parse(self):
+        return {
+            "name": self.name,
+            "colors": {
+                "--gradient-light": self.gradient_light,
+                "--gradient-dark": self.gradient_dark,
+                "--text-color": self.text_color,
+                "--form-color": self.main_color,
+                "--input-color": self.accent_color
+            }
+        }

@@ -12,7 +12,8 @@ def make_shell_context():
         "User":models.User, 
         "Group":models.Group, 
         "Word":models.Word, 
-        "associations":models.associations 
+        "associations":models.associations,
+        "Theme":models.Theme
     }
 
 @app.before_request

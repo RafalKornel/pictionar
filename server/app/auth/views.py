@@ -14,7 +14,8 @@ def check_if_logged():
     if current_user.is_authenticated:
         return {
             "name": current_user.name,
-            "groups": current_user.groups_parsed()
+            "groups": current_user.groups_parsed(),
+            "themes": current_user.themes_parsed()
         }
     
     return Response(status=401)
