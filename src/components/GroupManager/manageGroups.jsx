@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { SuccessMessage, GroupComponentWrapper, Header } from "./common";
+import { GroupComponentWrapper, Header } from "./common";
 import { RemoveButton as Button } from "../Utilities/common";
 
 const GroupsWrapper = styled.div`

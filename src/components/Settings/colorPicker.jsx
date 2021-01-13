@@ -37,10 +37,30 @@ const Wrapper = styled.div`
 // </ STYLE >
 
 
+function sortThemeProperties(theme) { 
+    // { prop:value } => [ value ]
+
+    let reference = [
+        "--gradient-light",
+        "--gradient-dark",
+        "--text-color",
+        "--form-color",
+        "--input-color" 
+    ];
+    let output = [];
+
+    for (let ref of reference) {
+        output.push(theme[ref]);
+    }
+
+    return output;
+}
+
 function ColorBoxes(props) {
+    let values = sortThemeProperties(props.theme);
     return (
         <>
-            { Object.values(props.theme).map((rgb, i) =>
+            { values.map((rgb, i) =>
                 <Box rgb={rgb} key={i} title={labels[i]} />) }
         </>
     );
@@ -116,7 +136,6 @@ class ColorPickerTemplate extends React.Component {
         }
 
         let theme = this.extractThemeFromProps();
-        console.log(theme);
 
         for (let prop in theme) {
             document.documentElement.style.setProperty(prop, theme[prop]);

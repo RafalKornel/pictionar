@@ -58,7 +58,6 @@ export default class MainPage extends React.Component {
 
     addedNewWords(data) {
         this.setState({ newWords: data.added_words });
-        console.log(this.state);
         setTimeout(() => this.setState({ newWords: "" }), 5000);
         this.props.fetchUserData();
         this.fetchWordsForSlider();

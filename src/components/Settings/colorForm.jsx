@@ -64,7 +64,14 @@ export default function ColorFormTemplate(props) {
                 onChange={props.handleChange}
                 />
             {Object.keys(props.colors).map((color, i) => (
-                <Box as="input" type="color" value={props.colors[color]} onChange={props.handleChange} key={i} id={color} name={color} />
+                <Box 
+                    as="input" 
+                    type="color" 
+                    value={props.colors[color]} 
+                    onChange={props.handleChange} 
+                    key={i} 
+                    id={color} 
+                    name={color} />
             ))}
         </Wrapper>
     );

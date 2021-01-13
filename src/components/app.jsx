@@ -37,7 +37,6 @@ export default class App extends React.Component {
                 }
             })
             .then(data => {
-                console.log(data);
                 this.setState({
                     loggedIn: true,
                     username: data.name,
