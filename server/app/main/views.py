@@ -97,8 +97,7 @@ def add_theme():
         return { "csrf_token": form.csrf_token.current_token }
 
     data = request.get_json()
-    name = data["name"]
-    colors = data["colors"]
+    name = data["themeName"]
 
     schema = [ "--gradient-light", 
                "--gradient-dark",
@@ -107,27 +106,27 @@ def add_theme():
                "--input-color" ]
 
     for entry in schema:
-        if entry not in colors:
+        if entry not in data:
             return "Wrong theme format", 400
 
     form = ThemeForm(
         name = name,
-        gradient_light = colors[schema[0]],
-        gradient_dark = colors[schema[1]],
-        text_color = colors[schema[2]],
-        main_color = colors[schema[3]],
-        accent_color = colors[schema[4]]
+        gradient_light = data[schema[0]],
+        gradient_dark = data[schema[1]],
+        text_color = data[schema[2]],
+        main_color = data[schema[3]],
+        accent_color = data[schema[4]]
     )
 
     if form.validate():
         theme = Theme(
             name = name,
             user_id = current_user.get_id(),
-            gradient_light = colors[schema[0]],
-            gradient_dark = colors[schema[1]],
-            text_color = colors[schema[2]],
-            main_color = colors[schema[3]],
-            accent_color = colors[schema[4]]
+            gradient_light = data[schema[0]],
+            gradient_dark = data[schema[1]],
+            text_color = data[schema[2]],
+            main_color = data[schema[3]],
+            accent_color = data[schema[4]]
         )
 
         db.session.add(theme)
@@ -136,4 +135,21 @@ def add_theme():
         return "Color added.", 200
     
     return list(form.errors.values())[0][0], 400
-    
+
+
+# TODO: change method to delete perhaps?
+@main.route("/remove_theme/<theme_name>")
+@login_required
+def remove_theme(theme_name):
+    theme = Theme.query \
+        .filter_by(user_id=current_user.get_id()) \
+        .filter_by(name=theme_name) \
+        .first()
+
+    if theme is None:
+        return "Theme not found", 400
+
+    db.session.delete(theme)
+    db.session.commit()
+
+    return "Removed theme", 200

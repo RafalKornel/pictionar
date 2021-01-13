@@ -112,8 +112,8 @@ def leave_group():
     return "Something went wrong.", 400
 
 
-@login_required
 @auth.route("/leave_group/<group_key>")
+@login_required
 def leave(group_key):
     group = Group.query.filter_by(key=group_key).first()
 

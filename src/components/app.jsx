@@ -37,10 +37,12 @@ export default class App extends React.Component {
                 }
             })
             .then(data => {
+                console.log(data);
                 this.setState({
                     loggedIn: true,
                     username: data.name,
                     groups: data.groups,
+                    themes: data.themes,
                 });
                 this.openCorner();
             })
@@ -101,6 +103,7 @@ export default class App extends React.Component {
                     loggedIn={this.state.loggedIn}
                     fetchUserData={this.fetchUserData}
                     groups={this.state.groups}
+                    themes={this.state.themes}
                 />
                 {page}
                 <Footer />

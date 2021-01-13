@@ -11,6 +11,7 @@ export default function withFormLogic(
             super(props);
             this.handleChange = this.handleChange.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
+            this.customHStateHandle = this.customHStateHandle.bind(this);
             this.fetchInterval = undefined;
             this.state = {
                 ...dataShape,
@@ -38,6 +39,9 @@ export default function withFormLogic(
                     if (res.ok) {
                         return res.json();
                     }
+                    else if (res.status === 401) {
+                        return;
+                    }
                     else {
                         window.location.reload();
                         throw new Error("Refreshing page");
@@ -56,7 +60,12 @@ export default function withFormLogic(
         }
 
         handleChange(e) {
+            console.log(this.state);
             this.setState({ [e.target.id]: e.target.value });
+        }
+
+        customHStateHandle(state) {
+            this.setState({ ...state });
         }
 
         async handleSubmit(e) {
@@ -85,36 +94,17 @@ export default function withFormLogic(
             if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch(data);
             let message = createSuccessMessage ? createSuccessMessage(data) : "Success!"; 
             this.setMessage("success", message);
-            
-
-            /*
-            fetch(endpoint, options)
-                .then(res => {
-                    if (!res.ok) {
-                        let message = "Something went wrong";
-                        this.setMessage("error", message);
-                        throw res.text().then(text => new Error(text));
-                        
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    if (this.props.afterSuccessfulFetch) this.props.afterSuccessfulFetch(data);
-                    let message = createSuccessMessage ? createSuccessMessage(data) : "Success!"; 
-                    this.setMessage("success", message);
-
-                })
-                .catch(err => console.error(err)); */
         }
 
 
         render() {
-            const { afterSuccessfulFetch, ...passThroughProps} = this.props;
+            //const { afterSuccessfulFetch, ...passThroughProps} = this.props;
             return <WrappedComponent 
-                {...passThroughProps} 
+                {...this.props} 
                 {...this.state}
                 handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit} />;
+                handleSubmit={this.handleSubmit}
+                customHStateHandle={this.customHStateHandle} />;
         }
     }
 }

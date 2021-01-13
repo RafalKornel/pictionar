@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { SuccessMessage, GroupComponentWrapper, Header } from "./common";
+import { RemoveButton as Button } from "../Utilities/common";
 
 const GroupsWrapper = styled.div`
     display: grid;
@@ -10,7 +11,7 @@ const GroupsWrapper = styled.div`
     overflow: scroll;
     overflow-x: hidden;
 
-    p {
+    > p {
         margin: 0.4em 0 0.4em 0.4em;
     }
 `;
@@ -24,24 +25,6 @@ const LabelWrapper = styled.div`
     }
 `;
 
-const Button = styled.div`
-    width: 2em;
-    height: 2em;
-    display: flex;
-    place-items: center;
-    cursor: default;
-    user-select: none;
-
-    &:hover {
-        backdrop-filter: contrast(1.2);
-    }
-
-    p {
-        margin: auto;
-        font-weight: bold;
-        color: red;
-    }
-`;
 
 function Label(props) {
     return (

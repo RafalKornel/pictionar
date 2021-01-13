@@ -58,14 +58,13 @@ export default class GroupManager extends React.Component {
                         afterSuccessfulFetch={this.props.fetchUserData}
                         handleClick={this.handleClick}
                         opened={this.state.manage}
-                        groups={this.props.groups} />
-                }
+                        groups={this.props.groups} /> }
+
                 { this.props.loggedIn &&
                     <JoinForm
                         afterSuccessfulFetch={this.props.fetchUserData}
                         handleClick={this.handleClick}
-                        opened={this.state.join} />
-                }
+                        opened={this.state.join} /> }
 
                 <CreateForm
                     handleClick={this.handleClick}

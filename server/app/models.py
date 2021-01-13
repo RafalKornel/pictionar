@@ -52,7 +52,8 @@ class User(db.Model, UserMixin):
                 )
 
     def themes_parsed(self):
-        return list(
+        return { t.name: t.colors() for t in self.themes }
+        return dict(
             map(
                 lambda t : t.parse()
             , self.themes
@@ -116,14 +117,11 @@ class Theme(db.Model):
     accent_color = db.Column(db.String(7), nullable=False)
 
 
-    def parse(self):
+    def colors(self):
         return {
-            "name": self.name,
-            "colors": {
-                "--gradient-light": self.gradient_light,
-                "--gradient-dark": self.gradient_dark,
-                "--text-color": self.text_color,
-                "--form-color": self.main_color,
-                "--input-color": self.accent_color
-            }
+            "--gradient-light": self.gradient_light,
+            "--gradient-dark": self.gradient_dark,
+            "--text-color": self.text_color,
+            "--form-color": self.main_color,
+            "--input-color": self.accent_color
         }

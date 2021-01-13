@@ -86,21 +86,6 @@ export default class MainPage extends React.Component {
             .catch(err => console.error(err));
     }
 
-    /*
-    fetchWordsCount() {
-        fetch("/api/count")
-            .then(res => {
-                if (res.ok) return res.json()
-            })
-            .then(data => { 
-                this.setState(state => ({ 
-                    groupsCount: data, 
-                    count: data[state.selectedCountGroup],
-                }))
-            })
-            .catch(err => console.error(err));
-    } */
-
     switchCorner() {
         this.props.switchCorner();
         if (this.state.messages.length > 0) {

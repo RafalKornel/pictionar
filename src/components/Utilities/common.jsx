@@ -12,6 +12,35 @@ export const ErrorMessage = styled.p`
     line-height: 100%;
 `;
 
+
+export const RemoveButton = styled.div`
+    width: 2em;
+    height: 2em;
+    display: flex;
+    place-items: center;
+    cursor: default;
+    user-select: none;
+    box-sizing: border-box;
+    transition: all 400ms ease;
+    
+
+    &:hover {
+        backdrop-filter: contrast(1.5);
+        border: 1px solid red;
+        border-radius: 20px;
+    }
+
+    &:hover p {
+        transform: scale(1.5);
+    }
+
+    p {
+        margin: auto;
+        font-weight: bold;
+        color: red;
+    }
+`;
+
 export const SuccessMessage = styled(ErrorMessage)`
     color: green;
 `;

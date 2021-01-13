@@ -20,9 +20,9 @@ const Wrapper = styled.div`
 // </ STYLE >
 
 
-export default function FormField(props) {
+export default function FormField(props = { hideBar: true }) {
     return (
-        <Wrapper>
+        <Wrapper className="formField">
             <label htmlFor={props.id}>{props.children}</label>
             <InnerFieldWrapper>
                 <input 
@@ -34,7 +34,7 @@ export default function FormField(props) {
                     placeholder={props.placeholder}
                     autoComplete={props.autoComplete || "off"}
                     required />
-                <Bar />
+                { !props.hideBar && (<Bar />) }
             </InnerFieldWrapper>
         </Wrapper>
     );
