@@ -1,6 +1,6 @@
 {
-  "short_name": "Kalambury",
-  "name": "Simple pictionary words storage",
+  "short_name": "Pictionar",
+  "name": "Storage for phrases for pictionar / charades game!",
   "icons": [
   ],
   "start_url": ".",

@@ -183,7 +183,7 @@ function NewWordsInfo(props) {
     return (
         <div>
             <h2>Following words have been added to database:</h2>
-            <NewWords>{props.newWords}</NewWords>
+            <NewWords>{props.newWords.reduce((p, c, i) => p + (i === 0 ? '' : ", ") + c, "")}</NewWords>
         </div>
     )
 }
