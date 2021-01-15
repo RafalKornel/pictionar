@@ -31,34 +31,19 @@ class User(db.Model, UserMixin):
     themes = db.relationship("Theme", backref="user")
 
     def groups_parsed(self):
-        return list(
-                    map(
-                        lambda g : 
-                        { 
-                            "name": g.name, 
-                            "key": g.key,
-                            "count": len(g.words)
-                        }, 
-                        self.groups.all()
-                    )
-                )
+        return [ 
+            { 
+                "name": group.name, 
+                "key": group.key,
+                "count": len(group.words)
+            } 
+                for group in self.groups.all() ]
 
     def group_names(self):
-        return list(
-                    map(
-                        lambda g : g.name, 
-                        self.groups.all()
-                    )
-                )
+        return [ group.name for group in self.groups.all() ]
 
     def themes_parsed(self):
         return { t.name: t.colors() for t in self.themes }
-        return dict(
-            map(
-                lambda t : t.parse()
-            , self.themes
-            )
-        )
 
     @property
     def password(self):

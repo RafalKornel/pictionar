@@ -82,9 +82,14 @@ export default function withFormLogic(
             let res = await fetch(endpoint, options).catch(err => console.error(err));
 
             if (!res.ok) {
-                let text = await res.text();
-                console.error(text);
-                this.setMessage("error", text);
+                if (res.status === 500) {
+                    this.setMessage("error", "Our server ran into problem. Please refresh the page.");
+                }
+                else {
+                    let text = await res.text();
+                    console.error(text);
+                    this.setMessage("error", text);
+                }
                 return;
             }
 

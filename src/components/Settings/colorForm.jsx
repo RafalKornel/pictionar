@@ -50,7 +50,7 @@ const Wrapper = styled(Button)`
 // </ STYLE >
 
 
-export default function ColorFormTemplate(props) {
+export default function ColorForm(props) {
     return (
         <Wrapper className="form" as="form">
             <MiniButton onClick={props.handleSubmit} title="add theme">+</MiniButton>

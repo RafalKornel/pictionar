@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import Themes from "./themes";
-import ColorFormTemplate from "./colorForm";
+import ColorForm from "./colorForm";
 import { Box, Button } from "./common";
 import withFormLogic from "../Utilities/formLogic";
 import { RemoveButton, ErrorMessage } from "../Utilities/common";
 
-// < STYLE >
 const labels = [
     "light gradient",
     "dark gradient",
@@ -15,6 +14,7 @@ const labels = [
     "accent"
 ];
 
+// < STYLE >
 const InnerWrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -94,7 +94,7 @@ class ColorPickerTemplate extends React.Component {
         this.setTheme = this.setTheme.bind(this);
         this.removeTheme = this.removeTheme.bind(this);
 
-        this.defaultThemes = Themes
+        this.defaultThemes = Themes;
         this.names = Object.keys(this.defaultThemes);
     }
 
@@ -154,17 +154,17 @@ class ColorPickerTemplate extends React.Component {
                         themes={this.defaultThemes}
                         setTheme={this.setTheme} />
 
-                        <ThemeSection
-                            themes={this.props.themes}
-                            setTheme={this.setTheme}
-                            removeTheme={this.removeTheme} />
+                    <ThemeSection
+                        themes={this.props.themes}
+                        setTheme={this.setTheme}
+                        removeTheme={this.removeTheme} />
                 </InnerWrapper>
 
-                    <ColorFormTemplate
-                        colors={theme}
-                        themeName={this.props.themeName}
-                        handleChange={this.props.handleChange}
-                        handleSubmit={this.props.handleSubmit} />
+                <ColorForm
+                    colors={theme}
+                    themeName={this.props.themeName}
+                    handleChange={this.props.handleChange}
+                    handleSubmit={this.props.handleSubmit} />
 
                 <ErrorMessage>{this.props.errorMessage}</ErrorMessage>
             </Wrapper>
